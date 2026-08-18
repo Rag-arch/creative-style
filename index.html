@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>私という作風｜創作タイプ診断</title>
+<style>
+:root{
+  --paper:#f5f3ee;
+  --ink:#1e1d1a;
+  --muted:#7b7871;
+  --line:#d8d4cc;
+  --panel:#fbfaf7;
+  --accent:#7a5c46;
+}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  letter-spacing:.025em;
+}
+.wrap{max-width:720px;margin:auto;padding:34px 22px 64px}
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  padding:42px 44px;
+}
+#start{min-height:620px;display:flex;flex-direction:column;justify-content:center}
+h1{
+  margin:0 0 18px;
+  font-family:"Times New Roman","Yu Mincho",YuMincho,"Hiragino Mincho ProN",serif;
+  font-weight:400;
+  font-size:42px;
+  letter-spacing:.12em;
+}
+.lead{
+  font-size:14px;
+  line-height:2.15;
+  color:#59564f;
+  margin:0 0 36px;
+}
+.btn{
+  border:1px solid var(--ink);
+  border-radius:0;
+  padding:13px 24px;
+  background:var(--ink);
+  color:#fff;
+  cursor:pointer;
+  font-size:13px;
+  letter-spacing:.08em;
+  transition:.2s;
+}
+.btn:hover{background:#4a4741}
+.btn.secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+.hidden{display:none!important}
+
+.progress{
+  font-family:"Times New Roman",serif;
+  font-size:12px;
+  letter-spacing:.12em;
+  color:var(--muted);
+  margin-bottom:9px;
+}
+.bar{
+  height:1px;
+  background:var(--line);
+  overflow:hidden;
+  margin-bottom:48px;
+}
+.bar>div{height:100%;background:var(--ink);transition:.35s}
+h2{
+  font-family:"Times New Roman","Yu Mincho",YuMincho,"Hiragino Mincho ProN",serif;
+  font-weight:400;
+  font-size:27px;
+  letter-spacing:.06em;
+  margin:0 0 30px;
+}
+.choices{display:grid;gap:0}
+button.choice{
+  position:relative;
+  width:100%;
+  border:0;
+  border-top:1px solid var(--line);
+  background:transparent;
+  border-radius:0;
+  padding:18px 4px;
+  text-align:left;
+  font-size:15px;
+  color:var(--ink);
+  cursor:pointer;
+  transition:.18s;
+}
+button.choice:last-child{border-bottom:1px solid var(--line)}
+button.choice:hover{padding-left:12px;background:#f3f0e9}
+button.choice::first-letter{font-family:serif}
+
+.result{
+  padding:0;
+  overflow:hidden;
+  background:#fff;
+}
+.result-head{
+  padding:38px 42px 22px;
+  border-bottom:1px solid var(--line);
+}
+.result h1{
+  font-size:15px;
+  letter-spacing:.18em;
+  margin:0;
+  color:var(--muted);
+}
+.result-main{
+  margin:0;
+  padding:42px 42px 20px;
+  font-family:"Yu Mincho",YuMincho,"Hiragino Mincho ProN","Times New Roman",serif;
+  font-size:34px;
+  line-height:1.55;
+  font-weight:400;
+  letter-spacing:.08em;
+}
+.result-sub{
+  margin:0;
+  padding:0 42px 30px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.9;
+  letter-spacing:.07em;
+}
+.image-box{
+  margin:0 42px 34px;
+  border-top:1px solid var(--line);
+  padding-top:20px;
+  text-align:left;
+}
+.image-box strong{
+  display:block;
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:.1em;
+  color:var(--muted);
+  margin-bottom:11px;
+}
+#imageInput{font-size:12px;max-width:100%}
+#preview{
+  width:100%;
+  max-height:460px;
+  display:block;
+  margin:18px auto 0;
+  object-fit:contain;
+  background:#f4f2ed;
+}
+.note{font-size:10px;color:#aaa;margin-top:10px;line-height:1.7}
+.actions{
+  display:flex;
+  gap:8px;
+  padding:0 42px 42px;
+}
+.actions .btn{flex:1}
+
+#capture{
+  position:fixed;
+  left:-10000px;
+  top:0;
+  width:1080px;
+  min-height:1350px;
+  background:#f5f3ee;
+  padding:80px;
+  text-align:center;
+  color:#1e1d1a;
+}
+#capture .capture-title{
+  font-family:"Times New Roman","Yu Mincho",serif;
+  font-size:25px;
+  letter-spacing:.22em;
+  color:#6e6a62;
+  margin-bottom:65px;
+}
+#capture .capture-main{
+  font-family:"Yu Mincho",YuMincho,"Hiragino Mincho ProN","Times New Roman",serif;
+  font-size:54px;
+  font-weight:400;
+  line-height:1.55;
+  letter-spacing:.1em;
+  margin:0 auto 48px;
+  max-width:850px;
+}
+#capture .capture-image{
+  width:820px;
+  max-height:760px;
+  display:block;
+  margin:0 auto 48px;
+  object-fit:contain;
+}
+#capture .capture-tags{
+  border-top:1px solid #d8d4cc;
+  padding-top:22px;
+  font-size:18px;
+  color:#77736b;
+  letter-spacing:.08em;
+}
+@media(max-width:600px){
+  .wrap{padding:16px 12px 40px}
+  .card{padding:28px 22px}
+  #start{min-height:560px}
+  h1{font-size:34px}
+  h2{font-size:24px}
+  .result-head{padding:28px 24px 18px}
+  .result-main{padding:32px 24px 16px;font-size:27px}
+  .result-sub{padding:0 24px 24px}
+  .image-box{margin:0 24px 28px}
+  .actions{padding:0 24px 28px;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section id="start" class="card">
+    <h1>私という作風</h1>
+    <p class="lead">あなたは、何を美しいと思い、<br>何を通して表現し、<br>何を誰かにもたらしたい人？<br><br>18問の質問から、あなたの「創作の傾向」を診断します。</p>
+    <button class="btn" onclick="startQuiz()">診断をはじめる</button>
+  </section>
+
+  <section id="quiz" class="card hidden">
+    <div class="progress" id="progress"></div>
+    <div class="bar"><div id="bar"></div></div>
+    <h2 id="question"></h2>
+    <div class="choices" id="choices"></div>
+  </section>
+
+  <section id="result" class="card result hidden">
+    <div class="result-head"><h1>私という作風</h1></div>
+    <p class="result-main" id="resultMain"></p>
+    <p class="result-sub" id="resultSub"></p>
+
+    <div class="image-box">
+      <strong>キャラクター画像を追加</strong><br>
+      <input id="imageInput" type="file" accept="image/*" onchange="loadImage(event)">
+      <img id="preview" class="hidden" alt="キャラクター画像">
+      <div class="note">画像はこのブラウザ内で結果画像に合成されます。サーバーへアップロードしません。</div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" onclick="downloadResult()">結果を画像でダウンロード</button>
+      <button class="btn secondary" onclick="restart()">もう一度診断</button>
+    </div>
+  </section>
+</div>
+
+<div id="capture">
+  <div class="capture-title">私という作風</div>
+  <div class="capture-main" id="capMain"></div>
+  <img id="capImage" class="capture-image hidden" alt="">
+  <div class="capture-tags" id="capTags"></div>
+</div>
+
+<script>
+const questions = [
+["Q1　どの世界が好き？",[
+["整った庭","理想","構成"],["不思議な街","幻想","変容"],["光の森","知覚","幻想"],["昔の町","再現","理想"]]],
+["Q2　アイデアを何にしたい？",[
+["絵にする","視覚","映像"],["形にする","造形","空間"],["場所にする","空間","体験"],["音にする","音響","言語"]]],
+["Q3　何と言われたい？",[
+["「きれい！」","美","癒し"],["「もっと知りたい！」","探究","思索"],["「あなたの考えが伝わった！」","伝達","感動"],["「わかる！」","共感","伝達"]]],
+["Q4　何をつくりたい？",[
+["新しい組合せ","変容","概念"],["心のかたち","表現","幻想"],["美しい仕組み","構成","理想"],["問いのある作品","概念","構成"]]],
+["Q5　物語をどう伝える？",[
+["演じる","身体","言語"],["映す","映像","視覚"],["語る","言語","音響"],["体験させる","体験","空間"]]],
+["Q6　どんな作品がいい？",[
+["楽しい","娯楽","共感"],["考えさせる","思索","探究"],["落ち着く","癒し","美"],["心に残る","感動","伝達"]]],
+["Q7　古い建物、どうする？",[
+["そのまま残す","再現","表現"],["新しく変える","変容","構成"],["物語を足す","幻想","表現"],["光を残す","知覚","再現"]]],
+["Q8　「夏の思い出」を作品にするなら？",[
+["色や光で見せる","視覚","映像"],["物や形で残す","造形","空間"],["その場所をつくる","空間","体験"],["音や声で伝える","音響","言語"]]],
+["Q9　誰かに贈るなら？",[
+["心地よいもの","美","癒し"],["知らない世界","探究","思索"],["気持ちが伝わるもの","伝達","共感"],["一緒に楽しめるもの","共感","娯楽"]]],
+["Q10　作品をつくるなら、何を変えたい？",[
+["現実を美しく整える","理想","構成"],["見慣れたものを違って見せる","知覚","変容"],["存在しないものを生み出す","幻想","概念"],["自分だけの意味を与える","表現","概念"]]],
+["Q11　作品の中に人を入れるなら？",[
+["身体の動きで表現する","身体","体験"],["言葉を交わしてもらう","言語","身体"],["映像の世界を見せる","映像","視覚"],["その場を実際に体験してもらう","体験","空間"]]],
+["Q12　何を残したい？",[
+["問い","思索","探究"],["安心","癒し","美"],["衝撃","感動","伝達"],["楽しい記憶","娯楽","共感"]]],
+["Q13　好きな作品に共通するものは？",[
+["本物らしさ","再現","知覚"],["美しい秩序","構成","理想"],["意外な発想","変容","幻想"],["考えさせる意味","概念","表現"]]],
+["Q14　音楽を別の形にするなら？",[
+["絵","視覚","音響"],["動き","身体","体験"],["言葉","言語","音響"],["映像","映像","視覚"]]],
+["Q15　作品を見た人に、まず何をしてほしい？",[
+["「きれい」と感じてほしい","美","癒し"],["「なぜ？」と考えてほしい","思索","探究"],["「なるほど」と理解してほしい","伝達","探究"],["「自分もそう思う」と感じてほしい","共感","感動"]]],
+["Q16　作品に何を込める？",[
+["美しい形","理想","知覚"],["ひとつの問い","概念","再現"],["心の動き","表現","幻想"],["仕組み","構成","概念"]]],
+["Q17　旅の思い出、何にする？",[
+["映像","映像","視覚"],["模型","造形","構成"],["物語","言語","身体"],["場所","空間","体験"]]],
+["Q18　作品を見たあと、何が残ってほしい？",[
+["また見たいという楽しさ","娯楽","感動"],["知らなかったことへの興味","探究","思索"],["自分自身への気づき","思索","共感"],["心が少し軽くなる感覚","癒し","美"]]]
+];
+
+const axes = {
+STYLE:["再現","理想","表現","知覚","構成","幻想","概念","変容"],
+MEDIUM:["視覚","造形","空間","音響","言語","身体","映像","体験"],
+PURPOSE:["美","探究","伝達","共感","娯楽","思索","癒し","感動"]
+};
+const state = {
+  i:0,
+  scores:{STYLE:{},MEDIUM:{},PURPOSE:{}},
+  main:{STYLE:{},MEDIUM:{},PURPOSE:{}},
+  secondary:{STYLE:{},MEDIUM:{},PURPOSE:{}},
+  image:null
+};
+for(const axis in axes) for(const x of axes[axis]){state.scores[axis][x]=0;state.main[axis][x]=0;state.secondary[axis][x]=0;}
+
+function startQuiz(){
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  renderQuestion();
+}
+function axisOf(label){
+  for(const a in axes) if(axes[a].includes(label)) return a;
+}
+function renderQuestion(){
+  const q=questions[state.i];
+  document.getElementById("progress").textContent=`${state.i+1} / ${questions.length}`;
+  document.getElementById("bar").style.width=((state.i+1)/questions.length*100)+"%";
+  document.getElementById("question").textContent=q[0];
+  const box=document.getElementById("choices"); box.innerHTML="";
+  q[1].forEach((c,idx)=>{
+    const b=document.createElement("button");
+    b.className="choice";
+    b.textContent=String.fromCharCode(65+idx)+"　"+c[0];
+    b.onclick=()=>answer(c[1],c[2]);
+    box.appendChild(b);
+  });
+}
+function answer(main,sub){
+  const a=axisOf(main), b=axisOf(sub);
+  state.scores[a][main]+=2; state.main[a][main]++;
+  state.scores[b][sub]+=1; state.secondary[b][sub]++;
+  state.i++;
+  if(state.i<questions.length) renderQuestion(); else showResult();
+}
+function winner(axis){
+  return axes[axis].slice().sort((x,y)=>{
+    const d=state.scores[axis][y]-state.scores[axis][x];
+    if(d) return d;
+    const m=state.main[axis][y]-state.main[axis][x];
+    if(m) return m;
+    return state.secondary[axis][y]-state.secondary[axis][x];
+  })[0];
+}
+function showResult(){
+  const style=winner("STYLE"), medium=winner("MEDIUM"), purpose=winner("PURPOSE");
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+  document.getElementById("resultMain").textContent=`${purpose}、${style}の${medium}`;
+  document.getElementById("resultSub").textContent=
+    `美意識：${style}　｜　表現手段：${medium}　｜　もたらしたいもの：${purpose}`;
+  document.getElementById("capMain").textContent=`${purpose}、${style}の${medium}`;
+  document.getElementById("capTags").textContent=`美意識：${style}　｜　表現手段：${medium}　｜　もたらしたいもの：${purpose}`;
+}
+function loadImage(e){
+  const file=e.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    state.image=ev.target.result;
+    document.getElementById("preview").src=state.image;
+    document.getElementById("preview").classList.remove("hidden");
+  };
+  reader.readAsDataURL(file);
+}
+async function downloadResult(){
+  const cap=document.getElementById("capture");
+  const img=document.getElementById("capImage");
+  if(state.image){img.src=state.image;img.classList.remove("hidden");}
+  else img.classList.add("hidden");
+  // html2canvasをCDNから読み込み
+  if(!window.html2canvas){
+    await new Promise((resolve,reject)=>{
+      const s=document.createElement("script");
+      s.src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+      s.onload=resolve;s.onerror=reject;document.head.appendChild(s);
+    });
+  }
+  const canvas=await html2canvas(cap,{scale:2,backgroundColor:"#fff",useCORS:true});
+  const a=document.createElement("a");
+  a.download="watashi-toiu-sakufu.png";
+  a.href=canvas.toDataURL("image/png");
+  a.click();
+}
+function restart(){location.reload();}
+</script>
+</body>
+</html>
