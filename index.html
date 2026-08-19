@@ -13,7 +13,7 @@
             --text-sub: #666666;
             --border-color: #e0e0e0;
             --accent-color: #000000;
-            --desc-bg: #f4f4f4; /* 説明文ブロック用の薄いグレー背景 */
+            --desc-bg: rgba(255, 255, 255, 0.85); /* 背景色に馴染むよう半透明白に変更 */
             --font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
 
@@ -52,7 +52,7 @@
             opacity: 1;
         }
 
-        /* ----- コム・デ・ギャルソン風 モダン＆シンプルUI ----- */
+        /* ----- UI ----- */
         h1.main-title {
             font-size: 2.2rem;
             font-weight: 900;
@@ -62,7 +62,6 @@
             text-transform: uppercase;
         }
 
-        /* スタート画面のレイアウト調整（一番長い文の幅に要素全体を自動で合わせる） */
         .start-container {
             display: flex;
             flex-direction: column;
@@ -73,18 +72,16 @@
             margin: 0 auto;
         }
 
-        /* スタート画面の説明文：すべて中央揃え＆途中改行なし */
         .subtitle {
             text-align: center;
             font-size: 0.85rem;
             color: var(--text-sub);
             margin-bottom: 2.5rem;
             line-height: 1.8;
-            white-space: nowrap; /* テキストの途中で自動改行しない */
+            white-space: nowrap;
             width: 100%;
         }
 
-        /* ボタン共通設定 */
         .btn {
             display: inline-block;
             width: 100%;
@@ -102,7 +99,6 @@
             background-color: transparent;
         }
 
-        /* スタートボタン：文章の幅（100%）にピッタリ合わせる */
         .btn-start {
             width: 100%;
         }
@@ -136,7 +132,7 @@
             border-color: var(--text-main);
         }
 
-        /* 質問カード＆選択肢 */
+        /* 質問カード */
         .q-header {
             display: flex;
             justify-content: space-between;
@@ -237,14 +233,15 @@
         }
 
         #result-card {
-            background: #ffffff;
+            background: #ffffff; /* JSで動的にグラデーション背景へ変更されます */
             width: 100%;
             max-width: 500px;
             padding: 40px 30px;
             border: 1px solid var(--text-main);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             box-sizing: border-box;
             text-align: center;
+            transition: background 0.3s ease;
         }
 
         .card-header {
@@ -258,6 +255,7 @@
             letter-spacing: 0.25em;
             margin-bottom: 15px;
             text-transform: uppercase;
+            color: var(--text-main);
         }
 
         .card-formula {
@@ -268,20 +266,20 @@
             border-top: 1px solid var(--text-main);
             border-bottom: 1px solid var(--text-main);
             padding: 10px 0;
+            color: var(--text-main);
         }
 
         .card-sentence {
             font-size: 0.95rem;
-            font-weight: 400;
+            font-weight: 600;
             letter-spacing: 0.05em;
             color: var(--text-main);
             white-space: nowrap;
         }
 
-        /* キャラクター画像枠：比率に応じて縦横を可変調整し、全体を表示 */
         .card-image-area {
             width: 100%;
-            max-height: 380px; /* 画像が大きくなりすぎないよう最大高さを指定 */
+            max-height: 380px;
             margin: 20px 0;
             display: flex;
             justify-content: center;
@@ -292,11 +290,10 @@
             width: 100%;
             height: auto;
             max-height: 380px;
-            object-fit: contain; /* アスペクト比を維持して全体をぴったり表示 */
+            object-fit: contain;
             display: block;
         }
 
-        /* 説明文ブロック */
         .card-description {
             text-align: left;
             font-size: 0.64rem;
@@ -312,6 +309,7 @@
             padding: 12px 14px;
             border-radius: 4px;
             margin-bottom: 10px;
+            backdrop-filter: blur(4px);
         }
 
         .desc-block:last-child {
@@ -386,7 +384,6 @@
     <!-- RESULT SCREEN -->
     <div id="screen-result" class="screen">
         <div class="result-card-container">
-            <!-- 結果カード (PNG出力対象) -->
             <div id="result-card">
                 <div class="card-header">
                     <div class="card-title">私という作風</div>
@@ -394,12 +391,10 @@
                     <div class="card-sentence" id="res-sentence">［目的］、［美意識］を［手段を行う］人</div>
                 </div>
 
-                <!-- 中央の大きく配置されるキャラクター画像 -->
                 <div class="card-image-area">
                     <img id="res-image" src="" alt="Character">
                 </div>
 
-                <!-- 左揃え・文字折り返し無しの説明テキスト -->
                 <div class="card-description" id="res-description"></div>
             </div>
         </div>
@@ -413,6 +408,42 @@
 </div>
 
 <script>
+/* ==========================================================================
+   COLOR MAPS
+   ========================================================================== */
+const COLOR_STYLE = {
+    "再現": "#B71C1C", // 赤
+    "理想": "#E65100", // 橙
+    "表現": "#AD1457", // 桃
+    "知覚": "#F57F17", // 黄
+    "構成": "#283593", // 青
+    "幻想": "#6A1B9A", // 紫
+    "概念": "#1A237E", // 藍
+    "変容": "#00695C"  // 緑
+};
+
+const COLOR_MEDIUM = {
+    "視覚": "#E53935", // 赤
+    "造形": "#F57C00", // 橙
+    "空間": "#FBC02D", // 黄
+    "音響": "#43A047", // 緑
+    "言語": "#1E88E5", // 青
+    "身体": "#8E44AD", // 紫
+    "映像": "#E85D8E", // 桃
+    "体験": "#00ACC1"  // 水色
+};
+
+const COLOR_PURPOSE = {
+    "美":   "#F48FB1", // 桃
+    "探究": "#9FA8DA", // 藍
+    "伝達": "#90CAF9", // 青
+    "共感": "#A5D6A7", // 緑
+    "娯楽": "#FFCC80", // 橙
+    "思索": "#CE93D8", // 紫
+    "癒し": "#80DEEA", // 水色
+    "感動": "#EF9A9A"  // 赤
+};
+
 /* ==========================================================================
    18 QUESTIONS DATA
    ========================================================================== */
@@ -438,7 +469,7 @@ const QUESTIONS = [
     {
         q: "Q3 何と言われたい？",
         answers: [
-            { key: "A", text: "「きれい！」", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒やし"] },
+            { key: "A", text: "「きれい！」", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "「もっと知りたい！」", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
             { key: "C", text: "「あなたの考えが伝わった！」", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "感動"] },
             { key: "D", text: "「わかる！」", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "伝達"] }
@@ -467,7 +498,7 @@ const QUESTIONS = [
         answers: [
             { key: "A", text: "楽しい", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "共感"] },
             { key: "B", text: "考えさせる", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
-            { key: "C", text: "落ち着く", main: ["PURPOSE", "癒やし"], sub: ["PURPOSE", "美"] },
+            { key: "C", text: "落ち着く", main: ["PURPOSE", "癒し"], sub: ["PURPOSE", "美"] },
             { key: "D", text: "心に残る", main: ["PURPOSE", "感動"], sub: ["PURPOSE", "伝達"] }
         ]
     },
@@ -492,7 +523,7 @@ const QUESTIONS = [
     {
         q: "Q9 誰かに贈るなら？",
         answers: [
-            { key: "A", text: "心地よいもの", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒やし"] },
+            { key: "A", text: "心地よいもの", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "知らない世界", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
             { key: "C", text: "気持ちが伝わるもの", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "共感"] },
             { key: "D", text: "一緒に楽しめるもの", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "娯楽"] }
@@ -520,7 +551,7 @@ const QUESTIONS = [
         q: "Q12 何を残したい？",
         answers: [
             { key: "A", text: "問い", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
-            { key: "B", text: "安心", main: ["PURPOSE", "癒やし"], sub: ["PURPOSE", "美"] },
+            { key: "B", text: "安心", main: ["PURPOSE", "癒し"], sub: ["PURPOSE", "美"] },
             { key: "C", text: "衝撃", main: ["PURPOSE", "感動"], sub: ["PURPOSE", "伝達"] },
             { key: "D", text: "楽しい記憶", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "共感"] }
         ]
@@ -546,7 +577,7 @@ const QUESTIONS = [
     {
         q: "Q15 作品を見た人に、まず何をしてほしい？",
         answers: [
-            { key: "A", text: "「きれい」と感じてほしい", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒やし"] },
+            { key: "A", text: "「きれい」と感じてほしい", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "「なぜ？」と考えてほしい", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
             { key: "C", text: "「なるほど」と理解してほしい", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "探究"] },
             { key: "D", text: "「自分もそう思う」と感じてほしい", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "感動"] }
@@ -576,7 +607,7 @@ const QUESTIONS = [
             { key: "A", text: "また見たいという楽しさ", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "感動"] },
             { key: "B", text: "知らなかったことへの興味", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
             { key: "C", text: "自分自身への気づき", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "共感"] },
-            { key: "D", text: "心が少し軽くなる感覚", main: ["PURPOSE", "癒やし"], sub: ["PURPOSE", "美"] }
+            { key: "D", text: "心が少し軽くなる感覚", main: ["PURPOSE", "癒し"], sub: ["PURPOSE", "美"] }
         ]
     }
 ];
@@ -631,7 +662,7 @@ const DATA_PURPOSE = {
         desc4: "哲学、現代美術、文学、建築などとの親和性が高い",
         keywords: "問い・哲学・解釈・余白・多義性・内省"
     },
-    "癒やし": {
+    "癒し": {
         title: "癒やしを灯す",
         purposeText: "人の心を穏やかにし、安心や安らぎを与えることを目的とする人",
         desc2: "強い刺激よりも、ここにいていいと感じられる環境や体験を作ろうとする",
@@ -766,10 +797,10 @@ const DATA_STYLE = {
 /* 優先順位リスト */
 const STYLE_ORDER = ["再現", "理想", "表現", "知覚", "構成", "幻想", "概念", "変容"];
 const MEDIUM_ORDER = ["視覚", "造形", "空間", "音響", "言語", "身体", "映像", "体験"];
-const PURPOSE_ORDER = ["美", "探究", "伝達", "共感", "娯楽", "思索", "癒やし", "感動"];
+const PURPOSE_ORDER = ["美", "探究", "伝達", "共感", "娯楽", "思索", "癒し", "感動"];
 
 /* ==========================================================================
-   APP STATE
+   APP STATE & CONTROL
    ========================================================================== */
 let currentQuestionIndex = 0;
 let userAnswers = [];
@@ -922,6 +953,19 @@ function calculateScores() {
     };
 }
 
+/* HEXカラーをRGBAに変換する関数 (背景グラデーションを優しく見せるため) */
+function hexToRgba(hex, alpha) {
+    let c = hex.replace('#', '');
+    if (c.length === 3) {
+        c = c.split('').map(x => x + x).join('');
+    }
+    const num = parseInt(c, 16);
+    const r = (num >> 16) & 255;
+    const g = (num >> 8) & 255;
+    const b = num & 255;
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 /* ==========================================================================
    RESULT RENDER
    ========================================================================== */
@@ -933,12 +977,25 @@ function calculateAndShowResult() {
     const finalMedium = res.medium;
     const finalPurpose = res.purpose;
 
+    const colorS = COLOR_STYLE[finalStyle] || "#000000";
+    const colorM = COLOR_MEDIUM[finalMedium] || "#000000";
+    const colorP = COLOR_PURPOSE[finalPurpose] || "#000000";
+
     const pData = DATA_PURPOSE[finalPurpose];
     const mData = DATA_MEDIUM[finalMedium];
     const sData = DATA_STYLE[finalStyle];
 
-    // 数式表示
-    document.getElementById('res-formula').textContent = `${finalStyle} × ${finalMedium} × ${finalPurpose}`;
+    // 数式テキストを着色
+    const formulaEl = document.getElementById('res-formula');
+    formulaEl.innerHTML = `<span style="color: ${colorS}">${finalStyle}</span> × <span style="color: ${colorM}">${finalMedium}</span> × <span style="color: ${colorP}">${finalPurpose}</span>`;
+
+    // 背景を三色が柔らかく混ざり合うグラデーションに適用
+    const bgS = hexToRgba(colorS, 0.25);
+    const bgM = hexToRgba(colorM, 0.25);
+    const bgP = hexToRgba(colorP, 0.25);
+    
+    const cardEl = document.getElementById('result-card');
+    cardEl.style.background = `linear-gradient(135deg, ${bgS} 0%, ${bgM} 50%, ${bgP} 100%)`;
 
     // 文章表示
     document.getElementById('res-sentence').textContent = `${pData.title}、${finalStyle}を${mData.action}人`;
@@ -987,7 +1044,6 @@ function downloadResultImage() {
     
     html2canvas(cardElement, {
         scale: 2,
-        backgroundColor: "#ffffff",
         useCORS: true
     }).then(canvas => {
         const link = document.createElement('a');
@@ -1007,6 +1063,7 @@ function restart() {
     document.getElementById('file-label-text').textContent = "画像ファイルを選択 (ローカル処理)";
     document.getElementById('btn-show-result').disabled = true;
     document.getElementById('char-image-input').value = "";
+    document.getElementById('result-card').style.background = "#ffffff";
     
     showScreen('screen-start');
 }
