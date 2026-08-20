@@ -13,7 +13,7 @@
             --text-sub: #666666;
             --border-color: #e0e0e0;
             --accent-color: #000000;
-            --desc-bg: rgba(255, 255, 255, 0.85); /* 背景色に馴染むよう半透明白に変更 */
+            --desc-bg: rgba(255, 255, 255, 0.88);
             --font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
 
@@ -233,10 +233,10 @@
         }
 
         #result-card {
-            background: #ffffff; /* JSで動的にグラデーション背景へ変更されます */
+            background: #ffffff;
             width: 100%;
-            max-width: 500px;
-            padding: 40px 30px;
+            max-width: 540px;
+            padding: 40px 25px;
             border: 1px solid var(--text-main);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             box-sizing: border-box;
@@ -250,28 +250,29 @@
         }
 
         .card-title {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 900;
             letter-spacing: 0.25em;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             text-transform: uppercase;
             color: var(--text-main);
         }
 
+        /* [STYLE] × [MEDIUM] × [PURPOSE] の大枠 */
         .card-formula {
-            font-size: 1.05rem;
-            font-weight: 800;
+            font-size: 1.55rem;
+            font-weight: 900;
             letter-spacing: 0.12em;
-            margin-bottom: 10px;
-            border-top: 1px solid var(--text-main);
-            border-bottom: 1px solid var(--text-main);
-            padding: 10px 0;
+            margin-bottom: 14px;
+            border-top: 2px solid var(--text-main);
+            border-bottom: 2px solid var(--text-main);
+            padding: 12px 0;
             color: var(--text-main);
         }
 
         .card-sentence {
-            font-size: 0.95rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 700;
             letter-spacing: 0.05em;
             color: var(--text-main);
             white-space: nowrap;
@@ -294,21 +295,18 @@
             display: block;
         }
 
+        /* 説明文全体 */
         .card-description {
             text-align: left;
-            font-size: 0.64rem;
-            line-height: 1.75;
-            letter-spacing: 0.02em;
+            letter-spacing: 0;
             color: var(--text-main);
-            word-break: keep-all;
-            overflow-wrap: normal;
         }
 
         .desc-block {
             background-color: var(--desc-bg);
-            padding: 12px 14px;
+            padding: 14px 16px;
             border-radius: 4px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             backdrop-filter: blur(4px);
         }
 
@@ -316,19 +314,34 @@
             margin-bottom: 0;
         }
 
-        .desc-line {
-            white-space: nowrap;
+        /* 説明文 1行目（太字タイトル） */
+        .desc-bold {
+            font-size: 0.82rem;
+            font-weight: 800;
+            margin-bottom: 6px;
             display: block;
-            font-weight: 400;
+            font-feature-settings: normal;
         }
 
-        .desc-bold {
-            font-weight: 700;
+        /* 説明文 2行目以降（標準的な文字配置） */
+        .desc-line {
+            display: block;
+            font-size: 0.62rem;
+            font-weight: 400;
+            line-height: 1.8;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            font-feature-settings: normal;
         }
 
         .desc-keyword {
-            margin-top: 4px;
+            margin-top: 6px;
+            font-size: 0.62rem;
             font-weight: 400;
+            opacity: 0.85;
+            display: block;
+            white-space: nowrap;
+            font-feature-settings: normal;
         }
     </style>
 </head>
@@ -412,36 +425,18 @@
    COLOR MAPS
    ========================================================================== */
 const COLOR_STYLE = {
-    "再現": "#B71C1C", // 赤
-    "理想": "#E65100", // 橙
-    "表現": "#AD1457", // 桃
-    "知覚": "#F57F17", // 黄
-    "構成": "#283593", // 青
-    "幻想": "#6A1B9A", // 紫
-    "概念": "#1A237E", // 藍
-    "変容": "#00695C"  // 緑
+    "再現": "#B71C1C", "理想": "#E65100", "表現": "#AD1457", "知覚": "#F57F17",
+    "構成": "#283593", "幻想": "#6A1B9A", "概念": "#1A237E", "変容": "#00695C"
 };
 
 const COLOR_MEDIUM = {
-    "視覚": "#E53935", // 赤
-    "造形": "#F57C00", // 橙
-    "空間": "#FBC02D", // 黄
-    "音響": "#43A047", // 緑
-    "言語": "#1E88E5", // 青
-    "身体": "#8E44AD", // 紫
-    "映像": "#E85D8E", // 桃
-    "体験": "#00ACC1"  // 水色
+    "視覚": "#E53935", "造形": "#F57C00", "空間": "#FBC02D", "音響": "#43A047",
+    "言語": "#1E88E5", "身体": "#8E44AD", "映像": "#E85D8E", "体験": "#00ACC1"
 };
 
 const COLOR_PURPOSE = {
-    "美":   "#F48FB1", // 桃
-    "探究": "#9FA8DA", // 藍
-    "伝達": "#90CAF9", // 青
-    "共感": "#A5D6A7", // 緑
-    "娯楽": "#FFCC80", // 橙
-    "思索": "#CE93D8", // 紫
-    "癒し": "#80DEEA", // 水色
-    "感動": "#EF9A9A"  // 赤
+    "美":   "#F48FB1", "探究": "#9FA8DA", "伝達": "#90CAF9", "共感": "#A5D6A7",
+    "娯楽": "#FFCC80", "思索": "#CE93D8", "癒し": "#80DEEA", "感動": "#EF9A9A"
 };
 
 /* ==========================================================================
@@ -613,69 +608,95 @@ const QUESTIONS = [
 ];
 
 /* ==========================================================================
-   RESULT DICTIONARIES
+   RESULT DICTIONARIES (「」を削除して文字を標準化)
    ========================================================================== */
 const DATA_PURPOSE = {
     "美": {
-        title: "美を宿す",
-        purposeText: "世界に、美しいものを存在させることを目的とする人",
-        desc2: "何を伝えるかよりも、まずそれ自体が美しいかを重要視する",
-        desc3: "色、形、構図、を磨き上げ、調和の取れたものを生み出そうとする",
+        sentenceName: "美を宿す",
+        title: "「美を宿す人」",
+        lines: [
+            "世界に、美しいものを存在させることを目的とする人。",
+            "何を伝えるか よりも、まず それ自体が美しいか を重要視する。",
+            "色、形、構図、素材、空間、音、言葉などを磨き上げ、調和の取れたものを生み出そうとする。",
+            "美術家、建築家、デザイナー、作曲家などに強く現れやすいタイプ。"
+        ],
         keywords: "美・調和・洗練・完成度・造形・感性"
     },
     "探究": {
-        title: "探究を拓く",
-        purposeText: "まだ知らないものを発見し、世界への理解を広げることを目的とする人",
-        desc2: "実験、研究、観察、試行錯誤を楽しみ、既存の常識に疑問を持つ",
-        desc3: "作品そのものより、制作過程で得られる発見を重視することもある",
+        sentenceName: "探究を拓く",
+        title: "「探究を拓く人」",
+        lines: [
+            "まだ知らないものを発見し、世界への理解を広げることを目的とする人。",
+            "正解を作る より、未知を見つける ことに創作の価値を感じる。",
+            "実験、研究、観察、試行錯誤を楽しみ、既存の常識に疑問を持つ。",
+            "作品そのものより、制作過程で得られる発見を重視することもある。"
+        ],
         keywords: "発見・実験・研究・未知・仮説・革新"
     },
     "伝達": {
-        title: "伝達を響かせる",
-        purposeText: "自分が持つ情報・知識・思想・物語を、他者へ届けることを目的とする人",
-        desc2: "自分が何を感じたかよりも、相手に何が伝わったかを重視する",
-        desc3: "文章、映像、図解、デザインなど、情報を媒介する創作と相性がいい",
-        desc4: "伝わらなければ作品として成立しないという意識を持ちやすい",
+        sentenceName: "伝達を響かせる",
+        title: "「伝達を響かせる人」",
+        lines: [
+            "自分が持っている情報・知識・思想・物語を、他者へ届けることを目的とする人。",
+            "自分が何を感じたか よりも、相手に何が伝わったか を重視する。",
+            "文章、映像、図解、デザイン、演説、教育など、情報を媒介する創作と相性がいい。",
+            "伝わらなければ作品として成立しない という意識を持ちやすい。"
+        ],
         keywords: "情報・知識・意味・説明・共有・メッセージ"
     },
     "共感": {
-        title: "共感を繋ぐ",
-        purposeText: "人と人の間に感情的なつながりを生み出すことを目的とする人",
-        desc2: "理解させるのではなく、同じ気持ちだと感じてもらうことを目指す",
-        desc3: "自身の経験や感情を作品に込め、それを通して他者との距離を縮める",
-        desc4: "物語、音楽、漫画、演劇など、感情移入を生みやすい表現と相性がいい",
+        sentenceName: "共感を繋ぐ",
+        title: "「共感を繋ぐ人」",
+        lines: [
+            "人と人の間に感情的なつながりを生み出すことを目的とする人。",
+            "理解させる のではなく、わかる、同じ気持ちだ と感じてもらうことを目指す。",
+            "自身の経験や感情を作品に込め、それを通して他者との距離を縮める。",
+            "物語、音楽、詩、漫画、演劇など、感情移入を生みやすい表現と特に相性がいい。"
+        ],
         keywords: "共鳴・共有・親密さ・感情・人間関係・連帯"
     },
     "娯楽": {
-        title: "娯楽を仕掛ける",
-        purposeText: "人を楽しませ、夢中にさせることを目的とする人",
-        desc2: "創作を一種の仕掛けとして捉える",
-        desc3: "どうしたらもっと面白い？驚き、笑い、スリル、遊びなどを設計する",
-        desc4: "ゲーム、エンターテインメント、テーマパーク、などと非常に相性がいい",
+        sentenceName: "娯楽を仕掛ける",
+        title: "「娯楽を仕掛ける人」",
+        lines: [
+            "人を楽しませ、夢中にさせることを目的とする人。",
+            "創作を一種の 仕掛け として捉える。",
+            "次は何が起こる？ どうしたらもっと面白い？ と考え、驚き、笑い、スリル、遊びなどを設計する。",
+            "ゲーム、エンターテインメント、テーマパーク、映画、漫画などと非常に相性がいい。"
+        ],
         keywords: "楽しさ・遊び・驚き・刺激・笑い・没入"
     },
     "思索": {
-        title: "思索へ誘う",
-        purposeText: "作品を通して、見る人・読む人自身に考えさせることを目的とする人",
-        desc2: "答えを与えるより、問いを残すことを重視する",
-        desc3: "一見すると意味が分からない、複数の解釈が成立する作品にも価値を見出す",
-        desc4: "哲学、現代美術、文学、建築などとの親和性が高い",
+        sentenceName: "思索へ誘う",
+        title: "「思索へ誘う人」",
+        lines: [
+            "作品を通して、見る人・読む人自身に考えさせることを目的とする人。",
+            "答えを与えるより、問い を残すことを重視する。",
+            "一見すると意味が分からない作品や、複数の解釈が成立する作品にも価値を見出す。",
+            "哲学、現代美術、文学、建築などとの親和性が高い。"
+        ],
         keywords: "問い・哲学・解釈・余白・多義性・内省"
     },
     "癒し": {
-        title: "癒やしを灯す",
-        purposeText: "人の心を穏やかにし、安心や安らぎを与えることを目的とする人",
-        desc2: "強い刺激よりも、ここにいていいと感じられる環境や体験を作ろうとする",
-        desc3: "柔らかな色、心地よい音、自然、居心地のよい空間などと相性がいい",
-        desc4: "人を幸せにしたいという創作動機が比較的直接的に表れやすい",
+        sentenceName: "癒やしを灯す",
+        title: "「癒やしを灯す人」",
+        lines: [
+            "人の心を穏やかにし、安心や安らぎを与えることを目的とする人。",
+            "強い刺激よりも、ここにいていい と感じられる環境や体験を作ろうとする。",
+            "柔らかな色、心地よい音、自然、温かい物語、居心地のよい空間などと相性がいい。",
+            "人を幸せにしたい という創作動機が比較的直接的に表れやすい。"
+        ],
         keywords: "安心・安らぎ・温もり・休息・心地よさ・回復"
     },
     "感動": {
-        title: "感動を揺さぶる",
-        purposeText: "人の心を大きく動かすことを目的とする人",
-        desc2: "美しい、面白い、より忘れられないほど心を動かしたいという欲求が強い",
-        desc3: "物語の起伏、劇的な演出、壮大さ、意外性、など感情のピークを作る",
-        desc4: "創作を体験として捉える傾向が強い",
+        sentenceName: "感動を揺さぶる",
+        title: "「感動を揺さぶる人」",
+        lines: [
+            "人の心を大きく動かすことを目的とする人。",
+            "美しい、面白い だけではなく、忘れられないほど心を動かしたい という欲求が強い。",
+            "物語の起伏、劇的な演出、壮大さ、意外性、音楽、身体表現などを駆使して感情のピークを作る。",
+            "創作を 体験 として捉える傾向が強い。"
+        ],
         keywords: "情動・衝撃・高揚・ドラマ・余韻・忘れられない体験"
     }
 };
@@ -683,114 +704,146 @@ const DATA_PURPOSE = {
 const DATA_MEDIUM = {
     "視覚": {
         action: "描く",
-        desc1: "目に映るものを通して表現する",
-        desc2: "色・形・線・構図・光など、見ることを媒体にする",
-        jobs: "タイプ：画家、イラストレーター、グラフィックデザイナー、絵本作家"
+        title: "「目に映るものを通して表現する」",
+        lines: [
+            "色・形・線・構図・光など、見ること を媒介にする。",
+            "画家、イラストレーター、グラフィックデザイナー、絵本作家"
+        ]
     },
     "造形": {
         action: "造る",
-        desc1: "物そのものを通して表現する",
-        desc2: "素材・形・質感・重量・身体との関係など、ものを媒体にする",
-        jobs: "タイプ：彫刻家、工芸家、ファッションデザイナー、工業デザイナー"
+        title: "「物そのものを通して表現する」",
+        lines: [
+            "素材・形・質感・重量・身体との関係など、もの を媒介にする。",
+            "彫刻家、工芸家、ファッションデザイナー、工業デザイナー"
+        ]
     },
     "空間": {
         action: "構築する",
-        desc1: "場を通して表現する",
-        desc2: "建築・光・動線・風景などを組み合わせ、人がいる場所を媒体にする",
-        jobs: "タイプ：建築家、インテリアデザイナー、ガーデンデザイナー、舞台美術家"
+        title: "「場を通して表現する」",
+        lines: [
+            "建築・家具・光・動線・風景などを組み合わせ、人がいる場所 を媒介にする。",
+            "建築家、インテリアデザイナー、ガーデンデザイナー、舞台美術家"
+        ]
     },
     "音響": {
         action: "奏でる",
-        desc1: "音を通して表現する",
-        desc2: "声・旋律・リズム・響き・沈黙など、聴くことを媒体にする",
-        jobs: "タイプ：演奏家、声楽家、作曲家、サウンドデザイナー"
+        title: "「音を通して表現する」",
+        lines: [
+            "声・旋律・リズム・響き・沈黙など、聴くこと を媒介にする。",
+            "演奏家、声楽家、作曲家、サウンドデザイナー"
+        ]
     },
     "言語": {
         action: "語る",
-        desc1: "言葉を通して表現する",
-        desc2: "言葉・文章・意味・物語・語感など、読む／聞く言葉を媒体にする",
-        jobs: "タイプ：詩人、小説家、劇作家、コピーライター"
+        title: "「言葉を通して表現する」",
+        lines: [
+            "言葉・文章・意味・物語・語感など、読む・聞く言葉 を媒介にする。",
+            "詩人、小説家、劇作家、コピーライター"
+        ]
     },
     "身体": {
         action: "演じる",
-        desc1: "身体そのものを通して表現する",
-        desc2: "表情・動作・声・身振り・存在感など、人の身体を媒体にする",
-        jobs: "タイプ：俳優、ダンサー、パフォーマー、声優"
+        title: "「身体そのものを通して表現する」",
+        lines: [
+            "表情・動作・声・身振り・存在感など、人の身体 を媒介にする。",
+            "俳優、ダンサー、パフォーマー、声優"
+        ]
     },
     "映像": {
         action: "映す",
-        desc1: "時間の流れを通して表現する",
-        desc2: "映像・写真・編集・動き・時間など、移り変わるイメージを媒体にする",
-        jobs: "タイプ：映画監督、アニメーター、映像作家、フォトグラファー"
+        title: "「時間の流れを通して表現する」",
+        lines: [
+            "映像・写真・編集・動き・時間など、移り変わるイメージ を媒介にする。",
+            "映画監督、アニメーター、映像作家、フォトグラファー"
+        ]
     },
     "体験": {
         action: "体験させる",
-        desc1: "体験そのものを通して表現する",
-        desc2: "選択・行動・参加・探索・偶然など、人が体験することを媒体にする",
-        jobs: "タイプ：ゲームクリエイター、アトラクションデザイナー、謎解きクリエイター"
+        title: "「体験そのものを通して表現する」",
+        lines: [
+            "選択・行動・参加・探索・偶然など、人が体験すること を媒介にする。",
+            "ゲームクリエイター、アトラクションデザイナー、謎解きクリエイター"
+        ]
     }
 };
 
 const DATA_STYLE = {
     "再現": {
-        desc1: "目に見える現実や自然を正確に描き出す・再現する",
-        desc2: "自分がどう作りたいかよりも、対象は本当はどうなっているのかを大切にする",
-        desc3: "細部を観察し、正確さやリアリティを追求する",
-        desc4: "写実、記録、ドキュメンタリー、精密な建築・造形などに向く",
-        aesthetic: "真実・精密さ・忠実さ",
-        examples: "古典主義、写実主義、リアリズム、ネオリアリズモ"
+        title: "「世界を写し取る人」",
+        lines: [
+            "目の前にある世界を観察し、その本質や美しさを忠実に捉えようとする人。",
+            "自分がどう作りたいか よりも、対象は本当はどうなっているのか を大切にする。",
+            "細部を観察し、正確さやリアリティを追求する。",
+            "写実、記録、ドキュメンタリー、精密な建築・造形などに向く。"
+        ],
+        aesthetic: "真実・精密さ・忠実さ"
     },
     "理想": {
-        desc1: "数学的比率、幾何学、普遍的な美しさや秩序を構築する",
-        desc2: "現実に存在するものを超えて、より美しく、より良く、より完成された状態を創造する",
-        desc3: "建築、プロダクト、ファンタジー、未来像などにも現れやすい",
-        aesthetic: "理想・完成・調和・可能性",
-        examples: "ルネサンス、ギリシャ・ローマ建築、新古典主義"
+        title: "「あるべき世界を描く人」",
+        lines: [
+            "現実そのものではなく、こうあってほしい という理想の姿を追い求める人。",
+            "現実に存在するものを超えて、より美しく、より良く、より完成された状態を創造する。",
+            "建築、プロダクト、ファンタジー、未来像などにも現れやすい。"
+        ],
+        aesthetic: "理想・完成・調和・可能性"
     },
     "表現": {
-        desc1: "内面の情熱、恐れ、動的な光や影、劇的な瞬間を表現する",
-        desc2: "何を作るか以上に、自分が何を感じ、何を考えているかが創作の出発点になる",
-        desc3: "個性的であること、独自の視点を持つことを価値とする",
-        aesthetic: "個性・感情・自己・独創性",
-        examples: "バロック、ロマン主義、表現主義、グラン・ギニョール"
+        title: "「自分を形にする人」",
+        lines: [
+            "自分の感情、感性、思想、個性そのものを作品にする人。",
+            "何を作るか 以上に、自分が何を感じ、何を考えているか が創作の出発点になる。",
+            "個性的であること、独自の視点を持つことを価値とする。"
+        ],
+        aesthetic: "個性・感情・自己・独創性"
     },
     "知覚": {
-        desc1: "対象そのものではなく、光の移ろいや一瞬の感覚・印象をとらえる",
-        desc2: "正確に描くよりも、どう見えるか、どう聞こえるか、どう感じるかを重視する",
-        desc3: "光、色、音、質感、温度、身体感覚、空間体験などへの関心が強い",
-        desc4: "印象派的な表現やインスタレーション、空間デザインなどとも親和性が高い",
-        aesthetic: "感覚・印象・身体・体験",
-        examples: "印象派、光の建築"
+        title: "「世界を感じ取る人」",
+        lines: [
+            "人間の感覚そのものを通して、世界を捉えようとする人。",
+            "正確に描く よりも、どう見えるか、どう聞こえるか、どう感じるかを重視する。",
+            "光、色、音、質感、温度、身体感覚、空間体験などへの関心が強い。",
+            "印象派的な表現やインスタレーション、空間デザインなどとも親和性が高い。"
+        ],
+        aesthetic: "感覚・印象・身体・体験"
     },
     "構成": {
-        desc1: "装飾を削ぎ落とし、幾何学・素材の構造・機能美を突き詰める",
-        desc2: "個々のパーツより、それらがどう配置され、どう関係するかを重視する",
-        desc3: "建築、グラフィック、編集、音楽、映像、都市計画など、設計的な創作に強い",
-        aesthetic: "秩序・構造・配置・バランス",
-        examples: "キュビスム、バウハウス、モダニズム建築、ミニマリズム"
+        title: "「世界を組み立てる人」",
+        lines: [
+            "複数の要素を組み合わせ、関係性から新しい美を生み出す人。",
+            "個々のパーツより、それらがどう配置され、どう関係するか を重視する。",
+            "建築、グラフィック、編集、音楽、映像、都市計画など、設計的な創作に強い。"
+        ],
+        aesthetic: "秩序・構造・配置・バランス"
     },
     "幻想": {
-        desc1: "理性を超えた無意識、不条理、夢や幻想の世界を形にする",
-        desc2: "現実から離れること自体に価値を見出し、夢、神話、魔法、異世界、童話などを創造する",
-        desc3: "単なる「嘘」ではなく、現実では見ることのできない美や可能性を可視化する",
-        aesthetic: "想像・夢・神話・非現実",
-        examples: "シュルレアリスム、象徴主義、アール・ヌーヴォー"
+        title: "「存在しない世界を生み出す人」",
+        lines: [
+            "現実には存在しないものを想像し、新しい世界として成立させる人。",
+            "現実から離れること自体に価値を見出し、夢、神話、魔法、異世界、童話などを創造する。",
+            "単なる 嘘 ではなく、現実では見ることのできない美や可能性を可視化する。"
+        ],
+        aesthetic: "想像・夢・神話・非現実"
     },
     "概念": {
-        desc1: "視覚的な完成度より、何が芸術かという問いやメッセージを提示する",
-        desc2: "何が美しいかより、この作品は何を意味するのかを重視する",
-        desc3: "作品そのものより、そこに込められたコンセプトが創作の核になることも多い",
-        desc4: "現代美術、哲学的作品、コンセプチュアルデザインなどと相性がいい",
-        aesthetic: "意味・思想・問い・本質",
-        examples: "コンセプチュアル・アート、ダダ、概念主義的建築、実験音楽"
+        title: "「見えないものを形にする人」",
+        lines: [
+            "思想、意味、問い、価値観など、目に見えないものを作品として提示する人。",
+            "何が美しいか より、この作品は何を意味するのか を重視する。",
+            "作品そのものより、そこに込められたコンセプトが創作の核になることも多い。",
+            "現代美術、哲学的作品、コンセプチュアルデザインなどと相性がいい。"
+        ],
+        aesthetic: "意味・思想・問い・本質"
     },
     "変容": {
-        desc1: "既存のルールや境界を壊し、歴史的様式や異文化をミックス・歪曲する",
-        desc2: "ゼロから作るだけでなく、既にあるものを別のものへ変えることに創造性を感じる",
-        desc3: "異なるジャンルを融合したり、既存の常識をひっくり返したりすることも得意",
-        desc4: "リミックス、改変、再構成、コンバージョン、実験的表現などと親和性が高い",
-        aesthetic: "変化・再解釈・融合・革新",
-        examples: "マニエリスム、ポストモダニズム、デコンストラクション"
+        title: "「世界を書き換える人」",
+        lines: [
+            "既存のものをそのまま使わず、変形・再構築・再解釈することで新しい価値を生み出す人。",
+            "ゼロから作る だけでなく、既にあるものを別のものへ変えることに創造性を感じる。",
+            "異なるジャンルを融合したり、既存の常識をひっくり返したりすることも得意。",
+            "リミックス、改変、再構成、コンバージョン、実験的表現などと親和性が高い。"
+        ],
+        aesthetic: "変化・再解釈・融合・革新"
     }
 };
 
@@ -953,7 +1006,6 @@ function calculateScores() {
     };
 }
 
-/* HEXカラーをRGBAに変換する関数 (背景グラデーションを優しく見せるため) */
 function hexToRgba(hex, alpha) {
     let c = hex.replace('#', '');
     if (c.length === 3) {
@@ -964,6 +1016,11 @@ function hexToRgba(hex, alpha) {
     const g = (num >> 8) & 255;
     const b = num & 255;
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+/* 通常の文章出力用ユーティリティ */
+function formatLine(line) {
+    return `<span class="desc-line">${line}</span>`;
 }
 
 /* ==========================================================================
@@ -981,90 +1038,75 @@ function calculateAndShowResult() {
     const colorM = COLOR_MEDIUM[finalMedium] || "#000000";
     const colorP = COLOR_PURPOSE[finalPurpose] || "#000000";
 
-    const pData = DATA_PURPOSE[finalPurpose];
-    const mData = DATA_MEDIUM[finalMedium];
-    const sData = DATA_STYLE[finalStyle];
-
-    // 数式テキストを着色
-    const formulaEl = document.getElementById('res-formula');
-    formulaEl.innerHTML = `<span style="color: ${colorS}">${finalStyle}</span> × <span style="color: ${colorM}">${finalMedium}</span> × <span style="color: ${colorP}">${finalPurpose}</span>`;
-
-    // 背景を三色が柔らかく混ざり合うグラデーションに適用
-    const bgS = hexToRgba(colorS, 0.25);
-    const bgM = hexToRgba(colorM, 0.25);
-    const bgP = hexToRgba(colorP, 0.25);
-    
+    const bgGradient = `linear-gradient(135deg, ${hexToRgba(colorS, 0.25)} 0%, ${hexToRgba(colorM, 0.25)} 50%, ${hexToRgba(colorP, 0.25)} 100%)`;
     const cardEl = document.getElementById('result-card');
-    cardEl.style.background = `linear-gradient(135deg, ${bgS} 0%, ${bgM} 50%, ${bgP} 100%)`;
+    cardEl.style.background = bgGradient;
 
-    // 文章表示
-    document.getElementById('res-sentence').textContent = `${pData.title}、${finalStyle}を${mData.action}人`;
+    const dataP = DATA_PURPOSE[finalPurpose];
+    const dataM = DATA_MEDIUM[finalMedium];
+    const dataS = DATA_STYLE[finalStyle];
 
-    // 画像セット
+    document.getElementById('res-formula').textContent = `${finalStyle} × ${finalMedium} × ${finalPurpose}`;
+    document.getElementById('res-sentence').textContent = `${dataP.sentenceName}、${finalStyle}を${dataM.action}人`;
     document.getElementById('res-image').src = uploadedImageData;
 
-    // 説明文生成 ([STYLE] -> [MEDIUM] -> [PURPOSE] の順)
-    const descContainer = document.getElementById('res-description');
-    descContainer.innerHTML = '';
+    const mediumTextLine = dataM.lines[0];
+    const mediumJobLine = dataM.lines[1];
 
-    // 1. [STYLE] ブロック
-    let blockStyleHtml = `<div class="desc-block">`;
-    blockStyleHtml += `<span class="desc-line desc-bold">${sData.desc1}</span>`;
-    if (sData.desc2) blockStyleHtml += `<span class="desc-line">${sData.desc2}</span>`;
-    if (sData.desc3) blockStyleHtml += `<span class="desc-line">${sData.desc3}</span>`;
-    if (sData.desc4) blockStyleHtml += `<span class="desc-line">${sData.desc4}</span>`;
-    blockStyleHtml += `<span class="desc-line" style="margin-top: 4px;">美意識：${sData.aesthetic}</span>`;
-    blockStyleHtml += `<span class="desc-line">代表例：${sData.examples}</span>`;
-    blockStyleHtml += `</div>`;
-
-    // 2. [MEDIUM] ブロック
-    let blockMediumHtml = `<div class="desc-block">`;
-    blockMediumHtml += `<span class="desc-line desc-bold">${mData.desc1}</span>`;
-    if (mData.desc2) blockMediumHtml += `<span class="desc-line">${mData.desc2}</span>`;
-    blockMediumHtml += `<span class="desc-line">${mData.jobs}</span>`;
-    blockMediumHtml += `</div>`;
-
-    // 3. [PURPOSE] ブロック
-    let blockPurposeHtml = `<div class="desc-block">`;
-    blockPurposeHtml += `<span class="desc-line desc-bold">${pData.purposeText}</span>`;
-    if (pData.desc2) blockPurposeHtml += `<span class="desc-line">${pData.desc2}</span>`;
-    if (pData.desc3) blockPurposeHtml += `<span class="desc-line">${pData.desc3}</span>`;
-    if (pData.desc4) blockPurposeHtml += `<span class="desc-line">${pData.desc4}</span>`;
-    blockPurposeHtml += `<span class="desc-line desc-keyword">キーワード：${pData.keywords}</span>`;
-    blockPurposeHtml += `</div>`;
-
-    descContainer.innerHTML = blockStyleHtml + blockMediumHtml + blockPurposeHtml;
+    const descEl = document.getElementById('res-description');
+    descEl.innerHTML = `
+        <div class="desc-block">
+            <span class="desc-bold">美学｜${dataS.title}</span>
+            ${dataS.lines.map(line => formatLine(line)).join('')}
+            <span class="desc-keyword">キーワード：${dataS.aesthetic}</span>
+        </div>
+        <div class="desc-block">
+            <span class="desc-bold">媒体｜${dataM.title}</span>
+            ${formatLine(mediumTextLine)}
+            <span class="desc-keyword">キーワード：${mediumJobLine}</span>
+        </div>
+        <div class="desc-block">
+            <span class="desc-bold">目的｜${dataP.title}</span>
+            ${dataP.lines.map(line => formatLine(line)).join('')}
+            <span class="desc-keyword">キーワード：${dataP.keywords}</span>
+        </div>
+    `;
 
     showScreen('screen-result');
 }
 
-// PNG画像ダウンロード
 function downloadResultImage() {
-    const cardElement = document.getElementById('result-card');
-    
-    html2canvas(cardElement, {
-        scale: 2,
-        useCORS: true
-    }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = `私という作風_診断結果.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+    const card = document.getElementById('result-card');
+    const descBlocks = document.querySelectorAll('.desc-block');
+
+    descBlocks.forEach(b => b.style.backdropFilter = 'none');
+
+    document.fonts.ready.then(() => {
+        html2canvas(card, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: '#fcfcfc',
+            letterRendering: true
+        }).then(canvas => {
+            descBlocks.forEach(b => b.style.backdropFilter = '');
+
+            const link = document.createElement('a');
+            link.download = 'my-art-style.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
     });
 }
 
-// 最初からやり直す
 function restart() {
     currentQuestionIndex = 0;
     userAnswers = [];
     uploadedImageData = null;
-    
     document.getElementById('preview-img').style.display = 'none';
+    document.getElementById('preview-img').src = '';
     document.getElementById('file-label-text').textContent = "画像ファイルを選択 (ローカル処理)";
     document.getElementById('btn-show-result').disabled = true;
-    document.getElementById('char-image-input').value = "";
-    document.getElementById('result-card').style.background = "#ffffff";
-    
+    document.getElementById('char-image-input').value = '';
     showScreen('screen-start');
 }
 </script>
