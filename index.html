@@ -13,7 +13,7 @@
             --text-sub: #666666;
             --border-color: #e0e0e0;
             --accent-color: #000000;
-            --desc-bg: rgba(255, 255, 255, 0.65);
+            --desc-bg: rgba(255, 255, 255, 0.75);
             --font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
 
@@ -274,7 +274,7 @@
             border-color: var(--text-main);
         }
 
-        /* ----- 最終結果カード (ポスターデザイン) ----- */
+        /* ----- 最終結果カード ----- */
         .result-card-container {
             display: flex;
             justify-content: center;
@@ -286,7 +286,7 @@
             background: #ffffff;
             width: 100%;
             max-width: 540px;
-            padding: 40px 25px 45px;
+            padding: 24px 20px 24px;
             border: 1px solid var(--text-main);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             box-sizing: border-box;
@@ -296,35 +296,35 @@
 
         .card-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .card-subtitle {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 700;
             letter-spacing: 0.2em;
             color: #444444;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             text-transform: uppercase;
         }
 
         .card-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 900;
-            letter-spacing: 0.25em;
-            margin-bottom: 14px;
+            letter-spacing: 0.2em;
+            margin-bottom: 8px;
             text-transform: uppercase;
             color: var(--text-main);
         }
 
         .card-formula {
-            font-size: 1.9rem;
+            font-size: 1.6rem;
             font-weight: 900;
-            letter-spacing: 0.12em;
-            margin-bottom: 14px;
-            border-top: 2px solid var(--text-main);
-            border-bottom: 2px solid var(--text-main);
-            padding: 12px 0;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            border-top: 1.5px solid var(--text-main);
+            border-bottom: 1.5px solid var(--text-main);
+            padding: 6px 0;
             color: var(--text-main);
             display: flex;
             justify-content: center;
@@ -340,7 +340,7 @@
         }
 
         .card-formula span.pct-label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 600;
             color: #777777;
             margin-left: 2px;
@@ -348,9 +348,9 @@
         }
 
         .card-sentence {
-            font-size: 1rem;
+            font-size: 0.88rem;
             font-weight: 700;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             color: var(--text-main);
             white-space: nowrap;
         }
@@ -358,7 +358,7 @@
         .card-image-area {
             width: 100%;
             aspect-ratio: 1 / 1;
-            margin: 20px 0 10px 0;
+            margin: 12px 0 8px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -372,20 +372,19 @@
             display: block;
         }
 
-        /* 画像下の「理由」テキスト表示欄 */
         .card-reason-text {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             font-weight: 600;
             color: var(--text-main);
             text-align: center;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            padding: 0 10px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            padding: 0 6px;
             word-break: break-all;
             display: none;
         }
 
-        /* 説明文全体 */
+        /* 説明文全体（動的カラー背景） */
         .card-description {
             text-align: left;
             letter-spacing: 0;
@@ -393,13 +392,13 @@
         }
 
         .desc-block {
-            background-color: var(--desc-bg);
-            padding: 12px 16px;
+            padding: 6px 10px;
             border-radius: 4px;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: background-color 0.3s ease;
         }
 
         .desc-block:last-child {
@@ -407,31 +406,107 @@
         }
 
         .desc-bold {
-            font-size: 0.82rem;
+            font-size: 0.75rem;
             font-weight: 800;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             display: block;
             font-feature-settings: normal;
         }
 
         .desc-line {
             display: block;
-            font-size: 0.62rem;
+            font-size: 0.58rem;
             font-weight: 400;
-            line-height: 1.4;
-            margin-bottom: 3px;
+            line-height: 1.3;
+            margin-bottom: 1px;
             white-space: nowrap;
             font-feature-settings: normal;
         }
 
         .desc-keyword {
-            margin-top: 4px;
-            font-size: 0.62rem;
+            margin-top: 2px;
+            font-size: 0.58rem;
             font-weight: 400;
             opacity: 0.85;
             display: block;
             white-space: nowrap;
             font-feature-settings: normal;
+        }
+
+        /* 創作傾向セクション（3分割縦線・文字と%を離してレイアウト） */
+        .tendency-section {
+            margin-top: 6px;
+            padding: 6px 10px;
+            background-color: var(--desc-bg);
+            border-radius: 4px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            text-align: left;
+        }
+
+        .tendency-title {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            text-align: left;
+        }
+
+        .tendency-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+        }
+
+        .tendency-col {
+            flex: 1;
+            font-size: 0.62rem;
+            line-height: 1.3;
+            padding: 0 8px;
+        }
+
+        .tendency-col:first-child {
+            padding-left: 0;
+        }
+
+        .tendency-col:last-child {
+            padding-right: 0;
+        }
+
+        /* 3分割の間の縦線 */
+        .tendency-col:not(:last-child) {
+            border-right: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .tendency-col-title {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
+            border-bottom: 1px solid var(--text-main);
+            padding-bottom: 1px;
+            display: inline-block;
+        }
+
+        /* 文字と数値の間隔を左右いっぱいに広げる */
+        .tendency-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-main);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .tendency-item .rank-num {
+            margin-right: 2px;
+        }
+
+        .tendency-item .pct-val {
+            font-weight: 600;
+            color: var(--text-sub);
+            margin-left: 8px;
         }
     </style>
 </head>
@@ -478,7 +553,6 @@
             </label>
             <input type="file" id="char-image-input" class="file-input" accept="image/*" onchange="handleImageUpload(event)">
             
-            <!-- 選んだ理由の入力欄 -->
             <div class="reason-wrapper">
                 <label class="reason-label" for="image-reason-input">この一枚を選んだ理由</label>
                 <textarea id="image-reason-input" class="reason-textarea" placeholder="この画像を選んだ理由や、思い入れなどを入力してください（任意）"></textarea>
@@ -496,7 +570,7 @@
             <div id="result-card">
                 <div class="card-header">
                     <div class="card-subtitle" id="res-subtitle">CREATIVE STYLE</div>
-                    <div class="card-title">私という作風</div>
+                    <div class="card-title" id="res-title">私という作風</div>
                     <div class="card-formula" id="res-formula">[STYLE] × [MEDIUM] × [PURPOSE]</div>
                     <div class="card-sentence" id="res-sentence">［目的］、［美意識］を［手段を行う］人</div>
                 </div>
@@ -505,10 +579,18 @@
                     <img id="res-image" src="" alt="Character">
                 </div>
 
-                <!-- 画像下の「理由」テキスト領域 -->
                 <div class="card-reason-text" id="res-reason"></div>
 
                 <div class="card-description" id="res-description"></div>
+
+                <div class="tendency-section">
+                    <div class="tendency-title">あなたの創作傾向</div>
+                    <div class="tendency-grid">
+                        <div class="tendency-col" id="tendency-style"></div>
+                        <div class="tendency-col" id="tendency-medium"></div>
+                        <div class="tendency-col" id="tendency-purpose"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -523,9 +605,7 @@
 </div>
 
 <script>
-/* ==========================================================================
-   COLOR MAPS
-   ========================================================================== */
+/* COLOR MAPS */
 const COLOR_STYLE = {
     "再現": "#B71C1C", "理想": "#E65100", "表現": "#AD1457", "知覚": "#F57F17",
     "構成": "#283593", "幻想": "#6A1B9A", "概念": "#1A237E", "変容": "#00695C"
@@ -541,9 +621,7 @@ const COLOR_PURPOSE = {
     "娯楽": "#FFCC80", "思索": "#CE93D8", "癒し": "#80DEEA", "感動": "#EF9A9A"
 };
 
-/* ==========================================================================
-   18 QUESTIONS DATA
-   ========================================================================== */
+/* 18 QUESTIONS DATA */
 const QUESTIONS = [
     {
         q: "Q1 どの世界が好き？",
@@ -709,9 +787,7 @@ const QUESTIONS = [
     }
 ];
 
-/* ==========================================================================
-   RESULT DICTIONARIES
-   ========================================================================== */
+/* RESULT DICTIONARIES */
 const DATA_PURPOSE = {
     "美": {
         sentenceName: "美を宿す",
@@ -933,18 +1009,15 @@ const DATA_STYLE = {
     }
 };
 
-/* 優先順位リスト */
 const STYLE_ORDER = ["再現", "理想", "表現", "知覚", "構成", "幻想", "概念", "変容"];
 const MEDIUM_ORDER = ["視覚", "造形", "空間", "音響", "言語", "身体", "映像", "体験"];
 const PURPOSE_ORDER = ["美", "探究", "伝達", "共感", "娯楽", "思索", "癒し", "感動"];
 
-/* ==========================================================================
-   APP STATE & CONTROL
-   ========================================================================== */
+/* APP STATE & CONTROL */
 let currentQuestionIndex = 0;
 let userAnswers = [];
 let uploadedImageData = null;
-let currentDisplayedRank = 1; // 1 or 2
+let currentDisplayedRank = 1;
 let calculatedResultsData = null;
 
 function showScreen(screenId) {
@@ -1035,9 +1108,7 @@ function handleImageUpload(event) {
     }
 }
 
-/* ==========================================================================
-   SCORE AGGREGATION LOGIC
-   ========================================================================== */
+/* SCORE AGGREGATION LOGIC */
 function calculateScores() {
     const scoreMap = {
         STYLE: {},
@@ -1079,17 +1150,20 @@ function calculateScores() {
 
         const top1Key = sorted[0];
         const top2Key = sorted[1];
+        const top3Key = sorted[2];
         
         const top1Score = catMap[top1Key].total;
         const top2Score = catMap[top2Key].total;
+        const top3Score = catMap[top3Key].total;
 
-        // 1位を100%とした時の比率算出 (最高点が0の場合は100%)
         const ratio1 = 1.0;
         const ratio2 = top1Score > 0 ? (top2Score / top1Score) : 1.0;
+        const ratio3 = top1Score > 0 ? (top3Score / top1Score) : 1.0;
 
         return {
             rank1: { key: top1Key, ratio: ratio1, score: top1Score },
-            rank2: { key: top2Key, ratio: ratio2, score: top2Score }
+            rank2: { key: top2Key, ratio: ratio2, score: top2Score },
+            rank3: { key: top3Key, ratio: ratio3, score: top3Score }
         };
     }
 
@@ -1116,9 +1190,25 @@ function formatLine(line) {
     return `<span class="desc-line">${line}</span>`;
 }
 
-/* ==========================================================================
-   RESULT RENDER
-   ========================================================================== */
+function renderTendencyBlock(catTitle, rankData) {
+    return `
+        <div class="tendency-col-title">${catTitle}</div>
+        <div class="tendency-item">
+            <span><span class="rank-num">１.</span>${rankData.rank1.key}</span>
+            <span class="pct-val">${Math.round(rankData.rank1.ratio * 100)}%</span>
+        </div>
+        <div class="tendency-item">
+            <span><span class="rank-num">２.</span>${rankData.rank2.key}</span>
+            <span class="pct-val">${Math.round(rankData.rank2.ratio * 100)}%</span>
+        </div>
+        <div class="tendency-item">
+            <span><span class="rank-num">３.</span>${rankData.rank3.key}</span>
+            <span class="pct-val">${Math.round(rankData.rank3.ratio * 100)}%</span>
+        </div>
+    `;
+}
+
+/* RESULT RENDER */
 function renderCardByRank(rank) {
     currentDisplayedRank = rank;
     const res = calculatedResultsData;
@@ -1142,25 +1232,23 @@ function renderCardByRank(rank) {
     const cardEl = document.getElementById('result-card');
     cardEl.style.background = bgGradient;
 
-    // サブタイトルの切り替え
     document.getElementById('res-subtitle').textContent = rank === 1 ? "CREATIVE STYLE" : "SECOND STYLE";
+    document.getElementById('res-title').textContent = rank === 1 ? "私という作風" : "もう一つのあなた";
 
-    // 1位＝1.9rem (100%) を基準として、比率に応じたフォントサイズ調整
-    const baseFontSize = 1.9;
-    const fontStyle = `${Math.max(baseFontSize * ratioS, 0.75)}rem`;
-    const fontMedium = `${Math.max(baseFontSize * ratioM, 0.75)}rem`;
-    const fontPurpose = `${Math.max(baseFontSize * ratioP, 0.75)}rem`;
+    const baseFontSize = 1.6;
+    const fontStyle = `${Math.max(baseFontSize * ratioS, 0.7)}rem`;
+    const fontMedium = `${Math.max(baseFontSize * ratioM, 0.7)}rem`;
+    const fontPurpose = `${Math.max(baseFontSize * ratioP, 0.7)}rem`;
 
-    // 2位の時のみ右横にグレーで%を表示
     const pctS = rank === 2 ? `<span class="pct-label">${Math.round(ratioS * 100)}%</span>` : '';
     const pctM = rank === 2 ? `<span class="pct-label">${Math.round(ratioM * 100)}%</span>` : '';
     const pctP = rank === 2 ? `<span class="pct-label">${Math.round(ratioP * 100)}%</span>` : '';
 
     document.getElementById('res-formula').innerHTML = `
         <span class="formula-item" style="color: ${colorS}; font-size: ${fontStyle}">${finalStyle}${pctS}</span>
-        <span style="font-size: 1.4rem">×</span>
+        <span style="font-size: 1.2rem">×</span>
         <span class="formula-item" style="color: ${colorM}; font-size: ${fontMedium}">${finalMedium}${pctM}</span>
-        <span style="font-size: 1.4rem">×</span>
+        <span style="font-size: 1.2rem">×</span>
         <span class="formula-item" style="color: ${colorP}; font-size: ${fontPurpose}">${finalPurpose}${pctP}</span>
     `;
 
@@ -1171,7 +1259,6 @@ function renderCardByRank(rank) {
     document.getElementById('res-sentence').textContent = `${dataP.sentenceName}、${finalStyle}を${dataM.action}人`;
     document.getElementById('res-image').src = uploadedImageData;
 
-    /* 「この一枚を選んだ理由」テキストの表示設定 */
     const reasonInput = document.getElementById('image-reason-input').value.trim();
     const reasonContainer = document.getElementById('res-reason');
     if (reasonInput !== '') {
@@ -1181,26 +1268,34 @@ function renderCardByRank(rank) {
         reasonContainer.style.display = 'none';
     }
 
+    /* 各結果に対応した属性カラー背景（アルファ値0.2） */
+    const bgStyleDesc = hexToRgba(colorS, 0.2);
+    const bgMediumDesc = hexToRgba(colorM, 0.2);
+    const bgPurposeDesc = hexToRgba(colorP, 0.2);
+
     const descEl = document.getElementById('res-description');
     descEl.innerHTML = `
-        <div class="desc-block">
+        <div class="desc-block" style="background-color: ${bgStyleDesc};">
             <span class="desc-bold">${finalStyle}｜${dataS.title}</span>
             ${dataS.lines.map(line => formatLine(line)).join('')}
             <span class="desc-keyword">キーワード：${dataS.aesthetic}</span>
         </div>
-        <div class="desc-block">
+        <div class="desc-block" style="background-color: ${bgMediumDesc};">
             <span class="desc-bold">${finalMedium}｜${dataM.title}</span>
             ${formatLine(dataM.text)}
             <span class="desc-keyword">キーワード：${dataM.keywords}</span>
         </div>
-        <div class="desc-block">
+        <div class="desc-block" style="background-color: ${bgPurposeDesc};">
             <span class="desc-bold">${finalPurpose}｜${dataP.title}</span>
             ${dataP.lines.map(line => formatLine(line)).join('')}
             <span class="desc-keyword">キーワード：${dataP.keywords}</span>
         </div>
     `;
 
-    // 切り替えボタンのテキスト更新
+    document.getElementById('tendency-style').innerHTML = renderTendencyBlock("STYLE", res.style);
+    document.getElementById('tendency-medium').innerHTML = renderTendencyBlock("MEDIUM", res.medium);
+    document.getElementById('tendency-purpose').innerHTML = renderTendencyBlock("PURPOSE", res.purpose);
+
     const toggleBtn = document.getElementById('btn-toggle-rank');
     toggleBtn.textContent = rank === 1 ? "SECOND STYLEを表示" : "1st STYLE (CREATIVE STYLE)を表示";
 }
@@ -1222,8 +1317,10 @@ function toggleRankView() {
 function downloadResultImage() {
     const card = document.getElementById('result-card');
     const descBlocks = document.querySelectorAll('.desc-block');
+    const tendencySec = document.querySelector('.tendency-section');
 
     descBlocks.forEach(b => b.style.backdropFilter = 'none');
+    if (tendencySec) tendencySec.style.backdropFilter = 'none';
 
     document.fonts.ready.then(() => {
         html2canvas(card, {
@@ -1233,6 +1330,7 @@ function downloadResultImage() {
             letterRendering: true
         }).then(canvas => {
             descBlocks.forEach(b => b.style.backdropFilter = '');
+            if (tendencySec) tendencySec.style.backdropFilter = '';
 
             const link = document.createElement('a');
             const prefix = currentDisplayedRank === 1 ? 'creative-style' : 'second-style';
