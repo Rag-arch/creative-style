@@ -13,7 +13,8 @@
             --text-sub: #666666;
             --border-color: #e0e0e0;
             --accent-color: #000000;
-            --desc-bg: rgba(255, 255, 255, 0.88);
+            /* 背景の透過率を上げてすりガラス効果を調整 (0.65 -> 0.45) */
+            --desc-bg: rgba(255, 255, 255, 0.45);
             --font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
 
@@ -249,6 +250,16 @@
             margin-bottom: 20px;
         }
 
+        /* タイトル上部の「CREATIVE STYLE」 */
+        .card-subtitle {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: #888888;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
         .card-title {
             font-size: 1.2rem;
             font-weight: 900;
@@ -278,20 +289,21 @@
             white-space: nowrap;
         }
 
+        /* 画像エリア：縦方向を広げて「正方形」にする */
         .card-image-area {
             width: 100%;
-            max-height: 380px;
+            aspect-ratio: 1 / 1;
             margin: 20px 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
         .card-image-area img {
             width: 100%;
-            height: auto;
-            max-height: 380px;
-            object-fit: contain;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
 
@@ -304,10 +316,12 @@
 
         .desc-block {
             background-color: var(--desc-bg);
-            padding: 14px 16px;
+            padding: 12px 16px;
             border-radius: 4px;
-            margin-bottom: 12px;
-            backdrop-filter: blur(4px);
+            margin-bottom: 10px;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .desc-block:last-child {
@@ -318,24 +332,24 @@
         .desc-bold {
             font-size: 0.82rem;
             font-weight: 800;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             display: block;
             font-feature-settings: normal;
         }
 
-        /* 説明文 2行目以降（標準的な文字配置） */
+        /* 説明文 2行目以降（行間を 1.8 -> 1.4 に詰める） */
         .desc-line {
             display: block;
             font-size: 0.62rem;
             font-weight: 400;
-            line-height: 1.8;
+            line-height: 1.4;
             margin-bottom: 3px;
             white-space: nowrap;
             font-feature-settings: normal;
         }
 
         .desc-keyword {
-            margin-top: 6px;
+            margin-top: 4px;
             font-size: 0.62rem;
             font-weight: 400;
             opacity: 0.85;
@@ -399,6 +413,7 @@
         <div class="result-card-container">
             <div id="result-card">
                 <div class="card-header">
+                    <div class="card-subtitle">CREATIVE STYLE</div>
                     <div class="card-title">私という作風</div>
                     <div class="card-formula" id="res-formula">[STYLE] × [MEDIUM] × [PURPOSE]</div>
                     <div class="card-sentence" id="res-sentence">［目的］、［美意識］を［手段を行う］人</div>
@@ -705,66 +720,50 @@ const DATA_MEDIUM = {
     "視覚": {
         action: "描く",
         title: "目に映るものを通して表現する",
-        lines: [
-            "色・形・線・構図・光など、見ること を媒介にする。",
-            "画家、イラストレーター、グラフィックデザイナー、絵本作家"
-        ]
+        text: "色・形・光・構図など、目に見えるものを通して表現する。",
+        keywords: "絵画、イラスト、グラフィック、絵本"
     },
     "造形": {
         action: "造る",
         title: "物そのものを通して表現する",
-        lines: [
-            "素材・形・質感・重量・身体との関係など、もの を媒介にする。",
-            "彫刻家、工芸家、ファッションデザイナー、工業デザイナー"
-        ]
+        text: "素材・形・立体など、触れられるものを組み合わせて表現する。",
+        keywords: "彫刻、工芸、プロダクト、ファッション"
     },
     "空間": {
         action: "構築する",
         title: "場を通して表現する",
-        lines: [
-            "建築・家具・光・動線・風景などを組み合わせ、人がいる場所 を媒介にする。",
-            "建築家、インテリアデザイナー、ガーデンデザイナー、舞台美術家"
-        ]
+        text: "建築・場所・配置など、人が身を置く環境そのものをつくる。",
+        keywords: "建築、インテリア、庭園、都市"
     },
     "音響": {
         action: "奏でる",
         title: "音を通して表現する",
-        lines: [
-            "声・旋律・リズム・響き・沈黙など、聴くこと を媒介にする。",
-            "演奏家、声楽家、作曲家、サウンドデザイナー"
-        ]
+        text: "音・声・リズム・響きなど、耳で感じるものを通して表現する。",
+        keywords: "作曲、演奏、歌唱、サウンド"
     },
     "言語": {
         action: "語る",
         title: "言葉を通して表現する",
-        lines: [
-            "言葉・文章・意味・物語・語感など、読む・聞く言葉 を媒介にする。",
-            "詩人、小説家、劇作家、コピーライター"
-        ]
+        text: "言葉・文章・物語・概念など、意味を組み立てて表現する。",
+        keywords: "詩、小説、脚本、コピー、評論"
     },
     "身体": {
         action: "演じる",
         title: "身体そのものを通して表現する",
-        lines: [
-            "表情・動作・声・身振り・存在感など、人の身体 を媒介にする。",
-            "俳優、ダンサー、パフォーマー、声優"
-        ]
+        text: "動き・演技・所作・存在など、自らの身体を通して表現する。",
+        keywords: "俳優、ダンス、パフォーマンス、舞台芸術"
     },
     "映像": {
         action: "映す",
         title: "時間の流れを通して表現する",
-        lines: [
-            "映像・写真・編集・動き・時間など、移り変わるイメージ を媒介にする。",
-            "映画監督、アニメーター、映像作家、フォトグラファー"
-        ]
+        text: "時間・動き・編集・記録など、移ろうイメージを通して表現する。",
+        keywords: "映画、アニメ、動画、フォト"
     },
     "体験": {
         action: "体験させる",
         title: "体験そのものを通して表現する",
-        lines: [
-            "選択・行動・参加・探索・偶然など、人が体験すること を媒介にする。",
-            "ゲームクリエイター、アトラクションデザイナー、謎解きクリエイター"
-        ]
+        text: "参加・交流・出来事など、人が実際に経験することそのものをつくる。",
+        keywords: "ゲーム、アトラクション、イベント、UX"
     }
 };
 
@@ -1051,9 +1050,6 @@ function calculateAndShowResult() {
     document.getElementById('res-sentence').textContent = `${dataP.sentenceName}、${finalStyle}を${dataM.action}人`;
     document.getElementById('res-image').src = uploadedImageData;
 
-    const mediumTextLine = dataM.lines[0];
-    const mediumJobLine = dataM.lines[1];
-
     const descEl = document.getElementById('res-description');
     descEl.innerHTML = `
         <div class="desc-block">
@@ -1063,8 +1059,8 @@ function calculateAndShowResult() {
         </div>
         <div class="desc-block">
             <span class="desc-bold">表現｜${dataM.title}</span>
-            ${formatLine(mediumTextLine)}
-            <span class="desc-keyword">キーワード：${mediumJobLine}</span>
+            ${formatLine(dataM.text)}
+            <span class="desc-keyword">キーワード：${dataM.keywords}</span>
         </div>
         <div class="desc-block">
             <span class="desc-bold">目的｜${dataP.title}</span>
