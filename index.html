@@ -130,6 +130,16 @@
             border-color: var(--text-main);
         }
 
+        .btn-toggle {
+            background: var(--text-main);
+            color: #ffffff;
+        }
+
+        .btn-toggle:hover {
+            background: #333333;
+            color: #ffffff;
+        }
+
         /* 質問カード */
         .q-header {
             display: flex;
@@ -316,6 +326,25 @@
             border-bottom: 2px solid var(--text-main);
             padding: 12px 0;
             color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .card-formula span.formula-item {
+            display: inline-flex;
+            align-items: baseline;
+            line-height: 1.2;
+        }
+
+        .card-formula span.pct-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #777777;
+            margin-left: 2px;
+            letter-spacing: 0;
         }
 
         .card-sentence {
@@ -466,7 +495,7 @@
         <div class="result-card-container">
             <div id="result-card">
                 <div class="card-header">
-                    <div class="card-subtitle">CREATIVE STYLE</div>
+                    <div class="card-subtitle" id="res-subtitle">CREATIVE STYLE</div>
                     <div class="card-title">私という作風</div>
                     <div class="card-formula" id="res-formula">[STYLE] × [MEDIUM] × [PURPOSE]</div>
                     <div class="card-sentence" id="res-sentence">［目的］、［美意識］を［手段を行う］人</div>
@@ -484,6 +513,7 @@
         </div>
 
         <div class="btn-group" style="flex-direction: column; gap: 10px;">
+            <button class="btn btn-toggle" id="btn-toggle-rank" onclick="toggleRankView()">SECOND STYLEを表示</button>
             <button class="btn" onclick="downloadResultImage()">結果を画像でダウンロード</button>
             <button class="btn btn-secondary" onclick="backToImageScreen()">回答や写真を修正する</button>
             <button class="btn btn-secondary" onclick="restart()">最初からやり直す</button>
@@ -914,6 +944,8 @@ const PURPOSE_ORDER = ["美", "探究", "伝達", "共感", "娯楽", "思索", 
 let currentQuestionIndex = 0;
 let userAnswers = [];
 let uploadedImageData = null;
+let currentDisplayedRank = 1; // 1 or 2
+let calculatedResultsData = null;
 
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1034,36 +1066,37 @@ function calculateScores() {
         }
     });
 
-    function getWinner(category, orderList) {
+    function getSortedRankList(category, orderList) {
         const catMap = scoreMap[category];
-        let winner = orderList[0];
-
-        orderList.forEach(key => {
-            if (key === winner) return;
-
-            const current = catMap[key];
-            const best = catMap[winner];
-
-            if (current.total > best.total) {
-                winner = key;
-            } else if (current.total === best.total) {
-                if (current.mainCount > best.mainCount) {
-                    winner = key;
-                } else if (current.mainCount === best.mainCount) {
-                    if (current.subCount > best.subCount) {
-                        winner = key;
-                    }
-                }
-            }
+        const sorted = [...orderList].sort((a, b) => {
+            const itemA = catMap[a];
+            const itemB = catMap[b];
+            if (itemB.total !== itemA.total) return itemB.total - itemA.total;
+            if (itemB.mainCount !== itemA.mainCount) return itemB.mainCount - itemA.mainCount;
+            if (itemB.subCount !== itemA.subCount) return itemB.subCount - itemA.subCount;
+            return orderList.indexOf(a) - orderList.indexOf(b);
         });
 
-        return winner;
+        const top1Key = sorted[0];
+        const top2Key = sorted[1];
+        
+        const top1Score = catMap[top1Key].total;
+        const top2Score = catMap[top2Key].total;
+
+        // 1位を100%とした時の比率算出 (最高点が0の場合は100%)
+        const ratio1 = 1.0;
+        const ratio2 = top1Score > 0 ? (top2Score / top1Score) : 1.0;
+
+        return {
+            rank1: { key: top1Key, ratio: ratio1, score: top1Score },
+            rank2: { key: top2Key, ratio: ratio2, score: top2Score }
+        };
     }
 
     return {
-        style: getWinner("STYLE", STYLE_ORDER),
-        medium: getWinner("MEDIUM", MEDIUM_ORDER),
-        purpose: getWinner("PURPOSE", PURPOSE_ORDER)
+        style: getSortedRankList("STYLE", STYLE_ORDER),
+        medium: getSortedRankList("MEDIUM", MEDIUM_ORDER),
+        purpose: getSortedRankList("PURPOSE", PURPOSE_ORDER)
     };
 }
 
@@ -1086,13 +1119,20 @@ function formatLine(line) {
 /* ==========================================================================
    RESULT RENDER
    ========================================================================== */
-function calculateAndShowResult() {
-    if (!uploadedImageData) return;
+function renderCardByRank(rank) {
+    currentDisplayedRank = rank;
+    const res = calculatedResultsData;
+    if (!res) return;
 
-    const res = calculateScores();
-    const finalStyle = res.style;
-    const finalMedium = res.medium;
-    const finalPurpose = res.purpose;
+    const rankKey = rank === 1 ? 'rank1' : 'rank2';
+
+    const finalStyle = res.style[rankKey].key;
+    const finalMedium = res.medium[rankKey].key;
+    const finalPurpose = res.purpose[rankKey].key;
+
+    const ratioS = res.style[rankKey].ratio;
+    const ratioM = res.medium[rankKey].ratio;
+    const ratioP = res.purpose[rankKey].ratio;
 
     const colorS = COLOR_STYLE[finalStyle] || "#000000";
     const colorM = COLOR_MEDIUM[finalMedium] || "#000000";
@@ -1102,11 +1142,32 @@ function calculateAndShowResult() {
     const cardEl = document.getElementById('result-card');
     cardEl.style.background = bgGradient;
 
+    // サブタイトルの切り替え
+    document.getElementById('res-subtitle').textContent = rank === 1 ? "CREATIVE STYLE" : "SECOND STYLE";
+
+    // 1位＝1.9rem (100%) を基準として、比率に応じたフォントサイズ調整
+    const baseFontSize = 1.9;
+    const fontStyle = `${Math.max(baseFontSize * ratioS, 0.75)}rem`;
+    const fontMedium = `${Math.max(baseFontSize * ratioM, 0.75)}rem`;
+    const fontPurpose = `${Math.max(baseFontSize * ratioP, 0.75)}rem`;
+
+    // 2位の時のみ右横にグレーで%を表示
+    const pctS = rank === 2 ? `<span class="pct-label">${Math.round(ratioS * 100)}%</span>` : '';
+    const pctM = rank === 2 ? `<span class="pct-label">${Math.round(ratioM * 100)}%</span>` : '';
+    const pctP = rank === 2 ? `<span class="pct-label">${Math.round(ratioP * 100)}%</span>` : '';
+
+    document.getElementById('res-formula').innerHTML = `
+        <span class="formula-item" style="color: ${colorS}; font-size: ${fontStyle}">${finalStyle}${pctS}</span>
+        <span style="font-size: 1.4rem">×</span>
+        <span class="formula-item" style="color: ${colorM}; font-size: ${fontMedium}">${finalMedium}${pctM}</span>
+        <span style="font-size: 1.4rem">×</span>
+        <span class="formula-item" style="color: ${colorP}; font-size: ${fontPurpose}">${finalPurpose}${pctP}</span>
+    `;
+
     const dataP = DATA_PURPOSE[finalPurpose];
     const dataM = DATA_MEDIUM[finalMedium];
     const dataS = DATA_STYLE[finalStyle];
 
-    document.getElementById('res-formula').innerHTML = `<span style="color: ${colorS}">${finalStyle}</span> × <span style="color: ${colorM}">${finalMedium}</span> × <span style="color: ${colorP}">${finalPurpose}</span>`;
     document.getElementById('res-sentence').textContent = `${dataP.sentenceName}、${finalStyle}を${dataM.action}人`;
     document.getElementById('res-image').src = uploadedImageData;
 
@@ -1139,7 +1200,23 @@ function calculateAndShowResult() {
         </div>
     `;
 
+    // 切り替えボタンのテキスト更新
+    const toggleBtn = document.getElementById('btn-toggle-rank');
+    toggleBtn.textContent = rank === 1 ? "SECOND STYLEを表示" : "1st STYLE (CREATIVE STYLE)を表示";
+}
+
+function calculateAndShowResult() {
+    if (!uploadedImageData) return;
+
+    calculatedResultsData = calculateScores();
+    renderCardByRank(1);
+
     showScreen('screen-result');
+}
+
+function toggleRankView() {
+    const nextRank = currentDisplayedRank === 1 ? 2 : 1;
+    renderCardByRank(nextRank);
 }
 
 function downloadResultImage() {
@@ -1158,7 +1235,8 @@ function downloadResultImage() {
             descBlocks.forEach(b => b.style.backdropFilter = '');
 
             const link = document.createElement('a');
-            link.download = 'my-art-style.png';
+            const prefix = currentDisplayedRank === 1 ? 'creative-style' : 'second-style';
+            link.download = `${prefix}-result.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
@@ -1169,6 +1247,8 @@ function restart() {
     currentQuestionIndex = 0;
     userAnswers = [];
     uploadedImageData = null;
+    calculatedResultsData = null;
+    currentDisplayedRank = 1;
     document.getElementById('preview-img').style.display = 'none';
     document.getElementById('preview-img').src = '';
     document.getElementById('file-label-text').textContent = "画像ファイルを選択 (ローカル処理)";
