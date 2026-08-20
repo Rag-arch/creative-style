@@ -13,8 +13,7 @@
             --text-sub: #666666;
             --border-color: #e0e0e0;
             --accent-color: #000000;
-            /* 背景の透過率を上げてすりガラス効果を調整 (0.65 -> 0.45) */
-            --desc-bg: rgba(255, 255, 255, 0.45);
+            --desc-bg: rgba(255, 255, 255, 0.65);
             --font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
 
@@ -211,19 +210,60 @@
             display: block;
             cursor: pointer;
             background: #fff;
-            transition: background 0.2s;
+            transition: background 0.2s, border 0.2s;
+        }
+
+        .file-label.has-image {
+            border: none;
+            padding: 10px 0;
+            background: transparent;
         }
 
         .file-label:hover {
             background: #f9f9f9;
         }
 
+        .file-label.has-image:hover {
+            background: transparent;
+        }
+
         .preview-mini {
-            max-width: 150px;
-            max-height: 150px;
+            max-width: 200px;
+            max-height: 200px;
             margin: 15px auto 0;
             display: none;
             object-fit: cover;
+        }
+
+        /* 選んだ理由の入力欄 */
+        .reason-wrapper {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .reason-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .reason-textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px 12px;
+            font-family: var(--font-family);
+            font-size: 0.85rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            resize: vertical;
+            outline: none;
+            background: #fff;
+        }
+
+        .reason-textarea:focus {
+            border-color: var(--text-main);
         }
 
         /* ----- 最終結果カード (ポスターデザイン) ----- */
@@ -234,10 +274,11 @@
         }
 
         #result-card {
+            position: relative;
             background: #ffffff;
             width: 100%;
             max-width: 540px;
-            padding: 40px 25px;
+            padding: 40px 25px 45px;
             border: 1px solid var(--text-main);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             box-sizing: border-box;
@@ -250,12 +291,11 @@
             margin-bottom: 20px;
         }
 
-        /* タイトル上部の「CREATIVE STYLE」 */
         .card-subtitle {
             font-size: 0.65rem;
             font-weight: 700;
             letter-spacing: 0.2em;
-            color: #888888;
+            color: #444444;
             margin-bottom: 4px;
             text-transform: uppercase;
         }
@@ -269,9 +309,8 @@
             color: var(--text-main);
         }
 
-        /* [STYLE] × [MEDIUM] × [PURPOSE] の大枠 */
         .card-formula {
-            font-size: 1.55rem;
+            font-size: 1.9rem;
             font-weight: 900;
             letter-spacing: 0.12em;
             margin-bottom: 14px;
@@ -289,11 +328,10 @@
             white-space: nowrap;
         }
 
-        /* 画像エリア：縦方向を広げて「正方形」にする */
         .card-image-area {
             width: 100%;
             aspect-ratio: 1 / 1;
-            margin: 20px 0;
+            margin: 20px 0 10px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -305,6 +343,19 @@
             height: 100%;
             object-fit: cover;
             display: block;
+        }
+
+        /* 画像下の「理由」テキスト表示欄 */
+        .card-reason-text {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            padding: 0 10px;
+            word-break: break-all;
+            display: none;
         }
 
         /* 説明文全体 */
@@ -321,14 +372,13 @@
             margin-bottom: 10px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
         .desc-block:last-child {
             margin-bottom: 0;
         }
 
-        /* 説明文 1行目（太字タイトル） */
         .desc-bold {
             font-size: 0.82rem;
             font-weight: 800;
@@ -337,7 +387,6 @@
             font-feature-settings: normal;
         }
 
-        /* 説明文 2行目以降（行間を 1.8 -> 1.4 に詰める） */
         .desc-line {
             display: block;
             font-size: 0.62rem;
@@ -394,13 +443,19 @@
         <div class="q-header">
             <span class="q-number">VISUAL</span>
         </div>
-        <div class="q-title">キャラクター画像を選択</div>
+        <div class="q-title">あなたの作風を象徴する画像を1枚選んでください</div>
         <div class="file-upload-wrapper">
-            <label class="file-label" for="char-image-input">
+            <label class="file-label" id="file-label-box" for="char-image-input">
                 <span id="file-label-text">画像ファイルを選択 (ローカル処理)</span>
                 <img id="preview-img" class="preview-mini" src="" alt="preview">
             </label>
             <input type="file" id="char-image-input" class="file-input" accept="image/*" onchange="handleImageUpload(event)">
+            
+            <!-- 選んだ理由の入力欄 -->
+            <div class="reason-wrapper">
+                <label class="reason-label" for="image-reason-input">この一枚を選んだ理由</label>
+                <textarea id="image-reason-input" class="reason-textarea" placeholder="この画像を選んだ理由や、思い入れなどを入力してください（任意）"></textarea>
+            </div>
         </div>
         <div class="btn-group">
             <button class="btn btn-secondary" onclick="prevScreenFromImage()">戻る</button>
@@ -423,12 +478,16 @@
                     <img id="res-image" src="" alt="Character">
                 </div>
 
+                <!-- 画像下の「理由」テキスト領域 -->
+                <div class="card-reason-text" id="res-reason"></div>
+
                 <div class="card-description" id="res-description"></div>
             </div>
         </div>
 
-        <div class="btn-group" style="flex-direction: column;">
+        <div class="btn-group" style="flex-direction: column; gap: 10px;">
             <button class="btn" onclick="downloadResultImage()">結果を画像でダウンロード</button>
+            <button class="btn btn-secondary" onclick="backToImageScreen()">回答や写真を修正する</button>
             <button class="btn btn-secondary" onclick="restart()">最初からやり直す</button>
         </div>
     </div>
@@ -612,7 +671,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "Q18 作品を見たあと、何が残ってほしい？",
+        q: "Q18 作品を見たあと、何が残してほしい？",
         answers: [
             { key: "A", text: "また見たいという楽しさ", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "感動"] },
             { key: "B", text: "知らなかったことへの興味", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
@@ -763,7 +822,7 @@ const DATA_MEDIUM = {
         action: "体験させる",
         title: "体験そのものを通して表現する",
         text: "参加・交流・出来事など、人が実際に経験することそのものをつくる。",
-        keywords: "ゲーム、アトラクション、イベント、UX"
+        keywords: "ゲーム、アトラクション、インタラクティブアート、UX"
     }
 };
 
@@ -925,6 +984,10 @@ function prevScreenFromImage() {
     showScreen('screen-quiz');
 }
 
+function backToImageScreen() {
+    showScreen('screen-image');
+}
+
 function handleImageUpload(event) {
     const file = event.target.files[0];
     if (file) {
@@ -936,6 +999,7 @@ function handleImageUpload(event) {
             preview.style.display = 'block';
             document.getElementById('file-label-text').textContent = "画像を変更する";
             document.getElementById('btn-show-result').disabled = false;
+            document.getElementById('file-label-box').classList.add('has-image');
         };
         reader.readAsDataURL(file);
     }
@@ -1017,7 +1081,6 @@ function hexToRgba(hex, alpha) {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-/* 通常の文章出力用ユーティリティ */
 function formatLine(line) {
     return `<span class="desc-line">${line}</span>`;
 }
@@ -1037,6 +1100,7 @@ function calculateAndShowResult() {
     const colorM = COLOR_MEDIUM[finalMedium] || "#000000";
     const colorP = COLOR_PURPOSE[finalPurpose] || "#000000";
 
+    /* 背景グラデーションの不透明度を 0.25 に戻しました */
     const bgGradient = `linear-gradient(135deg, ${hexToRgba(colorS, 0.25)} 0%, ${hexToRgba(colorM, 0.25)} 50%, ${hexToRgba(colorP, 0.25)} 100%)`;
     const cardEl = document.getElementById('result-card');
     cardEl.style.background = bgGradient;
@@ -1045,10 +1109,19 @@ function calculateAndShowResult() {
     const dataM = DATA_MEDIUM[finalMedium];
     const dataS = DATA_STYLE[finalStyle];
 
-    /* 各文字列をそれぞれのカラーコードで着色 */
     document.getElementById('res-formula').innerHTML = `<span style="color: ${colorS}">${finalStyle}</span> × <span style="color: ${colorM}">${finalMedium}</span> × <span style="color: ${colorP}">${finalPurpose}</span>`;
     document.getElementById('res-sentence').textContent = `${dataP.sentenceName}、${finalStyle}を${dataM.action}人`;
     document.getElementById('res-image').src = uploadedImageData;
+
+    /* 「この一枚を選んだ理由」テキストの表示設定 */
+    const reasonInput = document.getElementById('image-reason-input').value.trim();
+    const reasonContainer = document.getElementById('res-reason');
+    if (reasonInput !== '') {
+        reasonContainer.textContent = reasonInput;
+        reasonContainer.style.display = 'block';
+    } else {
+        reasonContainer.style.display = 'none';
+    }
 
     const descEl = document.getElementById('res-description');
     descEl.innerHTML = `
@@ -1102,6 +1175,8 @@ function restart() {
     document.getElementById('preview-img').style.display = 'none';
     document.getElementById('preview-img').src = '';
     document.getElementById('file-label-text').textContent = "画像ファイルを選択 (ローカル処理)";
+    document.getElementById('file-label-box').classList.remove('has-image');
+    document.getElementById('image-reason-input').value = '';
     document.getElementById('btn-show-result').disabled = true;
     document.getElementById('char-image-input').value = '';
     showScreen('screen-start');
