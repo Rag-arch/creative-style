@@ -67,8 +67,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            width: fit-content;
-            max-width: 100%;
+            width: 100%;
             margin: 0 auto;
         }
 
@@ -78,7 +77,6 @@
             color: var(--text-sub);
             margin-bottom: 2.5rem;
             line-height: 1.8;
-            white-space: nowrap;
             width: 100%;
         }
 
@@ -1100,7 +1098,6 @@ function calculateAndShowResult() {
     const colorM = COLOR_MEDIUM[finalMedium] || "#000000";
     const colorP = COLOR_PURPOSE[finalPurpose] || "#000000";
 
-    /* 背景グラデーションの不透明度を 0.25 に戻しました */
     const bgGradient = `linear-gradient(135deg, ${hexToRgba(colorS, 0.25)} 0%, ${hexToRgba(colorM, 0.25)} 50%, ${hexToRgba(colorP, 0.25)} 100%)`;
     const cardEl = document.getElementById('result-card');
     cardEl.style.background = bgGradient;
@@ -1126,17 +1123,17 @@ function calculateAndShowResult() {
     const descEl = document.getElementById('res-description');
     descEl.innerHTML = `
         <div class="desc-block">
-            <span class="desc-bold">美学｜${dataS.title}</span>
+            <span class="desc-bold">${finalStyle}｜${dataS.title}</span>
             ${dataS.lines.map(line => formatLine(line)).join('')}
             <span class="desc-keyword">キーワード：${dataS.aesthetic}</span>
         </div>
         <div class="desc-block">
-            <span class="desc-bold">表現｜${dataM.title}</span>
+            <span class="desc-bold">${finalMedium}｜${dataM.title}</span>
             ${formatLine(dataM.text)}
             <span class="desc-keyword">キーワード：${dataM.keywords}</span>
         </div>
         <div class="desc-block">
-            <span class="desc-bold">目的｜${dataP.title}</span>
+            <span class="desc-bold">${finalPurpose}｜${dataP.title}</span>
             ${dataP.lines.map(line => formatLine(line)).join('')}
             <span class="desc-keyword">キーワード：${dataP.keywords}</span>
         </div>
