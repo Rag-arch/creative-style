@@ -665,55 +665,55 @@ const COLOR_PURPOSE = {
     "娯楽": "#FFCC80", "思索": "#CE93D8", "癒し": "#80DEEA", "感動": "#EF9A9A"
 };
 
-/* 18 QUESTIONS DATA */
+/* 18 QUESTIONS DATA (Updated) */
 const QUESTIONS = [
     {
-        q: "Q1 どの世界が好き？",
+        q: "どの世界が好き？",
         answers: [
             { key: "A", text: "整った庭", main: ["STYLE", "理想"], sub: ["STYLE", "構成"] },
             { key: "B", text: "不思議な街", main: ["STYLE", "幻想"], sub: ["STYLE", "変容"] },
-            { key: "C", text: "光の森", main: ["STYLE", "知覚"], sub: ["STYLE", "幻想"] },
-            { key: "D", text: "昔の町", main: ["STYLE", "再現"], sub: ["STYLE", "理想"] }
+            { key: "C", text: "光の森", main: ["STYLE", "知覚"], sub: ["STYLE", "再現"] },
+            { key: "D", text: "昔の町", main: ["STYLE", "再現"], sub: ["STYLE", "表現"] }
         ]
     },
     {
-        q: "Q2 アイデアを何にしたい？",
+        q: "アイデアを何にしたい？",
         answers: [
             { key: "A", text: "絵にする", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "映像"] },
-            { key: "B", text: "形にする", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "空間"] },
+            { key: "B", text: "形にする", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "身体"] },
             { key: "C", text: "場所にする", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] },
             { key: "D", text: "音にする", main: ["MEDIUM", "音響"], sub: ["MEDIUM", "言語"] }
         ]
     },
     {
-        q: "Q3 何と言われたい？",
+        q: "何と言われたい？",
         answers: [
             { key: "A", text: "「きれい！」", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "「もっと知りたい！」", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
             { key: "C", text: "「あなたの考えが伝わった！」", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "感動"] },
-            { key: "D", text: "「わかる！」", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "伝達"] }
+            { key: "D", text: "「一緒に楽しめた！」", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "娯楽"] }
         ]
     },
     {
-        q: "Q4 何をつくりたい？",
+        q: "何をつくりたい？",
         answers: [
-            { key: "A", text: "新しい組合せ", main: ["STYLE", "変容"], sub: ["STYLE", "概念"] },
+            { key: "A", text: "新しい組合せ", main: ["STYLE", "変容"], sub: ["STYLE", "知覚"] },
             { key: "B", text: "心のかたち", main: ["STYLE", "表現"], sub: ["STYLE", "幻想"] },
             { key: "C", text: "美しい仕組み", main: ["STYLE", "構成"], sub: ["STYLE", "理想"] },
-            { key: "D", text: "問いのある作品", main: ["STYLE", "概念"], sub: ["STYLE", "構成"] }
+            { key: "D", text: "問いのある作品", main: ["STYLE", "概念"], sub: ["STYLE", "変容"] }
         ]
     },
     {
-        q: "Q5 物語をどう伝える？",
+        q: "物語をどう伝える？",
         answers: [
-            { key: "A", text: "演じる", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "言語"] },
+            { key: "A", text: "演じる", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
             { key: "B", text: "映す", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
             { key: "C", text: "語る", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
             { key: "D", text: "体験させる", main: ["MEDIUM", "体験"], sub: ["MEDIUM", "空間"] }
         ]
     },
     {
-        q: "Q6 どんな作品がいい？",
+        q: "どんな作品がいい？",
         answers: [
             { key: "A", text: "楽しい", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "共感"] },
             { key: "B", text: "考えさせる", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
@@ -722,34 +722,34 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "Q7 古い建物、どうする？",
+        q: "古い建物、どうする？",
         answers: [
             { key: "A", text: "そのまま残す", main: ["STYLE", "再現"], sub: ["STYLE", "表現"] },
             { key: "B", text: "新しく変える", main: ["STYLE", "変容"], sub: ["STYLE", "構成"] },
-            { key: "C", text: "物語を足す", main: ["STYLE", "幻想"], sub: ["STYLE", "表現"] },
-            { key: "D", text: "光を残す", main: ["STYLE", "知覚"], sub: ["STYLE", "再現"] }
+            { key: "C", text: "物語を足す", main: ["STYLE", "幻想"], sub: ["STYLE", "理想"] },
+            { key: "D", text: "光を活かす", main: ["STYLE", "知覚"], sub: ["STYLE", "概念"] }
         ]
     },
     {
-        q: "Q8 「夏の思い出」を作品にするなら？",
+        q: "「夏の思い出」を作品にするなら？",
         answers: [
             { key: "A", text: "色や光で見せる", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "映像"] },
-            { key: "B", text: "物や形で残す", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "空間"] },
+            { key: "B", text: "物や形で残す", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "身体"] },
             { key: "C", text: "その場所をつくる", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] },
             { key: "D", text: "音や声で伝える", main: ["MEDIUM", "音響"], sub: ["MEDIUM", "言語"] }
         ]
     },
     {
-        q: "Q9 誰かに贈るなら？",
+        q: "誰かに贈るなら？",
         answers: [
             { key: "A", text: "心地よいもの", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "知らない世界", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
-            { key: "C", text: "気持ちが伝わるもの", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "共感"] },
+            { key: "C", text: "気持ちが伝わるもの", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "感動"] },
             { key: "D", text: "一緒に楽しめるもの", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "娯楽"] }
         ]
     },
     {
-        q: "Q10 作品をつくるなら、何を変えたい？",
+        q: "作品をつくるなら、何を変えたい？",
         answers: [
             { key: "A", text: "現実を美しく整える", main: ["STYLE", "理想"], sub: ["STYLE", "構成"] },
             { key: "B", text: "見慣れたものを違って見せる", main: ["STYLE", "知覚"], sub: ["STYLE", "変容"] },
@@ -758,16 +758,16 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "Q11 作品の中に人を入れるなら？",
+        q: "作品の中に人を入れるなら？",
         answers: [
-            { key: "A", text: "身体の動きで表現する", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "体験"] },
-            { key: "B", text: "言葉を交わしてもらう", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "身体"] },
+            { key: "A", text: "身体の動きで表現する", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
+            { key: "B", text: "言葉を交わしてもらう", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
             { key: "C", text: "映像の世界を見せる", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
             { key: "D", text: "その場を実際に体験してもらう", main: ["MEDIUM", "体験"], sub: ["MEDIUM", "空間"] }
         ]
     },
     {
-        q: "Q12 何を残したい？",
+        q: "何を残したい？",
         answers: [
             { key: "A", text: "問い", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
             { key: "B", text: "安心", main: ["PURPOSE", "癒し"], sub: ["PURPOSE", "美"] },
@@ -776,7 +776,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "Q13 好きな作品に共通するものは？",
+        q: "好きな作品に共通するものは？",
         answers: [
             { key: "A", text: "本物らしさ", main: ["STYLE", "再現"], sub: ["STYLE", "知覚"] },
             { key: "B", text: "美しい秩序", main: ["STYLE", "構成"], sub: ["STYLE", "理想"] },
@@ -785,16 +785,16 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "Q14 音楽を別の形にするなら？",
+        q: "音楽を別の形にするなら？",
         answers: [
             { key: "A", text: "絵", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "音響"] },
-            { key: "B", text: "動き", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "体験"] },
-            { key: "C", text: "言葉", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
+            { key: "B", text: "動き", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "空間"] },
+            { key: "C", text: "言葉を形にする", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "造形"] },
             { key: "D", text: "映像", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] }
         ]
     },
     {
-        q: "Q15 作品を見た人に、まず何をしてほしい？",
+        q: "作品を見た人に、まず何をしてほしい？",
         answers: [
             { key: "A", text: "「きれい」と感じてほしい", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "「なぜ？」と考えてほしい", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
@@ -803,25 +803,25 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "Q16 作品に何を込める？",
+        q: "作品に何を込める？",
         answers: [
             { key: "A", text: "美しい形", main: ["STYLE", "理想"], sub: ["STYLE", "知覚"] },
-            { key: "B", text: "ひとつの問い", main: ["STYLE", "概念"], sub: ["STYLE", "再現"] },
+            { key: "B", text: "ひとつの問い", main: ["STYLE", "概念"], sub: ["STYLE", "変容"] },
             { key: "C", text: "心の動き", main: ["STYLE", "表現"], sub: ["STYLE", "幻想"] },
             { key: "D", text: "仕組み", main: ["STYLE", "構成"], sub: ["STYLE", "概念"] }
         ]
     },
     {
-        q: "Q17 旅の思い出、何にする？",
+        q: "旅の思い出、何にする？",
         answers: [
             { key: "A", text: "映像", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
-            { key: "B", text: "模型", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "構成"] },
-            { key: "C", text: "物語", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "身体"] },
+            { key: "B", text: "模型", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "空間"] },
+            { key: "C", text: "物語として演じる", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "身体"] },
             { key: "D", text: "場所", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] }
         ]
     },
     {
-        q: "Q18 作品を見たあと、何が残してほしい？",
+        q: "作品を見たあと、何が残ってほしい？",
         answers: [
             { key: "A", text: "また見たいという楽しさ", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "感動"] },
             { key: "B", text: "知らなかったことへの興味", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
@@ -939,7 +939,7 @@ const DATA_MEDIUM = {
     "空間": {
         action: "構築する",
         title: "場を通して表現する",
-        text: "建築・場所・配置など、人が身 the 環境そのものをつくる。",
+        text: "建築・場所・配置など、人が身を置く環境そのものをつくる。",
         keywords: "建築、インテリア、庭園、都市"
     },
     "音響": {
@@ -1472,7 +1472,7 @@ function renderCardByMode(mode) {
     const coreText = coreWinners.join('・');
     document.getElementById('profile-core-desc').innerHTML = `あなたの創作では <span style="font-weight:700;">${coreText}</span> が最も強い核になっています。`;
 
-    // 3. 作風の武器（カテゴリ名や「型」などを除外し、純粋な単語（値）だけを並べるよう修正）
+    // 3. 作風の武器
     const diffs = [
         { val: res.style.diff1_2, key: res.style.rank1.key },
         { val: res.medium.diff1_2, key: res.medium.rank1.key },
