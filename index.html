@@ -357,7 +357,7 @@
 
         .card-image-area {
             width: 100%;
-            aspect-ratio: 7 / 6; /* 横7：縦6に変更 */
+            aspect-ratio: 7 / 6;
             margin: 8px 0 6px 0;
             display: flex;
             justify-content: center;
@@ -400,7 +400,6 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
             transition: background-color 0.3s ease;
             
-            /* 横並びレイアウト (左側:説明, 右側:縦長傾向) */
             display: flex;
             justify-content: space-between;
             align-items: stretch;
@@ -495,7 +494,7 @@
             color: var(--text-sub);
         }
 
-        /* プロフィールカードセクション (新規項目追加に対応) */
+        /* プロフィールカードセクション */
         .profile-section {
             margin-top: 6px;
             padding: 6px 10px;
@@ -673,15 +672,15 @@ const QUESTIONS = [
         answers: [
             { key: "A", text: "整った庭", main: ["STYLE", "理想"], sub: ["STYLE", "構成"] },
             { key: "B", text: "不思議な街", main: ["STYLE", "幻想"], sub: ["STYLE", "変容"] },
-            { key: "C", text: "光の森", main: ["STYLE", "知覚"], sub: ["STYLE", "概念"] },
-            { key: "D", text: "昔の町", main: ["STYLE", "再現"], sub: ["STYLE", "表現"] }
+            { key: "C", text: "光の森", main: ["STYLE", "知覚"], sub: ["STYLE", "幻想"] },
+            { key: "D", text: "昔の町", main: ["STYLE", "再現"], sub: ["STYLE", "理想"] }
         ]
     },
     {
         q: "Q2 アイデアを何にしたい？",
         answers: [
             { key: "A", text: "絵にする", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "映像"] },
-            { key: "B", text: "形にする", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "身体"] },
+            { key: "B", text: "形にする", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "空間"] },
             { key: "C", text: "場所にする", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] },
             { key: "D", text: "音にする", main: ["MEDIUM", "音響"], sub: ["MEDIUM", "言語"] }
         ]
@@ -692,22 +691,22 @@ const QUESTIONS = [
             { key: "A", text: "「きれい！」", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "「もっと知りたい！」", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
             { key: "C", text: "「あなたの考えが伝わった！」", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "感動"] },
-            { key: "D", text: "「わかる！」", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "娯楽"] }
+            { key: "D", text: "「わかる！」", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "伝達"] }
         ]
     },
     {
         q: "Q4 何をつくりたい？",
         answers: [
-            { key: "A", text: "新しい組合せ", main: ["STYLE", "変容"], sub: ["STYLE", "知覚"] },
+            { key: "A", text: "新しい組合せ", main: ["STYLE", "変容"], sub: ["STYLE", "概念"] },
             { key: "B", text: "心のかたち", main: ["STYLE", "表現"], sub: ["STYLE", "幻想"] },
             { key: "C", text: "美しい仕組み", main: ["STYLE", "構成"], sub: ["STYLE", "理想"] },
-            { key: "D", text: "問いのある作品", main: ["STYLE", "概念"], sub: ["STYLE", "再現"] }
+            { key: "D", text: "問いのある作品", main: ["STYLE", "概念"], sub: ["STYLE", "構成"] }
         ]
     },
     {
         q: "Q5 物語をどう伝える？",
         answers: [
-            { key: "A", text: "演じる", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
+            { key: "A", text: "演じる", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "言語"] },
             { key: "B", text: "映す", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
             { key: "C", text: "語る", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
             { key: "D", text: "体験させる", main: ["MEDIUM", "体験"], sub: ["MEDIUM", "空間"] }
@@ -727,15 +726,15 @@ const QUESTIONS = [
         answers: [
             { key: "A", text: "そのまま残す", main: ["STYLE", "再現"], sub: ["STYLE", "表現"] },
             { key: "B", text: "新しく変える", main: ["STYLE", "変容"], sub: ["STYLE", "構成"] },
-            { key: "C", text: "物語を足す", main: ["STYLE", "幻想"], sub: ["STYLE", "理想"] },
-            { key: "D", text: "光を残す", main: ["STYLE", "知覚"], sub: ["STYLE", "概念"] }
+            { key: "C", text: "物語を足す", main: ["STYLE", "幻想"], sub: ["STYLE", "表現"] },
+            { key: "D", text: "光を残す", main: ["STYLE", "知覚"], sub: ["STYLE", "再現"] }
         ]
     },
     {
         q: "Q8 「夏の思い出」を作品にするなら？",
         answers: [
             { key: "A", text: "色や光で見せる", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "映像"] },
-            { key: "B", text: "物や形で残す", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "身体"] },
+            { key: "B", text: "物や形で残す", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "空間"] },
             { key: "C", text: "その場所をつくる", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] },
             { key: "D", text: "音や声で伝える", main: ["MEDIUM", "音響"], sub: ["MEDIUM", "言語"] }
         ]
@@ -745,7 +744,7 @@ const QUESTIONS = [
         answers: [
             { key: "A", text: "心地よいもの", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "知らない世界", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
-            { key: "C", text: "気持ちが伝わるもの", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "感動"] },
+            { key: "C", text: "気持ちが伝わるもの", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "共感"] },
             { key: "D", text: "一緒に楽しめるもの", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "娯楽"] }
         ]
     },
@@ -755,14 +754,14 @@ const QUESTIONS = [
             { key: "A", text: "現実を美しく整える", main: ["STYLE", "理想"], sub: ["STYLE", "構成"] },
             { key: "B", text: "見慣れたものを違って見せる", main: ["STYLE", "知覚"], sub: ["STYLE", "変容"] },
             { key: "C", text: "存在しないものを生み出す", main: ["STYLE", "幻想"], sub: ["STYLE", "概念"] },
-            { key: "D", text: "自分だけの意味を与える", main: ["STYLE", "表現"], sub: ["STYLE", "再現"] }
+            { key: "D", text: "自分だけの意味を与える", main: ["STYLE", "表現"], sub: ["STYLE", "概念"] }
         ]
     },
     {
         q: "Q11 作品の中に人を入れるなら？",
         answers: [
-            { key: "A", text: "身体の動きで表現する", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
-            { key: "B", text: "言葉を交わしてもらう", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
+            { key: "A", text: "身体の動きで表現する", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "体験"] },
+            { key: "B", text: "言葉を交わしてもらう", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "身体"] },
             { key: "C", text: "映像の世界を見せる", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
             { key: "D", text: "その場を実際に体験してもらう", main: ["MEDIUM", "体験"], sub: ["MEDIUM", "空間"] }
         ]
@@ -789,9 +788,9 @@ const QUESTIONS = [
         q: "Q14 音楽を別の形にするなら？",
         answers: [
             { key: "A", text: "絵", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "音響"] },
-            { key: "B", text: "動き", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "空間"] },
-            { key: "C", text: "言葉", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "造形"] },
-            { key: "D", text: "映像", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "体験"] }
+            { key: "B", text: "動き", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "体験"] },
+            { key: "C", text: "言葉", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
+            { key: "D", text: "映像", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] }
         ]
     },
     {
@@ -799,7 +798,7 @@ const QUESTIONS = [
         answers: [
             { key: "A", text: "「きれい」と感じてほしい", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "「なぜ？」と考えてほしい", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
-            { key: "C", text: "「なるほど」と理解してほしい", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "娯楽"] },
+            { key: "C", text: "「なるほど」と理解してほしい", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "探究"] },
             { key: "D", text: "「自分もそう思う」と感じてほしい", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "感動"] }
         ]
     },
@@ -809,23 +808,23 @@ const QUESTIONS = [
             { key: "A", text: "美しい形", main: ["STYLE", "理想"], sub: ["STYLE", "知覚"] },
             { key: "B", text: "ひとつの問い", main: ["STYLE", "概念"], sub: ["STYLE", "再現"] },
             { key: "C", text: "心の動き", main: ["STYLE", "表現"], sub: ["STYLE", "幻想"] },
-            { key: "D", text: "仕組み", main: ["STYLE", "構成"], sub: ["STYLE", "変容"] }
+            { key: "D", text: "仕組み", main: ["STYLE", "構成"], sub: ["STYLE", "概念"] }
         ]
     },
     {
         q: "Q17 旅の思い出、何にする？",
         answers: [
             { key: "A", text: "映像", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
-            { key: "B", text: "模型", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "体験"] },
-            { key: "C", text: "物語", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
-            { key: "D", text: "場所", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "身体"] }
+            { key: "B", text: "模型", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "構成"] },
+            { key: "C", text: "物語", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "身体"] },
+            { key: "D", text: "場所", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] }
         ]
     },
     {
         q: "Q18 作品を見たあと、何が残してほしい？",
         answers: [
             { key: "A", text: "また見たいという楽しさ", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "感動"] },
-            { key: "B", text: "知らなかったことへの興味", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "伝達"] },
+            { key: "B", text: "知らなかったことへの興味", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
             { key: "C", text: "自分自身への気づき", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "共感"] },
             { key: "D", text: "心が少し軽くなる感覚", main: ["PURPOSE", "癒し"], sub: ["PURPOSE", "美"] }
         ]
@@ -916,7 +915,7 @@ const DATA_PURPOSE = {
         title: "感動を揺さぶる人",
         lines: [
             "人の心を大きく動かすことを目的とする人。",
-            "美しい、面白い だけではなく、忘れられないほど心を動かしたい という欲求が強い。",
+            "美しい、面白い だけではなく、忘れほど心を動かしたい という欲求が強い。",
             "物語の起伏、劇的な演出、壮大さ、意外性、音楽、身体表現などを駆使して感情のピークを作る。",
             "創作を 体験 として捉える傾向が強い。"
         ],
@@ -1062,7 +1061,7 @@ const PURPOSE_ORDER = ["美", "探究", "伝達", "共感", "娯楽", "思索", 
 let currentQuestionIndex = 0;
 let userAnswers = [];
 let uploadedImageData = null;
-let currentDisplayedMode = 1; // 1: 1st, 2: 2nd, 'opposite': opposite
+let currentDisplayedMode = 1;
 let calculatedResultsData = null;
 
 function showScreen(screenId) {
@@ -1460,7 +1459,6 @@ function renderCardByMode(mode) {
     document.getElementById('profile-desc').innerHTML = formattedProfileDesc;
 
     // 2. 作風の核
-    // 3カテゴリーの1位（style, medium, purpose）の中で最も点数の高いものを決定
     const scoreStyleTop = res.style.rank1.score;
     const scoreMediumTop = res.medium.rank1.score;
     const scorePurposeTop = res.purpose.rank1.score;
@@ -1474,29 +1472,34 @@ function renderCardByMode(mode) {
     const coreText = coreWinners.join('・');
     document.getElementById('profile-core-desc').innerHTML = `あなたの創作では <span style="font-weight:700;">${coreText}</span> が最も強い核になっています。`;
 
-    // 3. 作風の武器
-    // 各軸(style, medium, purpose)の1位と2位の差(diff1_2)が最も大きい項目を当てはめる。同率が2以上ある場合は全部羅列
+    // 3. 作風の武器（カテゴリー名を除外し、項目の値だけを羅列する）
     const diffs = [
-        { cat: '美学', val: res.style.diff1_2, key: res.style.rank1.key },
-        { cat: '媒体', val: res.medium.diff1_2, key: res.medium.rank1.key },
-        { cat: '目的', val: res.purpose.diff1_2, key: res.purpose.rank1.key }
+        { val: res.style.diff1_2, key: res.style.rank1.key },
+        { val: res.medium.diff1_2, key: res.medium.rank1.key },
+        { val: res.purpose.diff1_2, key: res.purpose.rank1.key }
     ];
     const maxDiff = Math.max(...diffs.map(d => d.val));
-    const weaponWinners = diffs.filter(d => d.val === maxDiff).map(d => `${d.cat}（${d.key}）`);
+    const weaponWinners = diffs.filter(d => d.val === maxDiff).map(d => d.key);
     const weaponText = weaponWinners.join('、');
 
     document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は <span style="font-weight:700;">${weaponText}</span> です。`;
 
     // 4. 意外な一面
-    // 1位と2位が最も近いカテゴリー（diff1_2が最小）を探す。1位〇〇と2位△△をはめる
     const closestCat = [...diffs].reduce((min, current) => current.val < min.val ? current : min);
     
-    let surpriseStyleName = "";
     let surpriseA = "", surpriseB = "";
-    if (closestCat.cat === '美学') {
+    // closestCat の判定用に戻すために元配列を直接参照
+    const diffsObj = [
+        { cat: '美学', val: res.style.diff1_2 },
+        { cat: '媒体', val: res.medium.diff1_2 },
+        { cat: '目的', val: res.purpose.diff1_2 }
+    ];
+    const closestFull = diffsObj.reduce((min, current) => current.val < min.val ? current : min);
+
+    if (closestFull.cat === '美学') {
         surpriseA = res.style.rank1.key;
         surpriseB = res.style.rank2.key;
-    } else if (closestCat.cat === '媒体') {
+    } else if (closestFull.cat === '媒体') {
         surpriseA = res.medium.rank1.key;
         surpriseB = res.medium.rank2.key;
     } else {
