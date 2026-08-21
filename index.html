@@ -202,6 +202,61 @@
             font-weight: 500;
         }
 
+        /* 8択グリッド用スタイル (Q19-Q21) */
+        .grid-instruction {
+            font-size: 0.8rem;
+            text-align: center;
+            color: var(--text-sub);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .grid-item {
+            aspect-ratio: 1 / 1;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .grid-item.selected {
+            border-color: var(--text-main);
+            box-shadow: 0 0 0 2px var(--text-main);
+        }
+
+        .grid-item.selected::after {
+            content: "✓";
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: var(--text-main);
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 50%;
+        }
+
         /* 画像アップロード */
         .file-upload-wrapper {
             margin-bottom: 2rem;
@@ -384,7 +439,6 @@
             display: none;
         }
 
-        /* 説明文全体（動的カラー背景 & 縦長傾向配置レイアウト） */
         .card-description {
             text-align: left;
             letter-spacing: 0;
@@ -424,7 +478,6 @@
             font-weight: 800;
             margin-bottom: 2px;
             display: block;
-            font-feature-settings: normal;
         }
 
         .desc-line {
@@ -433,7 +486,6 @@
             font-weight: 400;
             line-height: 1.4;
             white-space: nowrap;
-            font-feature-settings: normal;
         }
 
         .desc-keyword {
@@ -443,10 +495,8 @@
             opacity: 0.85;
             display: block;
             white-space: nowrap;
-            font-feature-settings: normal;
         }
 
-        /* 縦長傾向ウィジェット */
         .desc-tendency-panel {
             width: 90px;
             flex-shrink: 0;
@@ -494,7 +544,6 @@
             color: var(--text-sub);
         }
 
-        /* プロフィールカードセクション */
         .profile-section {
             margin-top: 6px;
             padding: 6px 10px;
@@ -551,7 +600,7 @@
                 あなたは、何を美しいと思い、<br>
                 何を通して表現し、<br>
                 何を誰かにもたらしたい人？<br><br>
-                18問の質問から、あなたの「創作の傾向」を診断します。
+                全21問の質問から、あなたの「創作の傾向」を診断します。
             </p>
             <button class="btn btn-start" onclick="startQuiz()">診断を開始する</button>
         </div>
@@ -560,10 +609,10 @@
     <!-- QUIZ SCREEN -->
     <div id="screen-quiz" class="screen">
         <div class="q-header">
-            <span class="q-number" id="q-number">Q1 / 18</span>
+            <span class="q-number" id="q-number">Q1 / 21</span>
         </div>
         <div class="q-title" id="q-title">質問タイトル</div>
-        <div class="options-list" id="q-options"></div>
+        <div id="q-content-area"></div>
         <div class="btn-group">
             <button class="btn btn-secondary" id="btn-prev-q" onclick="prevQuestion()">一つ戻る</button>
         </div>
@@ -613,22 +662,18 @@
                 <div class="card-description" id="res-description"></div>
 
                 <div class="profile-section">
-                    <!-- 1. 作風の輪郭 -->
                     <div class="profile-item-box">
                         <div class="profile-title" id="profile-title">1. 作風の輪郭｜〇〇型</div>
                         <div class="profile-desc" id="profile-desc">ここに説明文が入ります。</div>
                     </div>
-                    <!-- 2. 作風の核 -->
                     <div class="profile-item-box">
                         <div class="profile-title">2. 作風の核</div>
                         <div class="profile-desc" id="profile-core-desc">あなたの創作では 〇〇 が最も強い核になっています。</div>
                     </div>
-                    <!-- 3. 作風の武器 -->
                     <div class="profile-item-box">
                         <div class="profile-title">3. 作風の武器</div>
                         <div class="profile-desc" id="profile-weapon-desc">作品に強く個性を与える要素は 〇〇 です。</div>
                     </div>
-                    <!-- 4. 意外な一面 -->
                     <div class="profile-item-box">
                         <div class="profile-title">4. 意外な一面</div>
                         <div class="profile-desc" id="profile-surprise-desc">あなたは〇〇型に見えて、実は△△的な創作性もかなり強く持っています。</div>
@@ -665,10 +710,10 @@ const COLOR_PURPOSE = {
     "娯楽": "#FFCC80", "思索": "#CE93D8", "癒し": "#80DEEA", "感動": "#EF9A9A"
 };
 
-/* 18 QUESTIONS DATA (Updated) */
+/* 21 QUESTIONS DATA (Q1-Q18 standard + Q19-Q21 grid selection) */
 const QUESTIONS = [
     {
-        q: "どの世界が好き？",
+        q: "どの世界が好き？", type: "standard",
         answers: [
             { key: "A", text: "整った庭", main: ["STYLE", "理想"], sub: ["STYLE", "構成"] },
             { key: "B", text: "不思議な街", main: ["STYLE", "幻想"], sub: ["STYLE", "変容"] },
@@ -677,7 +722,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "アイデアを何にしたい？",
+        q: "アイデアを何にしたい？", type: "standard",
         answers: [
             { key: "A", text: "絵にする", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "映像"] },
             { key: "B", text: "形にする", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "身体"] },
@@ -686,7 +731,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "何と言われたい？",
+        q: "何と言われたい？", type: "standard",
         answers: [
             { key: "A", text: "「きれい！」", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "「もっと知りたい！」", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
@@ -695,7 +740,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "何をつくりたい？",
+        q: "何をつくりたい？", type: "standard",
         answers: [
             { key: "A", text: "新しい組合せ", main: ["STYLE", "変容"], sub: ["STYLE", "知覚"] },
             { key: "B", text: "心のかたち", main: ["STYLE", "表現"], sub: ["STYLE", "幻想"] },
@@ -704,7 +749,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "物語をどう伝える？",
+        q: "物語をどう伝える？", type: "standard",
         answers: [
             { key: "A", text: "演じる", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
             { key: "B", text: "映す", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
@@ -713,7 +758,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "どんな作品がいい？",
+        q: "どんな作品がいい？", type: "standard",
         answers: [
             { key: "A", text: "楽しい", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "共感"] },
             { key: "B", text: "考えさせる", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
@@ -722,7 +767,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "古い建物、どうする？",
+        q: "古い建物、どうする？", type: "standard",
         answers: [
             { key: "A", text: "そのまま残す", main: ["STYLE", "再現"], sub: ["STYLE", "表現"] },
             { key: "B", text: "新しく変える", main: ["STYLE", "変容"], sub: ["STYLE", "構成"] },
@@ -731,7 +776,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "「夏の思い出」を作品にするなら？",
+        q: "「夏の思い出」を作品にするなら？", type: "standard",
         answers: [
             { key: "A", text: "色や光で見せる", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "映像"] },
             { key: "B", text: "物や形で残す", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "身体"] },
@@ -740,7 +785,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "誰かに贈るなら？",
+        q: "誰かに贈るなら？", type: "standard",
         answers: [
             { key: "A", text: "心地よいもの", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "知らない世界", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
@@ -749,7 +794,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "作品をつくるなら、何を変えたい？",
+        q: "作品をつくるなら、何を変えたい？", type: "standard",
         answers: [
             { key: "A", text: "現実を美しく整える", main: ["STYLE", "理想"], sub: ["STYLE", "構成"] },
             { key: "B", text: "見慣れたものを違って見せる", main: ["STYLE", "知覚"], sub: ["STYLE", "変容"] },
@@ -758,7 +803,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "作品の中に人を入れるなら？",
+        q: "作品の中に人を入れるなら？", type: "standard",
         answers: [
             { key: "A", text: "身体の動きで表現する", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
             { key: "B", text: "言葉を交わしてもらう", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
@@ -767,7 +812,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "何を残したい？",
+        q: "何を残したい？", type: "standard",
         answers: [
             { key: "A", text: "問い", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
             { key: "B", text: "安心", main: ["PURPOSE", "癒し"], sub: ["PURPOSE", "美"] },
@@ -776,7 +821,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "好きな作品に共通するものは？",
+        q: "好きな作品に共通するものは？", type: "standard",
         answers: [
             { key: "A", text: "本物らしさ", main: ["STYLE", "再現"], sub: ["STYLE", "知覚"] },
             { key: "B", text: "美しい秩序", main: ["STYLE", "構成"], sub: ["STYLE", "理想"] },
@@ -785,7 +830,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "音楽を別の形にするなら？",
+        q: "音楽を別の形にするなら？", type: "standard",
         answers: [
             { key: "A", text: "絵", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "音響"] },
             { key: "B", text: "動き", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "空間"] },
@@ -794,7 +839,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "作品を見た人に、まず何をしてほしい？",
+        q: "作品を見た人に、まず何をしてほしい？", type: "standard",
         answers: [
             { key: "A", text: "「きれい」と感じてほしい", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
             { key: "B", text: "「なぜ？」と考えてほしい", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
@@ -803,7 +848,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "作品に何を込める？",
+        q: "作品に何を込める？", type: "standard",
         answers: [
             { key: "A", text: "美しい形", main: ["STYLE", "理想"], sub: ["STYLE", "知覚"] },
             { key: "B", text: "ひとつの問い", main: ["STYLE", "概念"], sub: ["STYLE", "変容"] },
@@ -812,7 +857,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "旅の思い出、何にする？",
+        q: "旅の思い出、何にする？", type: "standard",
         answers: [
             { key: "A", text: "映像", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
             { key: "B", text: "模型", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "空間"] },
@@ -821,12 +866,54 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "作品を見たあと、何が残ってほしい？",
+        q: "作品を見たあと、何が残ってほしい？", type: "standard",
         answers: [
             { key: "A", text: "また見たいという楽しさ", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "感動"] },
             { key: "B", text: "知らなかったことへの興味", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
             { key: "C", text: "自分自身への気づき", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "共感"] },
             { key: "D", text: "心が少し軽くなる感覚", main: ["PURPOSE", "癒し"], sub: ["PURPOSE", "美"] }
+        ]
+    },
+    {
+        q: "この中から好きなもの２つ選んでください", type: "grid",
+        category: "STYLE",
+        items: [
+            { label: "再現", img: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=300&q=80" },
+            { label: "理想", img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=300&q=80" },
+            { label: "表現", img: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=300&q=80" },
+            { label: "知覚", img: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=300&q=80" },
+            { label: "構成", img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=300&q=80" },
+            { label: "幻想", img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=300&q=80" },
+            { label: "概念", img: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=300&q=80" },
+            { label: "変容", img: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=300&q=80" }
+        ]
+    },
+    {
+        q: "この中から好きなもの２つ選んでください", type: "grid",
+        category: "MEDIUM",
+        items: [
+            { label: "視覚", img: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=300&q=80" },
+            { label: "造形", img: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=300&q=80" },
+            { label: "空間", img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300&q=80" },
+            { label: "音響", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300&q=80" },
+            { label: "言語", img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=300&q=80" },
+            { label: "身体", img: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=300&q=80" },
+            { label: "映像", img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&q=80" },
+            { label: "体験", img: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&q=80" }
+        ]
+    },
+    {
+        q: "この中から好きなもの２つ選んでください", type: "grid",
+        category: "PURPOSE",
+        items: [
+            { label: "美", img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=300&q=80" },
+            { label: "探究", img: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?w=300&q=80" },
+            { label: "伝達", img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=300&q=80" },
+            { label: "共感", img: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=300&q=80" },
+            { label: "娯楽", img: "https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=300&q=80" },
+            { label: "思索", img: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=300&q=80" },
+            { label: "癒し", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=300&q=80" },
+            { label: "感動", img: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=300&q=80" }
         ]
     }
 ];
@@ -1059,7 +1146,7 @@ const PURPOSE_ORDER = ["美", "探究", "伝達", "共感", "娯楽", "思索", 
 
 /* APP STATE & CONTROL */
 let currentQuestionIndex = 0;
-let userAnswers = [];
+let userAnswers = []; // 保存形式: 標準は選択肢index番号, グリッド(Q19-21)は選択されたラベルの配列
 let uploadedImageData = null;
 let currentDisplayedMode = 1;
 let calculatedResultsData = null;
@@ -1081,22 +1168,56 @@ function renderQuestion() {
     document.getElementById('q-number').textContent = `Q${currentQuestionIndex + 1} / ${QUESTIONS.length}`;
     document.getElementById('q-title').textContent = qData.q;
 
-    const optionsContainer = document.getElementById('q-options');
-    optionsContainer.innerHTML = '';
+    const contentArea = document.getElementById('q-content-area');
+    contentArea.innerHTML = '';
 
-    qData.answers.forEach((ans, idx) => {
-        const item = document.createElement('div');
-        item.className = 'option-item';
-        if (userAnswers[currentQuestionIndex] === idx) {
-            item.classList.add('selected');
+    if (qData.type === 'standard') {
+        const optionsList = document.createElement('div');
+        optionsList.className = 'options-list';
+
+        qData.answers.forEach((ans, idx) => {
+            const item = document.createElement('div');
+            item.className = 'option-item';
+            if (userAnswers[currentQuestionIndex] === idx) {
+                item.classList.add('selected');
+            }
+            item.innerHTML = `
+                <span class="option-key">${ans.key}</span>
+                <span class="option-text">${ans.text}</span>
+            `;
+            item.onclick = () => selectStandardAnswer(idx);
+            optionsList.appendChild(item);
+        });
+        contentArea.appendChild(optionsList);
+
+    } else if (qData.type === 'grid') {
+        const instruction = document.createElement('div');
+        instruction.className = 'grid-instruction';
+        instruction.textContent = "画像の中から2つ選んでください";
+        contentArea.appendChild(instruction);
+
+        const optionsGrid = document.createElement('div');
+        optionsGrid.className = 'options-grid';
+
+        // 保持されている選択状態を取得（配列形式）
+        let currentSelections = userAnswers[currentQuestionIndex];
+        if (!Array.isArray(currentSelections)) {
+            currentSelections = [];
         }
-        item.innerHTML = `
-            <span class="option-key">${ans.key}</span>
-            <span class="option-text">${ans.text}</span>
-        `;
-        item.onclick = () => selectAnswer(idx);
-        optionsContainer.appendChild(item);
-    });
+
+        qData.items.forEach((itemData) => {
+            const gridItem = document.createElement('div');
+            gridItem.className = 'grid-item';
+            if (currentSelections.includes(itemData.label)) {
+                gridItem.classList.add('selected');
+            }
+
+            gridItem.innerHTML = `<img src="${itemData.img}" alt="${itemData.label}">`;
+            gridItem.onclick = () => toggleGridItemSelection(itemData.label);
+            optionsGrid.appendChild(gridItem);
+        });
+        contentArea.appendChild(optionsGrid);
+    }
 
     const prevBtn = document.getElementById('btn-prev-q');
     if (currentQuestionIndex === 0) {
@@ -1108,13 +1229,50 @@ function renderQuestion() {
     }
 }
 
-function selectAnswer(index) {
+function selectStandardAnswer(index) {
     userAnswers[currentQuestionIndex] = index;
     if (currentQuestionIndex < QUESTIONS.length - 1) {
         currentQuestionIndex++;
         renderQuestion();
     } else {
         showScreen('screen-image');
+    }
+}
+
+function toggleGridItemSelection(label) {
+    let currentSelections = userAnswers[currentQuestionIndex];
+    if (!Array.isArray(currentSelections)) {
+        currentSelections = [];
+    }
+
+    const index = currentSelections.indexOf(label);
+    if (index > -1) {
+        // 既に選択されていたら外す
+        currentSelections.splice(index, 1);
+    } else {
+        // 未選択で、まだ2つ未満なら追加
+        if (currentSelections.length < 2) {
+            currentSelections.push(label);
+        } else {
+            // すでに2つ選ばれている場合は、一番最初に入れたものを外して新しい方に入れ替える
+            currentSelections.shift();
+            currentSelections.push(label);
+        }
+    }
+
+    userAnswers[currentQuestionIndex] = currentSelections;
+    renderQuestion();
+
+    // ちょうど2つ選ばれたら自動的に次の問題へ進む
+    if (currentSelections.length === 2) {
+        setTimeout(() => {
+            if (currentQuestionIndex < QUESTIONS.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                showScreen('screen-image');
+            }
+        }, 300); // わずかに選択の見た目を変えてから移行
     }
 }
 
@@ -1164,20 +1322,34 @@ function calculateScores() {
     MEDIUM_ORDER.forEach(k => scoreMap.MEDIUM[k] = { total: 0, mainCount: 0, subCount: 0 });
     PURPOSE_ORDER.forEach(k => scoreMap.PURPOSE[k] = { total: 0, mainCount: 0, subCount: 0 });
 
-    userAnswers.forEach((ansIdx, qIdx) => {
-        if (ansIdx === undefined) return;
-        const ans = QUESTIONS[qIdx].answers[ansIdx];
-        
-        const [mainCat, mainKey] = ans.main;
-        if (scoreMap[mainCat][mainKey]) {
-            scoreMap[mainCat][mainKey].total += 2;
-            scoreMap[mainCat][mainKey].mainCount += 1;
-        }
+    userAnswers.forEach((ansData, qIdx) => {
+        if (ansData === undefined) return;
+        const qData = QUESTIONS[qIdx];
 
-        const [subCat, subKey] = ans.sub;
-        if (scoreMap[subCat][subKey]) {
-            scoreMap[subCat][subKey].total += 1;
-            scoreMap[subCat][subKey].subCount += 1;
+        if (qData.type === 'standard') {
+            const ans = qData.answers[ansData];
+            const [mainCat, mainKey] = ans.main;
+            if (scoreMap[mainCat][mainKey]) {
+                scoreMap[mainCat][mainKey].total += 2;
+                scoreMap[mainCat][mainKey].mainCount += 1;
+            }
+
+            const [subCat, subKey] = ans.sub;
+            if (scoreMap[subCat][subKey]) {
+                scoreMap[subCat][subKey].total += 1;
+                scoreMap[subCat][subKey].subCount += 1;
+            }
+        } else if (qData.type === 'grid') {
+            // Grid問題 (Q19-Q21): 選んだ2つにそれぞれ2点、副なし
+            if (Array.isArray(ansData)) {
+                const category = qData.category; // STYLE, MEDIUM, or PURPOSE
+                ansData.forEach(selectedKey => {
+                    if (scoreMap[category][selectedKey]) {
+                        scoreMap[category][selectedKey].total += 2;
+                        scoreMap[category][selectedKey].mainCount += 1;
+                    }
+                });
+            }
         }
     });
 
@@ -1426,7 +1598,6 @@ function renderCardByMode(mode) {
         </div>
     `;
 
-    // 1. 作風の輪郭
     const avg = res.avgDiffPercent;
     let profileTypeName = "";
     let profileDescText = "";
@@ -1458,7 +1629,6 @@ function renderCardByMode(mode) {
 
     document.getElementById('profile-desc').innerHTML = formattedProfileDesc;
 
-    // 2. 作風の核
     const scoreStyleTop = res.style.rank1.score;
     const scoreMediumTop = res.medium.rank1.score;
     const scorePurposeTop = res.purpose.rank1.score;
@@ -1472,7 +1642,6 @@ function renderCardByMode(mode) {
     const coreText = coreWinners.join('・');
     document.getElementById('profile-core-desc').innerHTML = `あなたの創作では <span style="font-weight:700;">${coreText}</span> が最も強い核になっています。`;
 
-    // 3. 作風の武器
     const diffs = [
         { val: res.style.diff1_2, key: res.style.rank1.key },
         { val: res.medium.diff1_2, key: res.medium.rank1.key },
@@ -1484,7 +1653,6 @@ function renderCardByMode(mode) {
 
     document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は <span style="font-weight:700;">${weaponText}</span> です。`;
 
-    // 4. 意外な一面
     const diffsObj = [
         { cat: '美学', val: res.style.diff1_2 },
         { cat: '媒体', val: res.medium.diff1_2 },
