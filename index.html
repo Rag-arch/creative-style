@@ -1472,7 +1472,7 @@ function renderCardByMode(mode) {
     const coreText = coreWinners.join('・');
     document.getElementById('profile-core-desc').innerHTML = `あなたの創作では <span style="font-weight:700;">${coreText}</span> が最も強い核になっています。`;
 
-    // 3. 作風の武器（カテゴリー名を除外し、項目の値だけを羅列する）
+    // 3. 作風の武器（カテゴリ名や「型」などを除外し、純粋な単語（値）だけを並べるよう修正）
     const diffs = [
         { val: res.style.diff1_2, key: res.style.rank1.key },
         { val: res.medium.diff1_2, key: res.medium.rank1.key },
@@ -1485,10 +1485,6 @@ function renderCardByMode(mode) {
     document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は <span style="font-weight:700;">${weaponText}</span> です。`;
 
     // 4. 意外な一面
-    const closestCat = [...diffs].reduce((min, current) => current.val < min.val ? current : min);
-    
-    let surpriseA = "", surpriseB = "";
-    // closestCat の判定用に戻すために元配列を直接参照
     const diffsObj = [
         { cat: '美学', val: res.style.diff1_2 },
         { cat: '媒体', val: res.medium.diff1_2 },
@@ -1496,6 +1492,7 @@ function renderCardByMode(mode) {
     ];
     const closestFull = diffsObj.reduce((min, current) => current.val < min.val ? current : min);
 
+    let surpriseA = "", surpriseB = "";
     if (closestFull.cat === '美学') {
         surpriseA = res.style.rank1.key;
         surpriseB = res.style.rank2.key;
