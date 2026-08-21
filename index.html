@@ -357,7 +357,7 @@
 
         .card-image-area {
             width: 100%;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 7 / 6; /* 横7：縦6に変更 */
             margin: 8px 0 6px 0;
             display: flex;
             justify-content: center;
@@ -417,7 +417,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding-right: 4px; /* 傾向への被りを防ぐ右側マージン */
+            padding-right: 4px;
         }
 
         .desc-bold {
@@ -447,7 +447,7 @@
             font-feature-settings: normal;
         }
 
-        /* 縦長傾向ウィジェット (文字と％の間隔を詰めて右側に寄せる) */
+        /* 縦長傾向ウィジェット */
         .desc-tendency-panel {
             width: 90px;
             flex-shrink: 0;
@@ -472,17 +472,17 @@
         .desc-tendency-item {
             display: flex;
             align-items: center;
-            justify-content: flex-end; /* 全体を右側に寄せる */
+            justify-content: flex-end;
             color: var(--text-main);
             font-size: 0.52rem;
             font-weight: 500;
             white-space: nowrap;
             line-height: 1.45;
-            gap: 6px; /* 文字と％の間隔を詰める */
+            gap: 6px;
         }
 
         .desc-tendency-item .item-label {
-            margin-right: auto; /* ラベルを左に寄せつつ％を右側に固定 */
+            margin-right: auto;
         }
 
         .desc-tendency-item .rank-num {
@@ -495,7 +495,7 @@
             color: var(--text-sub);
         }
 
-        /* 作風の輪郭セクション (透ける白背景に変更) */
+        /* プロフィールカードセクション (新規項目追加に対応) */
         .profile-section {
             margin-top: 6px;
             padding: 6px 10px;
@@ -505,13 +505,26 @@
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .profile-item-box {
+            border-top: 1px dashed rgba(0, 0, 0, 0.15);
+            padding-top: 4px;
+        }
+
+        .profile-item-box:first-child {
+            border-top: none;
+            padding-top: 0;
         }
 
         .profile-title {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 800;
             color: var(--text-main);
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .profile-desc {
@@ -601,8 +614,26 @@
                 <div class="card-description" id="res-description"></div>
 
                 <div class="profile-section">
-                    <div class="profile-title" id="profile-title">作風の輪郭｜〇〇型</div>
-                    <div class="profile-desc" id="profile-desc">ここに説明文が入ります。</div>
+                    <!-- 1. 作風の輪郭 -->
+                    <div class="profile-item-box">
+                        <div class="profile-title" id="profile-title">1. 作風の輪郭｜〇〇型</div>
+                        <div class="profile-desc" id="profile-desc">ここに説明文が入ります。</div>
+                    </div>
+                    <!-- 2. 作風の核 -->
+                    <div class="profile-item-box">
+                        <div class="profile-title">2. 作風の核</div>
+                        <div class="profile-desc" id="profile-core-desc">あなたの創作では 〇〇 が最も強い核になっています。</div>
+                    </div>
+                    <!-- 3. 作風の武器 -->
+                    <div class="profile-item-box">
+                        <div class="profile-title">3. 作風の武器</div>
+                        <div class="profile-desc" id="profile-weapon-desc">作品に強く個性を与える要素は 〇〇 です。</div>
+                    </div>
+                    <!-- 4. 意外な一面 -->
+                    <div class="profile-item-box">
+                        <div class="profile-title">4. 意外な一面</div>
+                        <div class="profile-desc" id="profile-surprise-desc">あなたは〇〇型に見えて、実は△△的な創作性もかなり強く持っています。</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1181,6 +1212,7 @@ function calculateScores() {
             opposite2: { key: sortedAsc[1], ratio: top1Score > 0 ? (catMap[sortedAsc[1]].total / top1Score) : 0, score: catMap[sortedAsc[1]].total },
             opposite3: { key: sortedAsc[2], ratio: top1Score > 0 ? (catMap[sortedAsc[2]].total / top1Score) : 0, score: catMap[sortedAsc[2]].total },
             
+            diff1_2: top1Score - catMap[sortedDesc[1]].total,
             diff2Percent: top1Score > 0 ? ((top1Score - catMap[sortedDesc[1]].total) / top1Score) * 100 : 0
         };
     }
@@ -1195,7 +1227,8 @@ function calculateScores() {
         style: styleRes,
         medium: mediumRes,
         purpose: purposeRes,
-        avgDiffPercent: avgDiffPercent
+        avgDiffPercent: avgDiffPercent,
+        rawScores: scoreMap
     };
 }
 
@@ -1218,7 +1251,6 @@ function formatLine(line) {
 function renderSideTendencyPanel(catTitle, rankData, mode) {
     let itemsHtml = '';
     if (mode === 2) {
-        // 2位〜4位
         itemsHtml = `
             <div class="desc-tendency-item">
                 <span class="item-label"><span class="rank-num">2.</span>${rankData.rank2.key}</span>
@@ -1234,7 +1266,6 @@ function renderSideTendencyPanel(catTitle, rankData, mode) {
             </div>
         `;
     } else if (mode === 'opposite') {
-        // ワースト1位〜ワースト3位
         itemsHtml = `
             <div class="desc-tendency-item">
                 <span class="item-label"><span class="rank-num">W1.</span>${rankData.opposite1.key}</span>
@@ -1250,7 +1281,6 @@ function renderSideTendencyPanel(catTitle, rankData, mode) {
             </div>
         `;
     } else {
-        // 1位〜3位
         itemsHtml = `
             <div class="desc-tendency-item">
                 <span class="item-label"><span class="rank-num">1.</span>${rankData.rank1.key}</span>
@@ -1297,7 +1327,7 @@ function renderCardByMode(mode) {
         ratioS = res.style.rank2.ratio;
         ratioM = res.medium.rank2.ratio;
         ratioP = res.purpose.rank2.ratio;
-    } else { // 'opposite'
+    } else {
         finalStyle = res.style.opposite1.key;
         finalMedium = res.medium.opposite1.key;
         finalPurpose = res.purpose.opposite1.key;
@@ -1364,7 +1394,6 @@ function renderCardByMode(mode) {
 
     const descEl = document.getElementById('res-description');
     
-    /* 順序: 美学 / 媒体 / 目的 */
     descEl.innerHTML = `
         <div class="desc-block" style="background-color: ${bgStyleDesc};">
             <div class="desc-content-main">
@@ -1398,7 +1427,7 @@ function renderCardByMode(mode) {
         </div>
     `;
 
-    // 作風の輪郭判定
+    // 1. 作風の輪郭
     const avg = res.avgDiffPercent;
     let profileTypeName = "";
     let profileDescText = "";
@@ -1420,7 +1449,7 @@ function renderCardByMode(mode) {
         profileDescText = "あなたの作風傾向は一つの言葉では捉えきれません。複数の方向性を持ち、それらを行き来できること自体があなたの作風です。";
     }
 
-    document.getElementById('profile-title').textContent = `作風の輪郭｜${profileTypeName}`;
+    document.getElementById('profile-title').textContent = `1. 作風の輪郭｜${profileTypeName}`;
     
     const formattedProfileDesc = profileDescText
         .split('。')
@@ -1429,6 +1458,53 @@ function renderCardByMode(mode) {
         .join('');
 
     document.getElementById('profile-desc').innerHTML = formattedProfileDesc;
+
+    // 2. 作風の核
+    // 3カテゴリーの1位（style, medium, purpose）の中で最も点数の高いものを決定
+    const scoreStyleTop = res.style.rank1.score;
+    const scoreMediumTop = res.medium.rank1.score;
+    const scorePurposeTop = res.purpose.rank1.score;
+
+    const maxScore = Math.max(scoreStyleTop, scoreMediumTop, scorePurposeTop);
+    let coreWinners = [];
+    if (scoreStyleTop === maxScore) coreWinners.push(res.style.rank1.key);
+    if (scoreMediumTop === maxScore) coreWinners.push(res.medium.rank1.key);
+    if (scorePurposeTop === maxScore) coreWinners.push(res.purpose.rank1.key);
+    
+    const coreText = coreWinners.join('・');
+    document.getElementById('profile-core-desc').innerHTML = `あなたの創作では <span style="font-weight:700;">${coreText}</span> が最も強い核になっています。`;
+
+    // 3. 作風の武器
+    // 各軸(style, medium, purpose)の1位と2位の差(diff1_2)が最も大きい項目を当てはめる。同率が2以上ある場合は全部羅列
+    const diffs = [
+        { cat: '美学', val: res.style.diff1_2, key: res.style.rank1.key },
+        { cat: '媒体', val: res.medium.diff1_2, key: res.medium.rank1.key },
+        { cat: '目的', val: res.purpose.diff1_2, key: res.purpose.rank1.key }
+    ];
+    const maxDiff = Math.max(...diffs.map(d => d.val));
+    const weaponWinners = diffs.filter(d => d.val === maxDiff).map(d => `${d.cat}（${d.key}）`);
+    const weaponText = weaponWinners.join('、');
+
+    document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は <span style="font-weight:700;">${weaponText}</span> です。`;
+
+    // 4. 意外な一面
+    // 1位と2位が最も近いカテゴリー（diff1_2が最小）を探す。1位〇〇と2位△△をはめる
+    const closestCat = [...diffs].reduce((min, current) => current.val < min.val ? current : min);
+    
+    let surpriseStyleName = "";
+    let surpriseA = "", surpriseB = "";
+    if (closestCat.cat === '美学') {
+        surpriseA = res.style.rank1.key;
+        surpriseB = res.style.rank2.key;
+    } else if (closestCat.cat === '媒体') {
+        surpriseA = res.medium.rank1.key;
+        surpriseB = res.medium.rank2.key;
+    } else {
+        surpriseA = res.purpose.rank1.key;
+        surpriseB = res.purpose.rank2.key;
+    }
+
+    document.getElementById('profile-surprise-desc').innerHTML = `あなたは<span style="font-weight:700;">${surpriseA}</span>型に見えて、実は<span style="font-weight:700;">${surpriseB}</span>的な創作性もかなり強く持っています。`;
 
     const toggleRankBtn = document.getElementById('btn-toggle-rank');
     const toggleOppBtn = document.getElementById('btn-toggle-opposite');
