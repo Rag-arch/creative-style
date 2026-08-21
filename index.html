@@ -13,7 +13,7 @@
             --text-sub: #666666;
             --border-color: #e0e0e0;
             --accent-color: #000000;
-            --desc-bg: rgba(255, 255, 255, 0.75);
+            --profile-bg: rgba(255, 255, 255, 0.65);
             --font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
 
@@ -286,7 +286,7 @@
             background: #ffffff;
             width: 100%;
             max-width: 540px;
-            padding: 24px 20px 24px;
+            padding: 18px 18px 18px;
             border: 1px solid var(--text-main);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             box-sizing: border-box;
@@ -296,35 +296,35 @@
 
         .card-header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
         .card-subtitle {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 700;
             letter-spacing: 0.2em;
             color: #444444;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
             text-transform: uppercase;
         }
 
         .card-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 900;
             letter-spacing: 0.2em;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
             text-transform: uppercase;
             color: var(--text-main);
         }
 
         .card-formula {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 900;
             letter-spacing: 0.1em;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             border-top: 1.5px solid var(--text-main);
             border-bottom: 1.5px solid var(--text-main);
-            padding: 6px 0;
+            padding: 4px 0;
             color: var(--text-main);
             display: flex;
             justify-content: center;
@@ -340,7 +340,7 @@
         }
 
         .card-formula span.pct-label {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 600;
             color: #777777;
             margin-left: 2px;
@@ -348,7 +348,7 @@
         }
 
         .card-sentence {
-            font-size: 0.88rem;
+            font-size: 0.8rem;
             font-weight: 700;
             letter-spacing: 0.03em;
             color: var(--text-main);
@@ -358,7 +358,7 @@
         .card-image-area {
             width: 100%;
             aspect-ratio: 1 / 1;
-            margin: 12px 0 8px 0;
+            margin: 8px 0 6px 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -373,18 +373,18 @@
         }
 
         .card-reason-text {
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 600;
             color: var(--text-main);
             text-align: center;
-            margin-bottom: 8px;
-            line-height: 1.4;
-            padding: 0 6px;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            padding: 0 4px;
             word-break: break-all;
             display: none;
         }
 
-        /* 説明文全体（動的カラー背景） */
+        /* 説明文全体（動的カラー背景 & 縦長傾向配置レイアウト） */
         .card-description {
             text-align: left;
             letter-spacing: 0;
@@ -392,21 +392,36 @@
         }
 
         .desc-block {
-            padding: 6px 10px;
+            padding: 8px 10px;
             border-radius: 4px;
             margin-bottom: 6px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             transition: background-color 0.3s ease;
+            
+            /* 横並びレイアウト (左側:説明, 右側:縦長傾向) */
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 8px;
         }
 
         .desc-block:last-child {
             margin-bottom: 0;
         }
 
+        .desc-content-main {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-right: 4px; /* 傾向への被りを防ぐ右側マージン */
+        }
+
         .desc-bold {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 800;
             margin-bottom: 2px;
             display: block;
@@ -415,17 +430,16 @@
 
         .desc-line {
             display: block;
-            font-size: 0.58rem;
+            font-size: 0.55rem;
             font-weight: 400;
-            line-height: 1.3;
-            margin-bottom: 1px;
+            line-height: 1.4;
             white-space: nowrap;
             font-feature-settings: normal;
         }
 
         .desc-keyword {
-            margin-top: 2px;
-            font-size: 0.58rem;
+            margin-top: 3px;
+            font-size: 0.55rem;
             font-weight: 400;
             opacity: 0.85;
             display: block;
@@ -433,11 +447,59 @@
             font-feature-settings: normal;
         }
 
-        /* 創作傾向セクション */
-        .tendency-section {
+        /* 縦長傾向ウィジェット (文字と％の間隔を詰めて右側に寄せる) */
+        .desc-tendency-panel {
+            width: 90px;
+            flex-shrink: 0;
+            padding: 2px 0px 2px 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .desc-tendency-title {
+            font-size: 0.52rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            margin-bottom: 3px;
+            border-bottom: 1px solid var(--text-main);
+            padding-bottom: 2px;
+            display: block;
+            text-align: center;
+        }
+
+        .desc-tendency-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* 全体を右側に寄せる */
+            color: var(--text-main);
+            font-size: 0.52rem;
+            font-weight: 500;
+            white-space: nowrap;
+            line-height: 1.45;
+            gap: 6px; /* 文字と％の間隔を詰める */
+        }
+
+        .desc-tendency-item .item-label {
+            margin-right: auto; /* ラベルを左に寄せつつ％を右側に固定 */
+        }
+
+        .desc-tendency-item .rank-num {
+            margin-right: 2px;
+            font-weight: 600;
+        }
+
+        .desc-tendency-item .pct-val {
+            font-weight: 600;
+            color: var(--text-sub);
+        }
+
+        /* 作風の輪郭セクション (透ける白背景に変更) */
+        .profile-section {
             margin-top: 6px;
             padding: 6px 10px;
-            background-color: var(--desc-bg);
+            background-color: var(--profile-bg);
             border-radius: 4px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -445,66 +507,23 @@
             text-align: left;
         }
 
-        .tendency-title {
-            font-size: 0.75rem;
+        .profile-title {
+            font-size: 0.7rem;
             font-weight: 800;
             color: var(--text-main);
-            margin-bottom: 4px;
-            text-align: left;
-        }
-
-        .tendency-grid {
-            display: flex;
-            justify-content: space-between;
-            align-items: stretch;
-        }
-
-        .tendency-col {
-            flex: 1;
-            font-size: 0.62rem;
-            line-height: 1.3;
-            padding: 0 8px;
-        }
-
-        .tendency-col:first-child {
-            padding-left: 0;
-        }
-
-        .tendency-col:last-child {
-            padding-right: 0;
-        }
-
-        .tendency-col:not(:last-child) {
-            border-right: 1px solid rgba(0, 0, 0, 0.15);
-        }
-
-        .tendency-col-title {
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 0.05em;
             margin-bottom: 2px;
-            border-bottom: 1px solid var(--text-main);
-            padding-bottom: 1px;
-            display: inline-block;
         }
 
-        .tendency-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: var(--text-main);
+        .profile-desc {
+            font-size: 0.55rem;
             font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        .profile-desc-line {
+            display: block;
             white-space: nowrap;
-        }
-
-        .tendency-item .rank-num {
-            margin-right: 2px;
-        }
-
-        .tendency-item .pct-val {
-            font-weight: 600;
-            color: var(--text-sub);
-            margin-left: 8px;
         }
     </style>
 </head>
@@ -581,13 +600,9 @@
 
                 <div class="card-description" id="res-description"></div>
 
-                <div class="tendency-section">
-                    <div class="tendency-title">あなたの創作傾向</div>
-                    <div class="tendency-grid">
-                        <div class="tendency-col" id="tendency-style"></div>
-                        <div class="tendency-col" id="tendency-medium"></div>
-                        <div class="tendency-col" id="tendency-purpose"></div>
-                    </div>
+                <div class="profile-section">
+                    <div class="profile-title" id="profile-title">作風の輪郭｜〇〇型</div>
+                    <div class="profile-desc" id="profile-desc">ここに説明文が入ります。</div>
                 </div>
             </div>
         </div>
@@ -894,14 +909,14 @@ const DATA_MEDIUM = {
     "空間": {
         action: "構築する",
         title: "場を通して表現する",
-        text: "建築・場所・配置など、人が身を置く環境そのものをつくる。",
+        text: "建築・場所・配置など、人が身 the 環境そのものをつくる。",
         keywords: "建築、インテリア、庭園、都市"
     },
     "音響": {
         action: "奏でる",
         title: "音を通して表現する",
         text: "音・声・リズム・響きなど、耳で感じるものを通して表現する。",
-        keywords: "作曲、演奏、歌唱、サウンド"
+        keywords: "作曲, 演奏, 歌唱, サウンド"
     },
     "言語": {
         action: "語る",
@@ -1138,7 +1153,6 @@ function calculateScores() {
 
     function getSortedRankList(category, orderList) {
         const catMap = scoreMap[category];
-        // 降順ソート（上位用）
         const sortedDesc = [...orderList].sort((a, b) => {
             const itemA = catMap[a];
             const itemB = catMap[b];
@@ -1148,7 +1162,6 @@ function calculateScores() {
             return orderList.indexOf(a) - orderList.indexOf(b);
         });
 
-        // 昇順ソート（下位・反対用：点数が低い順、点数が同じなら元の並び順）
         const sortedAsc = [...orderList].sort((a, b) => {
             const itemA = catMap[a];
             const itemB = catMap[b];
@@ -1156,44 +1169,33 @@ function calculateScores() {
             return orderList.indexOf(a) - orderList.indexOf(b);
         });
 
-        const top1Key = sortedDesc[0];
-        const top2Key = sortedDesc[1];
-        const top3Key = sortedDesc[2];
-        
-        const bot1Key = sortedAsc[0];
-        const bot2Key = sortedAsc[1];
-        const bot3Key = sortedAsc[2];
-
-        const top1Score = catMap[top1Key].total;
-        const top2Score = catMap[top2Key].total;
-        const top3Score = catMap[top3Key].total;
-
-        const bot1Score = catMap[bot1Key].total;
-        const bot2Score = catMap[bot2Key].total;
-        const bot3Score = catMap[bot3Key].total;
-
-        const ratio1 = 1.0;
-        const ratio2 = top1Score > 0 ? (top2Score / top1Score) : 1.0;
-        const ratio3 = top1Score > 0 ? (top3Score / top1Score) : 1.0;
-
-        const botRatio1 = top1Score > 0 ? (bot1Score / top1Score) : 0;
-        const botRatio2 = top1Score > 0 ? (bot2Score / top1Score) : 0;
-        const botRatio3 = top1Score > 0 ? (bot3Score / top1Score) : 0;
+        const top1Score = catMap[sortedDesc[0]].total;
 
         return {
-            rank1: { key: top1Key, ratio: ratio1, score: top1Score },
-            rank2: { key: top2Key, ratio: ratio2, score: top2Score },
-            rank3: { key: top3Key, ratio: ratio3, score: top3Score },
-            opposite1: { key: bot1Key, ratio: botRatio1, score: bot1Score },
-            opposite2: { key: bot2Key, ratio: botRatio2, score: bot2Score },
-            opposite3: { key: bot3Key, ratio: botRatio3, score: bot3Score }
+            rank1: { key: sortedDesc[0], ratio: 1.0, score: top1Score },
+            rank2: { key: sortedDesc[1], ratio: top1Score > 0 ? (catMap[sortedDesc[1]].total / top1Score) : 1.0, score: catMap[sortedDesc[1]].total },
+            rank3: { key: sortedDesc[2], ratio: top1Score > 0 ? (catMap[sortedDesc[2]].total / top1Score) : 1.0, score: catMap[sortedDesc[2]].total },
+            rank4: { key: sortedDesc[3], ratio: top1Score > 0 ? (catMap[sortedDesc[3]].total / top1Score) : 1.0, score: catMap[sortedDesc[3]].total },
+            
+            opposite1: { key: sortedAsc[0], ratio: top1Score > 0 ? (catMap[sortedAsc[0]].total / top1Score) : 0, score: catMap[sortedAsc[0]].total },
+            opposite2: { key: sortedAsc[1], ratio: top1Score > 0 ? (catMap[sortedAsc[1]].total / top1Score) : 0, score: catMap[sortedAsc[1]].total },
+            opposite3: { key: sortedAsc[2], ratio: top1Score > 0 ? (catMap[sortedAsc[2]].total / top1Score) : 0, score: catMap[sortedAsc[2]].total },
+            
+            diff2Percent: top1Score > 0 ? ((top1Score - catMap[sortedDesc[1]].total) / top1Score) * 100 : 0
         };
     }
 
+    const styleRes = getSortedRankList("STYLE", STYLE_ORDER);
+    const mediumRes = getSortedRankList("MEDIUM", MEDIUM_ORDER);
+    const purposeRes = getSortedRankList("PURPOSE", PURPOSE_ORDER);
+
+    const avgDiffPercent = (styleRes.diff2Percent + mediumRes.diff2Percent + purposeRes.diff2Percent) / 3;
+
     return {
-        style: getSortedRankList("STYLE", STYLE_ORDER),
-        medium: getSortedRankList("MEDIUM", MEDIUM_ORDER),
-        purpose: getSortedRankList("PURPOSE", PURPOSE_ORDER)
+        style: styleRes,
+        medium: mediumRes,
+        purpose: purposeRes,
+        avgDiffPercent: avgDiffPercent
     };
 }
 
@@ -1213,20 +1215,62 @@ function formatLine(line) {
     return `<span class="desc-line">${line}</span>`;
 }
 
-function renderTendencyBlock(catTitle, rankData) {
+function renderSideTendencyPanel(catTitle, rankData, mode) {
+    let itemsHtml = '';
+    if (mode === 2) {
+        // 2位〜4位
+        itemsHtml = `
+            <div class="desc-tendency-item">
+                <span class="item-label"><span class="rank-num">2.</span>${rankData.rank2.key}</span>
+                <span class="pct-val">${Math.round(rankData.rank2.ratio * 100)}%</span>
+            </div>
+            <div class="desc-tendency-item">
+                <span class="item-label"><span class="rank-num">3.</span>${rankData.rank3.key}</span>
+                <span class="pct-val">${Math.round(rankData.rank3.ratio * 100)}%</span>
+            </div>
+            <div class="desc-tendency-item">
+                <span class="item-label"><span class="rank-num">4.</span>${rankData.rank4.key}</span>
+                <span class="pct-val">${Math.round(rankData.rank4.ratio * 100)}%</span>
+            </div>
+        `;
+    } else if (mode === 'opposite') {
+        // ワースト1位〜ワースト3位
+        itemsHtml = `
+            <div class="desc-tendency-item">
+                <span class="item-label"><span class="rank-num">W1.</span>${rankData.opposite1.key}</span>
+                <span class="pct-val">${Math.round(rankData.opposite1.ratio * 100)}%</span>
+            </div>
+            <div class="desc-tendency-item">
+                <span class="item-label"><span class="rank-num">W2.</span>${rankData.opposite2.key}</span>
+                <span class="pct-val">${Math.round(rankData.opposite2.ratio * 100)}%</span>
+            </div>
+            <div class="desc-tendency-item">
+                <span class="item-label"><span class="rank-num">W3.</span>${rankData.opposite3.key}</span>
+                <span class="pct-val">${Math.round(rankData.opposite3.ratio * 100)}%</span>
+            </div>
+        `;
+    } else {
+        // 1位〜3位
+        itemsHtml = `
+            <div class="desc-tendency-item">
+                <span class="item-label"><span class="rank-num">1.</span>${rankData.rank1.key}</span>
+                <span class="pct-val">${Math.round(rankData.rank1.ratio * 100)}%</span>
+            </div>
+            <div class="desc-tendency-item">
+                <span class="item-label"><span class="rank-num">2.</span>${rankData.rank2.key}</span>
+                <span class="pct-val">${Math.round(rankData.rank2.ratio * 100)}%</span>
+            </div>
+            <div class="desc-tendency-item">
+                <span class="item-label"><span class="rank-num">3.</span>${rankData.rank3.key}</span>
+                <span class="pct-val">${Math.round(rankData.rank3.ratio * 100)}%</span>
+            </div>
+        `;
+    }
+
     return `
-        <div class="tendency-col-title">${catTitle}</div>
-        <div class="tendency-item">
-            <span><span class="rank-num">１.</span>${rankData.rank1.key}</span>
-            <span class="pct-val">${Math.round(rankData.rank1.ratio * 100)}%</span>
-        </div>
-        <div class="tendency-item">
-            <span><span class="rank-num">２.</span>${rankData.rank2.key}</span>
-            <span class="pct-val">${Math.round(rankData.rank2.ratio * 100)}%</span>
-        </div>
-        <div class="tendency-item">
-            <span><span class="rank-num">３.</span>${rankData.rank3.key}</span>
-            <span class="pct-val">${Math.round(rankData.rank3.ratio * 100)}%</span>
+        <div class="desc-tendency-panel">
+            <span class="desc-tendency-title">${catTitle}傾向</span>
+            ${itemsHtml}
         </div>
     `;
 }
@@ -1281,10 +1325,10 @@ function renderCardByMode(mode) {
         document.getElementById('res-title').textContent = "あなたにないもの";
     }
 
-    const baseFontSize = 1.6;
-    const fontStyle = `${Math.max(baseFontSize * ratioS, 0.7)}rem`;
-    const fontMedium = `${Math.max(baseFontSize * ratioM, 0.7)}rem`;
-    const fontPurpose = `${Math.max(baseFontSize * ratioP, 0.7)}rem`;
+    const baseFontSize = 1.4;
+    const fontStyle = `${Math.max(baseFontSize * ratioS, 0.65)}rem`;
+    const fontMedium = `${Math.max(baseFontSize * ratioM, 0.65)}rem`;
+    const fontPurpose = `${Math.max(baseFontSize * ratioP, 0.65)}rem`;
 
     const pctS = mode !== 1 ? `<span class="pct-label">${Math.round(ratioS * 100)}%</span>` : '';
     const pctM = mode !== 1 ? `<span class="pct-label">${Math.round(ratioM * 100)}%</span>` : '';
@@ -1292,9 +1336,9 @@ function renderCardByMode(mode) {
 
     document.getElementById('res-formula').innerHTML = `
         <span class="formula-item" style="color: ${colorS}; font-size: ${fontStyle}">${finalStyle}${pctS}</span>
-        <span style="font-size: 1.2rem">×</span>
+        <span style="font-size: 1.1rem">×</span>
         <span class="formula-item" style="color: ${colorM}; font-size: ${fontMedium}">${finalMedium}${pctM}</span>
-        <span style="font-size: 1.2rem">×</span>
+        <span style="font-size: 1.1rem">×</span>
         <span class="formula-item" style="color: ${colorP}; font-size: ${fontPurpose}">${finalPurpose}${pctP}</span>
     `;
 
@@ -1319,29 +1363,73 @@ function renderCardByMode(mode) {
     const bgPurposeDesc = hexToRgba(colorP, 0.2);
 
     const descEl = document.getElementById('res-description');
+    
+    /* 順序: 美学 / 媒体 / 目的 */
     descEl.innerHTML = `
         <div class="desc-block" style="background-color: ${bgStyleDesc};">
-            <span class="desc-bold">${finalStyle}｜${dataS.title}</span>
-            ${dataS.lines.map(line => formatLine(line)).join('')}
-            <span class="desc-keyword">キーワード：${dataS.aesthetic}</span>
+            <div class="desc-content-main">
+                <span class="desc-bold">${finalStyle}｜${dataS.title}</span>
+                <div>
+                    ${dataS.lines.map(line => formatLine(line)).join('')}
+                    <span class="desc-keyword">キーワード：${dataS.aesthetic}</span>
+                </div>
+            </div>
+            ${renderSideTendencyPanel("美学", res.style, mode)}
         </div>
         <div class="desc-block" style="background-color: ${bgMediumDesc};">
-            <span class="desc-bold">${finalMedium}｜${dataM.title}</span>
-            ${formatLine(dataM.text)}
-            <span class="desc-keyword">キーワード：${dataM.keywords}</span>
+            <div class="desc-content-main">
+                <span class="desc-bold">${finalMedium}｜${dataM.title}</span>
+                <div>
+                    ${formatLine(dataM.text)}
+                    <span class="desc-keyword">キーワード：${dataM.keywords}</span>
+                </div>
+            </div>
+            ${renderSideTendencyPanel("媒体", res.medium, mode)}
         </div>
         <div class="desc-block" style="background-color: ${bgPurposeDesc};">
-            <span class="desc-bold">${finalPurpose}｜${dataP.title}</span>
-            ${dataP.lines.map(line => formatLine(line)).join('')}
-            <span class="desc-keyword">キーワード：${dataP.keywords}</span>
+            <div class="desc-content-main">
+                <span class="desc-bold">${finalPurpose}｜${dataP.title}</span>
+                <div>
+                    ${dataP.lines.map(line => formatLine(line)).join('')}
+                    <span class="desc-keyword">キーワード：${dataP.keywords}</span>
+                </div>
+            </div>
+            ${renderSideTendencyPanel("目的", res.purpose, mode)}
         </div>
     `;
 
-    document.getElementById('tendency-style').innerHTML = renderTendencyBlock("STYLE", res.style);
-    document.getElementById('tendency-medium').innerHTML = renderTendencyBlock("MEDIUM", res.medium);
-    document.getElementById('tendency-purpose').innerHTML = renderTendencyBlock("PURPOSE", res.purpose);
+    // 作風の輪郭判定
+    const avg = res.avgDiffPercent;
+    let profileTypeName = "";
+    let profileDescText = "";
 
-    // ボタンテキストの切り替え制御
+    if (avg >= 40) {
+        profileTypeName = "尖鋭型";
+        profileDescText = "あなたの作風はかなり明確です。特定の作風が強く表れており、作品に一貫した個性が生まれやすいタイプです。";
+    } else if (avg >= 30) {
+        profileTypeName = "明確型";
+        profileDescText = "あなたの作風には、はっきりした方向性があります。いくつかの可能性を持ちながらも、中心となる作風傾向が明確です。";
+    } else if (avg >= 20) {
+        profileTypeName = "複合型";
+        profileDescText = "あなたは複数の作風を組み合わせるタイプです。異なる作風が混ざることで、独自の表現になりやすいでしょう。";
+    } else if (avg >= 10) {
+        profileTypeName = "拮抗型";
+        profileDescText = "あなたの中では、複数の作風が拮抗しています。一つに固定されず、作品や状況によって異なる作風が現れるタイプです。";
+    } else {
+        profileTypeName = "多面的型";
+        profileDescText = "あなたの作風傾向は一つの言葉では捉えきれません。複数の方向性を持ち、それらを行き来できること自体があなたの作風です。";
+    }
+
+    document.getElementById('profile-title').textContent = `作風の輪郭｜${profileTypeName}`;
+    
+    const formattedProfileDesc = profileDescText
+        .split('。')
+        .filter(str => str.trim() !== '')
+        .map(str => `<span class="profile-desc-line">${str}。</span>`)
+        .join('');
+
+    document.getElementById('profile-desc').innerHTML = formattedProfileDesc;
+
     const toggleRankBtn = document.getElementById('btn-toggle-rank');
     const toggleOppBtn = document.getElementById('btn-toggle-opposite');
 
@@ -1385,10 +1473,10 @@ function toggleRankView(targetMode) {
 function downloadResultImage() {
     const card = document.getElementById('result-card');
     const descBlocks = document.querySelectorAll('.desc-block');
-    const tendencySec = document.querySelector('.tendency-section');
+    const profileSec = document.querySelector('.profile-section');
 
     descBlocks.forEach(b => b.style.backdropFilter = 'none');
-    if (tendencySec) tendencySec.style.backdropFilter = 'none';
+    if (profileSec) profileSec.style.backdropFilter = 'none';
 
     document.fonts.ready.then(() => {
         html2canvas(card, {
@@ -1398,7 +1486,7 @@ function downloadResultImage() {
             letterRendering: true
         }).then(canvas => {
             descBlocks.forEach(b => b.style.backdropFilter = '');
-            if (tendencySec) tendencySec.style.backdropFilter = '';
+            if (profileSec) profileSec.style.backdropFilter = '';
 
             const link = document.createElement('a');
             let prefix = 'creative-style';
