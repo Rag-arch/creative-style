@@ -407,7 +407,7 @@
             font-weight: 700;
             letter-spacing: 0.03em;
             color: var(--text-main);
-            white-space: nowrap;
+            white-space: normal; /* スマホではみ出さないよう修正 */
         }
 
         .card-image-area {
@@ -485,7 +485,7 @@
             font-size: 0.55rem;
             font-weight: 400;
             line-height: 1.4;
-            white-space: nowrap;
+            white-space: normal; /* スマホではみ出さないよう修正 */
         }
 
         .desc-keyword {
@@ -494,7 +494,7 @@
             font-weight: 400;
             opacity: 0.85;
             display: block;
-            white-space: nowrap;
+            white-space: normal; /* スマホではみ出さないよう修正 */
         }
 
         .desc-tendency-panel {
@@ -584,7 +584,34 @@
 
         .profile-desc-line {
             display: block;
-            white-space: nowrap;
+            white-space: normal; /* スマホではみ出さないよう修正 */
+        }
+
+        /* ----- スマホ向けの自動調整（レスポンシブ対応） ----- */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            #result-card {
+                padding: 12px 10px;
+            }
+            .card-formula {
+                font-size: 1.1rem !important;
+            }
+            .desc-block {
+                flex-direction: column; /* 画面が狭いときは縦並びにする */
+                align-items: stretch;
+                gap: 6px;
+            }
+            .desc-tendency-panel {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                padding: 6px 0 0 0;
+            }
+            .desc-tendency-item {
+                justify-content: space-between;
+            }
         }
     </style>
 </head>
@@ -878,7 +905,7 @@ const QUESTIONS = [
         q: "この中から好きなもの２つ選んでください", type: "grid",
         category: "STYLE",
         items: [
-            { label: "再現", img: "./images/１再現.jpg" },
+             { label: "再現", img: "./images/１再現.jpg" },
             { label: "理想", img: "./images/２理想.jpg" },
             { label: "表現", img: "./images/３表現.jpg" },
             { label: "知覚", img: "./images/４知覚.jpg" },
@@ -1146,7 +1173,7 @@ const PURPOSE_ORDER = ["美", "探究", "伝達", "共感", "娯楽", "思索", 
 
 /* APP STATE & CONTROL */
 let currentQuestionIndex = 0;
-let userAnswers = []; // 保存形式: 標準は選択肢index番号, グリッド(Q19-21)は選択されたラベルの配列
+let userAnswers = []; 
 let uploadedImageData = null;
 let currentDisplayedMode = 1;
 let calculatedResultsData = null;
@@ -1199,7 +1226,6 @@ function renderQuestion() {
         const optionsGrid = document.createElement('div');
         optionsGrid.className = 'options-grid';
 
-        // 保持されている選択状態を取得（配列形式）
         let currentSelections = userAnswers[currentQuestionIndex];
         if (!Array.isArray(currentSelections)) {
             currentSelections = [];
@@ -1247,14 +1273,11 @@ function toggleGridItemSelection(label) {
 
     const index = currentSelections.indexOf(label);
     if (index > -1) {
-        // 既に選択されていたら外す
         currentSelections.splice(index, 1);
     } else {
-        // 未選択で、まだ2つ未満なら追加
         if (currentSelections.length < 2) {
             currentSelections.push(label);
         } else {
-            // すでに2つ選ばれている場合は、一番最初に入れたものを外して新しい方に入れ替える
             currentSelections.shift();
             currentSelections.push(label);
         }
@@ -1263,7 +1286,6 @@ function toggleGridItemSelection(label) {
     userAnswers[currentQuestionIndex] = currentSelections;
     renderQuestion();
 
-    // ちょうど2つ選ばれたら自動的に次の問題へ進む
     if (currentSelections.length === 2) {
         setTimeout(() => {
             if (currentQuestionIndex < QUESTIONS.length - 1) {
@@ -1272,7 +1294,7 @@ function toggleGridItemSelection(label) {
             } else {
                 showScreen('screen-image');
             }
-        }, 300); // わずかに選択の見た目を変えてから移行
+        }, 300);
     }
 }
 
@@ -1340,9 +1362,8 @@ function calculateScores() {
                 scoreMap[subCat][subKey].subCount += 1;
             }
         } else if (qData.type === 'grid') {
-            // Grid問題 (Q19-Q21): 選んだ2つにそれぞれ2点、副なし
             if (Array.isArray(ansData)) {
-                const category = qData.category; // STYLE, MEDIUM, or PURPOSE
+                const category = qData.category;
                 ansData.forEach(selectedKey => {
                     if (scoreMap[category][selectedKey]) {
                         scoreMap[category][selectedKey].total += 2;
