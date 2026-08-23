@@ -467,7 +467,7 @@
         .desc-block {
             padding: 12px 16px;
             border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.92); /* スマホダウンロード対策で半透明白を確実に維持 */
+            background-color: rgba(255, 255, 255, 0.92);
             border: 1px solid rgba(0, 0, 0, 0.15);
             display: flex;
             justify-content: space-between;
@@ -485,7 +485,6 @@
             justify-content: flex-start;
         }
 
-        /* 1行目をボールド、それ以降を少し小さい文字・一定のサイズ感・行間に設定 */
         .desc-bold {
             font-size: 20px;
             font-weight: 800;
@@ -1620,17 +1619,30 @@ function toggleRankView(targetMode) {
 
 function downloadResultImage() {
     const card = document.getElementById('result-card');
+    
+    // 一時的にスケーリング（transform）を外し、本来の1080×1920のサイズに戻す
     const originalTransform = card.style.transform;
-    card.style.transform = 'scale(1)';
+    const originalWidth = card.style.width;
+    const originalHeight = card.style.height;
+    
+    card.style.transform = 'none';
+    card.style.width = '1080px';
+    card.style.height = '1920px';
 
     document.fonts.ready.then(() => {
         html2canvas(card, {
+            width: 1080,
+            height: 1920,
             scale: 1,
             useCORS: true,
             backgroundColor: '#fcfcfc',
             letterRendering: true
         }).then(canvas => {
+            // キャプチャ完了後に元の表示状態に戻す
             card.style.transform = originalTransform;
+            card.style.width = originalWidth;
+            card.style.height = originalHeight;
+            adjustCardScale();
 
             let prefix = currentDisplayedMode === 2 ? 'second-style' : currentDisplayedMode === 'opposite' ? 'opposite-style' : 'creative-style';
             
