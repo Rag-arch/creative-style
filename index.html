@@ -329,7 +329,7 @@
             border-color: var(--text-main);
         }
 
-        /* ----- 最終結果カード (1080×1920 完全固定＆自動スケーリング対応) ----- */
+        /* ----- 最終結果カード (1080×1920 固定＆自動スケーリング) ----- */
         .result-card-container {
             display: flex;
             justify-content: center;
@@ -351,7 +351,7 @@
             background: #ffffff;
             border: 4px solid var(--text-main);
             box-sizing: border-box;
-            padding: 60px 50px;
+            padding: 30px 44px; /* 全体の余白を微調整 */
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -362,35 +362,35 @@
 
         .card-header {
             text-align: center;
-            margin-bottom: 8px;
         }
 
         .card-subtitle {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
             letter-spacing: 0.2em;
             color: #444444;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             text-transform: uppercase;
         }
 
         .card-title {
-            font-size: 44px;
+            font-size: 36px;
             font-weight: 900;
             letter-spacing: 0.2em;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             color: var(--text-main);
         }
 
+        /* 一番上のタイトル [STYLE] × [MEDIUM] × [PURPOSE] を大きく表示 */
         .card-formula {
-            font-size: 52px;
+            font-size: 48px; /* 40pxから拡大 */
             font-weight: 900;
             letter-spacing: 0.05em;
-            margin-bottom: 16px;
-            border-top: 4px solid var(--text-main);
-            border-bottom: 4px solid var(--text-main);
-            padding: 16px 0;
+            margin-bottom: 6px; /* 余白微調整 */
+            border-top: 2px solid var(--text-main);
+            border-bottom: 2px solid var(--text-main);
+            padding: 10px 0;
             color: var(--text-main);
             display: flex;
             justify-content: center;
@@ -406,30 +406,31 @@
         }
 
         .card-formula span.pct-label {
-            font-size: 24px;
+            font-size: 22px; /* 20pxから拡大 */
             font-weight: 600;
             color: #777777;
-            margin-left: 6px;
+            margin-left: 4px;
             letter-spacing: 0;
         }
 
         .card-sentence {
-            font-size: 32px;
+            font-size: 26px;
             font-weight: 700;
             letter-spacing: 0.03em;
             color: var(--text-main);
             white-space: normal;
         }
 
+        /* 画像エリア (説明文と同じ横幅、アスペクト比 4:3) */
         .card-image-area {
-            width: 100%;
+            width: 100%; 
             aspect-ratio: 4 / 3; 
-            margin: 12px 0;
+            margin: 0 auto;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            border: 2px solid rgba(0,0,0,0.15);
+            border: 3px solid rgba(0,0,0,0.15);
             background: #000;
         }
 
@@ -440,28 +441,37 @@
             display: block;
         }
 
+        /* コメント欄 (1行分の固定スペースを確保) */
         .card-reason-text {
-            font-size: 26px;
+            font-size: 19px;
             font-weight: 600;
             color: var(--text-main);
             text-align: center;
-            margin-bottom: 8px;
             line-height: 1.4;
             padding: 0 10px;
-            word-break: break-all;
-            display: none;
+            height: 1.4em;
+            max-height: 1.4em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block; 
         }
 
+        /* ★中段の説明ブロック群と1.作風の輪郭ブロックの隙間を同一にするための調整 */
         .card-description {
             text-align: left;
             letter-spacing: 0;
             color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            gap: 14px; /* 各説明ブロック間の隙間を指定 */
+            margin-bottom: 14px; /* 最後尾のブロックと「1.作風の輪郭」の隙間を上の gap と完全に同じに設定 */
         }
 
+        /* 説明文ブロック (行数が多い場合でも収まるよう高さを確保) */
         .desc-block {
-            padding: 16px 20px;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            padding: 10px 16px;
+            border-radius: 6px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.6);
@@ -470,11 +480,10 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            gap: 16px;
-        }
-
-        .desc-block:last-child {
-            margin-bottom: 0;
+            gap: 12px;
+            
+            height: 175px; 
+            box-sizing: border-box;
         }
 
         .desc-content-main {
@@ -482,28 +491,27 @@
             min-width: 0;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            padding-right: 4px;
+            justify-content: flex-start;
         }
 
         .desc-bold {
-            font-size: 28px;
+            font-size: 21px;
             font-weight: 800;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
             display: block;
         }
 
         .desc-line {
             display: block;
-            font-size: 21px;
+            font-size: 16px;
             font-weight: 400;
-            line-height: 1.4;
+            line-height: 1.35;
             white-space: normal;
         }
 
         .desc-keyword {
-            margin-top: 6px;
-            font-size: 21px;
+            margin-top: 3px;
+            font-size: 14px;
             font-weight: 400;
             opacity: 0.85;
             display: block;
@@ -511,9 +519,9 @@
         }
 
         .desc-tendency-panel {
-            width: 210px;
+            width: 175px;
             flex-shrink: 0;
-            padding: 4px 0px 4px 12px;
+            padding: 2px 0px 2px 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -521,12 +529,12 @@
         }
 
         .desc-tendency-title {
-            font-size: 21px;
+            font-size: 15px;
             font-weight: 800;
             letter-spacing: 0.05em;
-            margin-bottom: 6px;
+            margin-bottom: 3px;
             border-bottom: 2px solid var(--text-main);
-            padding-bottom: 4px;
+            padding-bottom: 2px;
             display: block;
             text-align: center;
         }
@@ -536,11 +544,11 @@
             align-items: center;
             justify-content: flex-end;
             color: var(--text-main);
-            font-size: 21px;
+            font-size: 15px;
             font-weight: 500;
             white-space: nowrap;
-            line-height: 1.4;
-            gap: 8px;
+            line-height: 1.3;
+            gap: 4px;
         }
 
         .desc-tendency-item .item-label {
@@ -558,22 +566,21 @@
         }
 
         .profile-section {
-            margin-top: 8px;
-            padding: 16px 20px;
+            padding: 10px 16px;
             background-color: var(--profile-bg);
-            border-radius: 8px;
+            border-radius: 6px;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             text-align: left;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 6px;
         }
 
         .profile-item-box {
             border-top: 1px dashed rgba(0, 0, 0, 0.15);
-            padding-top: 8px;
+            padding-top: 5px;
         }
 
         .profile-item-box:first-child {
@@ -582,17 +589,24 @@
         }
 
         .profile-title {
-            font-size: 26px;
+            font-size: 18px;
             font-weight: 800;
             color: var(--text-main);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
-        .profile-desc {
-            font-size: 22px;
-            font-weight: 500;
+        .profile-desc-outline {
+            font-size: 16px;
+            font-weight: 400;
             color: var(--text-main);
-            line-height: 1.4;
+            line-height: 1.35;
+        }
+
+        .profile-desc-tight {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text-main);
+            line-height: 1.35;
         }
 
         .profile-desc-line {
@@ -636,7 +650,7 @@
         <div class="q-header">
             <span class="q-number">VISUAL</span>
         </div>
-        <div class="q-title">あなたの作風を象徴する画像（4:3推奨）を1枚選んでください</div>
+        <div class="q-title">あなたの作風を象徴する画像を1枚選んでください</div>
         <div class="file-upload-wrapper">
             <label class="file-label" id="file-label-box" for="char-image-input">
                 <span id="file-label-text">画像ファイルを選択 (ローカル処理)</span>
@@ -646,7 +660,7 @@
             
             <div class="reason-wrapper">
                 <label class="reason-label" for="image-reason-input">この一枚を選んだ理由</label>
-                <textarea id="image-reason-input" class="reason-textarea" placeholder="この画像を選んだ理由や、思い入れなどを入力してください（任意）"></textarea>
+                <textarea id="image-reason-input" class="reason-textarea" placeholder="この画像を選んだ理由や、思い入れなどを入力してください（1行のみ反映）"></textarea>
             </div>
         </div>
         <div class="btn-group">
@@ -659,39 +673,37 @@
     <div id="screen-result" class="screen">
         <div class="result-card-container">
             <div id="result-card">
-                <div>
-                    <div class="card-header">
-                        <div class="card-subtitle" id="res-subtitle">CREATIVE STYLE</div>
-                        <div class="card-title" id="res-title">私という作風</div>
-                        <div class="card-formula" id="res-formula">[STYLE] × [MEDIUM] × [PURPOSE]</div>
-                        <div class="card-sentence" id="res-sentence">［目的］、［美意識］を［手段を行う］人</div>
-                    </div>
-
-                    <div class="card-image-area">
-                        <img id="res-image" src="" alt="Character">
-                    </div>
-
-                    <div class="card-reason-text" id="res-reason"></div>
-
-                    <div class="card-description" id="res-description"></div>
+                <div class="card-header">
+                    <div class="card-subtitle" id="res-subtitle">CREATIVE STYLE</div>
+                    <div class="card-title" id="res-title">私という作風</div>
+                    <div class="card-formula" id="res-formula">[STYLE] × [MEDIUM] × [PURPOSE]</div>
+                    <div class="card-sentence" id="res-sentence">［目的］、［美意識］を［手段を行う］人</div>
                 </div>
+
+                <div class="card-image-area" id="res-image-area-wrapper">
+                    <img id="res-image" src="" alt="Character">
+                </div>
+
+                <div class="card-reason-text" id="res-reason"></div>
+
+                <div class="card-description" id="res-description"></div>
 
                 <div class="profile-section">
                     <div class="profile-item-box">
                         <div class="profile-title" id="profile-title">1. 作風の輪郭｜〇〇型</div>
-                        <div class="profile-desc" id="profile-desc">ここに説明文が入ります。</div>
+                        <div class="profile-desc-outline" id="profile-desc">ここに説明文が入ります。</div>
                     </div>
                     <div class="profile-item-box">
                         <div class="profile-title">2. 作風の核</div>
-                        <div class="profile-desc" id="profile-core-desc">あなたの創作では 〇〇 が最も強い核になっています。</div>
+                        <div class="profile-desc-tight" id="profile-core-desc">あなたの創作では 〇〇 が最も強い核になっています。</div>
                     </div>
                     <div class="profile-item-box">
                         <div class="profile-title">3. 作風の武器</div>
-                        <div class="profile-desc" id="profile-weapon-desc">作品に強く個性を与える要素は 〇〇 です。</div>
+                        <div class="profile-desc-tight" id="profile-weapon-desc">作品に強く個性を与える要素は 〇〇 です。</div>
                     </div>
                     <div class="profile-item-box">
                         <div class="profile-title">4. 意外な一面</div>
-                        <div class="profile-desc" id="profile-surprise-desc">あなたは〇〇型に見えて、実は△△的な創作性もかなり強く持っています。</div>
+                        <div class="profile-desc-tight" id="profile-surprise-desc">あなたは〇〇型に見えて、実は△△的な創作性もかなり強く持っています。</div>
                     </div>
                 </div>
             </div>
@@ -982,7 +994,7 @@ const DATA_PURPOSE = {
         title: "美を宿す人",
         lines: [
             "世界に、美しいものを存在させることを目的とする人。",
-            "「何を伝えるか」よりも、まず**「それ自体が美しいか」**を重要視する。",
+            "「何を伝えるか」よりも、まず「それ自体が美しいか」を重要視する。",
             "色、形、構図、素材、空間、音、言葉などを磨き上げ、調和の取れたものを生み出そうとする。",
             "美術家、建築家、デザイナー、作曲家などに強く現れやすいタイプ。"
         ],
@@ -993,7 +1005,7 @@ const DATA_PURPOSE = {
         title: "探究を拓く人",
         lines: [
             "まだ知らないものを発見し、世界への理解を広げることを目的とする人。",
-            "「正解を作る」より、**「未知を見つける」**ことに創作の価値を感じる。",
+            "「正解を作る」より、「未知を見つける」ことに創作の価値を感じる。",
             "実験、研究、観察、試行錯誤を楽しみ、既存の常識に疑問を持つ。",
             "作品そのものより、制作過程で得られる発見を重視することもある。"
         ],
@@ -1004,7 +1016,7 @@ const DATA_PURPOSE = {
         title: "伝達を響かせる人",
         lines: [
             "自分が持っている情報・知識・思想・物語を、他者へ届けることを目的とする人。",
-            "「自分が何を感じたか」よりも、**「相手に何が伝わったか」**を重視する。",
+            "「自分が何を感じたか」よりも、「相手に何が伝わったか」を重視する。",
             "文章、映像、図解、デザイン、演説、教育など、情報を媒介する創作と相性がいい。",
             "「伝わらなければ作品として成立しない」という意識を持ちやすい。"
         ],
@@ -1014,7 +1026,7 @@ const DATA_PURPOSE = {
         sentenceName: "共感を繋ぐ",
         title: "共感を繋ぐ人",
         lines: [
-            "人と人の間に感情的なつながりを生み出すことを目的とする人。",
+            "人と人の間に感情的なつながりを作り出すことを目的とする人。",
             "「理解させる」のではなく、「わかる」「同じ気持ちだ」と感じてもらうことを目指す。",
             "自身の経験や感情を作品に込め、それを通して他者との距離を縮める。",
             "物語、音楽、詩、漫画、演劇など、感情移入を生みやすい表現と特に相性がいい。"
@@ -1026,7 +1038,7 @@ const DATA_PURPOSE = {
         title: "娯楽を仕掛ける人",
         lines: [
             "人を楽しませ、夢中にさせることを目的とする人。",
-            "創作を一種の**「仕掛け」**として捉える。",
+            "創作を一種の「仕掛け」として捉える。",
             "「次は何が起こる？」「どうしたらもっと面白い？」と考え、驚き、笑い、スリル、遊びなどを設計する。",
             "ゲーム、エンターテインメント、テーマパーク、映画、漫画などと非常に相性がいい。"
         ],
@@ -1059,7 +1071,7 @@ const DATA_PURPOSE = {
         title: "感動を揺さぶる人",
         lines: [
             "人の心を大きく動かすことを目的とする人。",
-            "「美しい」「面白い」だけではなく、**「忘れられないほど心を動かしたい」**という欲求が強い。",
+            "「美しい」「面白い」だけではなく、「忘れられないほど心を動かしたい」という欲求が強い。",
             "物語の起伏、劇的な演出、壮大さ、意外性、音楽、身体表現などを駆使して感情のピークを作る。",
             "創作を「体験」として捉える傾向が強い。"
         ],
@@ -1071,7 +1083,7 @@ const DATA_MEDIUM = {
     "視覚": { action: "描き", title: "視覚｜目に映るものを通して表現する", text: "色・形・光・構図など、目に見えるものを通して表現する。", keywords: "絵画、イラスト、グラフィック、絵本" },
     "造形": { action: "造り", title: "造形｜物そのものを通して表現する", text: "素材・形・立体など、触れられるものを組み合わせて表現する。", keywords: "彫刻、工芸、プロダクト、ファッション" },
     "空間": { action: "構築する", title: "空間｜場を通して表現する", text: "建築・場所・配置など、人が身を置く環境そのものをつくる。", keywords: "建築、インテリア、庭園、都市" },
-    "音響": { action: "奏でる", title: "音響｜音を通して表現する", text: "音・声・リズム・響きなど、耳で感じるものを通して表現する。", keywords: "作曲、演奏、歌唱、サウンド" },
+    "音響": { action: "奏でる", title: "音響｜音を通して表現する", text: "音・声・リズム・響きなど、耳で感じるものを通して表現する。", keywords: "作曲, 演奏, 歌唱, サウンド" },
     "言語": { action: "綴る", title: "言語｜言葉を通して表現する", text: "言葉・文章・物語・概念など、意味を組み立てて表現する。", keywords: "詩、小説、脚本、コピー、評論" },
     "身体": { action: "演じる", title: "身体｜身体そのものを通して表現する", text: "動き・演技・所作・存在など、自らの身体を通して表現する。", keywords: "俳優、ダンス、パフォーマンス、舞台芸術" },
     "映像": { action: "映す", title: "映像｜時間の流れを通して表現する", text: "時間・動き・編集・記録など、移ろうイメージを通して表現する。", keywords: "映画、アニメ、動画、フォト" },
@@ -1083,7 +1095,7 @@ const DATA_STYLE = {
         title: "世界を写し取る人", 
         lines: [
             "目の前にある世界を観察し、その本質や美しさを忠実に捉えようとする人。",
-            "「自分がどう作りたいか」よりも、**「対象は本当はどうなっているのか」**を大切にする。",
+            "「自分がどう作りたいか」よりも、「対象は本当はどうなっているのか」を大切にする。",
             "細部を観察し、正確さやリアリティを追求する。",
             "写実、記録、ドキュメンタリー、精密な建築・造形などに向く。"
         ], 
@@ -1102,7 +1114,7 @@ const DATA_STYLE = {
         title: "自分を形にする人", 
         lines: [
             "自分の感情、感性、思想、個性そのものを作品にする人。",
-            "「何を作るか」以上に、**「自分が何を感じ、何を考えているか」**が創作の出発点になる。",
+            "「何を作るか」以上に、「自分が何を感じ、何を考えているか」が創作の出発点になる。",
             "個性的であること、独自の視点を持つことを価値とする。"
         ], 
         aesthetic: "個性・感情・自己・独創性" 
@@ -1121,7 +1133,7 @@ const DATA_STYLE = {
         title: "世界を組み立てる人", 
         lines: [
             "複数の要素を組み合わせ、関係性から新しい美を生み出す人。",
-            "個々のパーツより、**「それらがどう配置され、どう関係するか」**を重視する。",
+            "個々のパーツより、「それらがどう配置され、どう関係するか」を重視する。",
             "建築、グラフィック、編集、音楽、映像、都市計画など、設計的な創作に強い。"
         ], 
         aesthetic: "秩序・構造・配置・バランス" 
@@ -1139,7 +1151,7 @@ const DATA_STYLE = {
         title: "見えないものを形にする人", 
         lines: [
             "思想、意味、問い、価値観など、目に見えないものを作品として提示する人。",
-            "「何が美しいか」より、**「この作品は何を意味するのか」**を重視する。",
+            "「何が美しいか」より、「この作品は何を意味するのか」を重視する。",
             "作品そのものより、そこに込められたコンセプトが創作の核になることも多い。",
             "現代美術、哲学的作品、コンセプチュアルデザインなどと相性がいい。"
         ], 
@@ -1469,6 +1481,12 @@ function adjustCardScale() {
 
 window.addEventListener('resize', adjustCardScale);
 
+function dynamicAdjustCardLayout() {
+    const reasonEl = document.getElementById('res-reason');
+    const reasonInput = document.getElementById('image-reason-input').value.trim();
+    reasonEl.textContent = reasonInput !== '' ? reasonInput : '\u00A0';
+}
+
 /* RESULT RENDER */
 function renderCardByMode(mode) {
     currentDisplayedMode = mode;
@@ -1506,10 +1524,10 @@ function renderCardByMode(mode) {
         document.getElementById('res-title').textContent = "あなたにないもの";
     }
 
-    const baseFontSize = 52;
-    const fontStyle = `${Math.max(baseFontSize * ratioS, 24)}px`;
-    const fontMedium = `${Math.max(baseFontSize * ratioM, 24)}px`;
-    const fontPurpose = `${Math.max(baseFontSize * ratioP, 24)}px`;
+    const baseFontSize = 48; // 拡大したタイトルの基準サイズに合わせ調整
+    const fontStyle = `${Math.max(baseFontSize * ratioS, 22)}px`;
+    const fontMedium = `${Math.max(baseFontSize * ratioM, 22)}px`;
+    const fontPurpose = `${Math.max(baseFontSize * ratioP, 22)}px`;
 
     const pctS = mode !== 1 ? `<span class="pct-label">${Math.round(ratioS * 100)}%</span>` : '';
     const pctM = mode !== 1 ? `<span class="pct-label">${Math.round(ratioM * 100)}%</span>` : '';
@@ -1517,9 +1535,9 @@ function renderCardByMode(mode) {
 
     document.getElementById('res-formula').innerHTML = `
         <span class="formula-item" style="color: ${colorS}; font-size: ${fontStyle}">${finalStyle}${pctS}</span>
-        <span style="font-size: 40px">×</span>
+        <span style="font-size: 34px">×</span>
         <span class="formula-item" style="color: ${colorM}; font-size: ${fontMedium}">${finalMedium}${pctM}</span>
-        <span style="font-size: 40px">×</span>
+        <span style="font-size: 34px">×</span>
         <span class="formula-item" style="color: ${colorP}; font-size: ${fontPurpose}">${finalPurpose}${pctP}</span>
     `;
 
@@ -1530,14 +1548,7 @@ function renderCardByMode(mode) {
     document.getElementById('res-sentence').textContent = `${dataP.sentenceName}、${finalStyle}を${dataM.action}人`;
     document.getElementById('res-image').src = uploadedImageData;
 
-    const reasonInput = document.getElementById('image-reason-input').value.trim();
-    const reasonContainer = document.getElementById('res-reason');
-    if (reasonInput !== '') {
-        reasonContainer.textContent = reasonInput;
-        reasonContainer.style.display = 'block';
-    } else {
-        reasonContainer.style.display = 'none';
-    }
+    dynamicAdjustCardLayout();
 
     const descEl = document.getElementById('res-description');
     descEl.innerHTML = `
@@ -1564,45 +1575,62 @@ function renderCardByMode(mode) {
         </div>
     `;
 
+    /* -----------------------------------------------------
+       診断結果のテキスト出力ロジック
+       ----------------------------------------------------- */
+       
+    // 1. 作風の輪郭
     const avg = res.avgDiffPercent;
     let profileTypeName = avg >= 40 ? "尖鋭型" : avg >= 30 ? "明確型" : avg >= 20 ? "複合型" : avg >= 10 ? "拮抗型" : "多面的型";
-    let profileDescText = avg >= 40 ? "特定の作風が強く表れており、一貫した個性が生まれやすいタイプです。" :
-                          avg >= 30 ? "いくつかの可能性を持ちながらも、中心となる作風傾向が明確です。" :
-                          avg >= 20 ? "複数の作風を組み合わせることで独自の表現になりやすいでしょう。" :
-                          avg >= 10 ? "一つに固定されず、状況によって異なる作風が現れるタイプです。" :
-                          "複数の方向性を持ち、それらを行き来できること自体が作風です。";
+    let profileDescText = avg >= 40 ? "あなたの作風はかなり明確です。\n特定の作風が強く表れており、作品に一貫した個性が生まれやすいタイプです。" :
+                          avg >= 30 ? "あなたの作風には、はっきりした方向性があります。\nいくつかの可能性を持ちながらも、中心となる作風傾向が明確です。" :
+                          avg >= 20 ? "あなたは複数の作風を組み合わせるタイプです。\n異なる作風が混ざることで、独自の表現になりやすいでしょう。" :
+                          avg >= 10 ? "あなたの中では、複数の作風が拮抗しています。\n一つに固定されず、作品や状況によって異なる作風が現れるタイプです。" :
+                          "あなたの作風傾向は一つの言葉では捉えきれません。\n複数の方向性を持ち、それらを行き来できること自体があなたの作風です。";
 
     document.getElementById('profile-title').textContent = `1. 作風の輪郭｜${profileTypeName}`;
-    document.getElementById('profile-desc').innerHTML = `<span class="profile-desc-line">${profileDescText}</span>`;
+    document.getElementById('profile-desc').innerHTML = `<span class="profile-desc-line">${profileDescText.replace(/\n/g, '<br>')}</span>`;
 
+    // 2. 作風の核
     const scoreStyleTop = res.style.rank1.score;
     const scoreMediumTop = res.medium.rank1.score;
     const scorePurposeTop = res.purpose.rank1.score;
-    const maxScore = Math.max(scoreStyleTop, scoreMediumTop, scorePurposeTop);
-    let coreWinners = [];
-    if (scoreStyleTop === maxScore) coreWinners.push(res.style.rank1.key);
-    if (scoreMediumTop === maxScore) coreWinners.push(res.medium.rank1.key);
-    if (scorePurposeTop === maxScore) coreWinners.push(res.purpose.rank1.key);
-    document.getElementById('profile-core-desc').innerHTML = `あなたの創作では <span style="font-weight:700;">${coreWinners.join('・')}</span> が最も強い核になっています。`;
+    
+    const allScores = [
+        { name: res.style.rank1.key, score: scoreStyleTop },
+        { name: res.medium.rank1.key, score: scoreMediumTop },
+        { name: res.purpose.rank1.key, score: scorePurposeTop }
+    ];
+    const maxGlobalScore = Math.max(...allScores.map(s => s.score));
+    const coreWinners = allScores.filter(s => s.score === maxGlobalScore).map(s => s.name);
+    
+    document.getElementById('profile-core-desc').innerHTML = `あなたの創作では ${coreWinners.join('・')} が最も強い核になっています。`;
 
+    // 3. 作風の武器
     const diffs = [
-        { val: res.style.diff1_2, key: res.style.rank1.key },
-        { val: res.medium.diff1_2, key: res.medium.rank1.key },
-        { val: res.purpose.diff1_2, key: res.purpose.rank1.key }
+        { val: res.style.diff2Percent, key: res.style.rank1.key },
+        { val: res.medium.diff2Percent, key: res.medium.rank1.key },
+        { val: res.purpose.diff2Percent, key: res.purpose.rank1.key }
     ];
     const maxDiff = Math.max(...diffs.map(d => d.val));
-    document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は <span style="font-weight:700;">${diffs.filter(d => d.val === maxDiff).map(d => d.key).join('、')}</span> です。`;
+    const weaponWinners = diffs.filter(d => d.val === maxDiff).map(d => d.key);
+    
+    document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は ${weaponWinners.join('、')} `;
 
-    const diffsObj = [{ cat: '美学', val: res.style.diff1_2 }, { cat: '媒体', val: res.medium.diff1_2 }, { cat: '目的', val: res.purpose.diff1_2 }];
-    const closestFull = diffsObj.reduce((min, current) => current.val < min.val ? current : min);
-    let surpriseA = closestFull.cat === '美学' ? res.style.rank1.key : closestFull.cat === '媒体' ? res.medium.rank1.key : res.purpose.rank1.key;
-    let surpriseB = closestFull.cat === '美学' ? res.style.rank2.key : closestFull.cat === '媒体' ? res.medium.rank2.key : res.purpose.rank2.key;
-    document.getElementById('profile-surprise-desc').innerHTML = `あなたは<span style="font-weight:700;">${surpriseA}</span>型に見えて、実は<span style="font-weight:700;">${surpriseB}</span>的な創作性も持っています。`;
+    // 4. 意外な一面
+    const categoriesNear = [
+        { catName: '美学', diff: res.style.diff2Percent, top: res.style.rank1.key, second: res.style.rank2.key },
+        { catName: '媒体', diff: res.medium.diff2Percent, top: res.medium.rank1.key, second: res.medium.rank2.key },
+        { catName: '目的', diff: res.purpose.diff2Percent, top: res.purpose.rank1.key, second: res.purpose.rank2.key }
+    ];
+    categoriesNear.sort((a, b) => a.diff - b.diff);
+    const closestCat = categoriesNear[0];
+    
+    document.getElementById('profile-surprise-desc').innerHTML = `あなたは${closestCat.top}型に見えて、実は${closestCat.second}的な創作性もかなり強く持っています。`;
 
     document.getElementById('btn-toggle-rank').textContent = mode === 1 ? "SECOND STYLEを表示" : "1st STYLEを表示";
     document.getElementById('btn-toggle-opposite').textContent = mode === 'opposite' ? "1st STYLEを表示" : "OPPOSITE STYLEを表示";
 
-    // 描画後にカードのスケールを適用
     setTimeout(adjustCardScale, 50);
 }
 
@@ -1621,7 +1649,7 @@ function toggleRankView(targetMode) {
     }
 }
 
-/* iPhone/iOS完全対応の画像ダウンロード処理 */
+/* 画像ダウンロード処理 */
 function downloadResultImage() {
     const card = document.getElementById('result-card');
     const descBlocks = document.querySelectorAll('.desc-block');
@@ -1630,7 +1658,6 @@ function downloadResultImage() {
     descBlocks.forEach(b => b.style.backdropFilter = 'none');
     if (profileSec) profileSec.style.backdropFilter = 'none';
 
-    // 一時的に拡大スケールを原寸（scale(1)）に戻して高解像度キャプチャを安定させる
     const originalTransform = card.style.transform;
     card.style.transform = 'scale(1)';
 
