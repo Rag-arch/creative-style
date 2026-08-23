@@ -1615,7 +1615,7 @@ function renderCardByMode(mode) {
     const maxDiff = Math.max(...diffs.map(d => d.val));
     const weaponWinners = diffs.filter(d => d.val === maxDiff).map(d => d.key);
     
-    document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は ${weaponWinners.join('、')} `;
+    document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は ${weaponWinners.join('、')} です。`;
 
     // 4. 意外な一面
     const categoriesNear = [
