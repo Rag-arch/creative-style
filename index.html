@@ -13,7 +13,7 @@
             --text-sub: #666666;
             --border-color: #e0e0e0;
             --accent-color: #000000;
-            --profile-bg: rgba(255, 255, 255, 0.75);
+            --profile-bg: rgba(255, 255, 255, 0.85);
             --font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
 
@@ -351,7 +351,7 @@
             background: #ffffff;
             border: 4px solid var(--text-main);
             box-sizing: border-box;
-            padding: 30px 44px; /* 全体の余白を微調整 */
+            padding: 30px 44px;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -382,12 +382,11 @@
             color: var(--text-main);
         }
 
-        /* 一番上のタイトル [STYLE] × [MEDIUM] × [PURPOSE] を大きく表示 */
         .card-formula {
-            font-size: 48px; /* 40pxから拡大 */
+            font-size: 48px;
             font-weight: 900;
             letter-spacing: 0.05em;
-            margin-bottom: 6px; /* 余白微調整 */
+            margin-bottom: 6px;
             border-top: 2px solid var(--text-main);
             border-bottom: 2px solid var(--text-main);
             padding: 10px 0;
@@ -406,7 +405,7 @@
         }
 
         .card-formula span.pct-label {
-            font-size: 22px; /* 20pxから拡大 */
+            font-size: 22px;
             font-weight: 600;
             color: #777777;
             margin-left: 4px;
@@ -421,7 +420,6 @@
             white-space: normal;
         }
 
-        /* 画像エリア (説明文と同じ横幅、アスペクト比 4:3) */
         .card-image-area {
             width: 100%; 
             aspect-ratio: 4 / 3; 
@@ -441,7 +439,6 @@
             display: block;
         }
 
-        /* コメント欄 (1行分の固定スペースを確保) */
         .card-reason-text {
             font-size: 19px;
             font-weight: 600;
@@ -457,31 +454,25 @@
             display: block; 
         }
 
-        /* ★中段の説明ブロック群と1.作風の輪郭ブロックの隙間を同一にするための調整 */
         .card-description {
             text-align: left;
             letter-spacing: 0;
             color: var(--text-main);
             display: flex;
             flex-direction: column;
-            gap: 14px; /* 各説明ブロック間の隙間を指定 */
-            margin-bottom: 14px; /* 最後尾のブロックと「1.作風の輪郭」の隙間を上の gap と完全に同じに設定 */
+            gap: 14px;
+            margin-bottom: 14px;
         }
 
-        /* 説明文ブロック (行数が多い場合でも収まるよう高さを確保) */
         .desc-block {
-            padding: 10px 16px;
+            padding: 12px 16px;
             border-radius: 6px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            transition: background-color 0.3s ease;
-            
+            background-color: rgba(255, 255, 255, 0.92); /* スマホダウンロード対策で半透明白を確実に維持 */
+            border: 1px solid rgba(0, 0, 0, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: stretch;
             gap: 12px;
-            
             height: 175px; 
             box-sizing: border-box;
         }
@@ -494,25 +485,27 @@
             justify-content: flex-start;
         }
 
+        /* 1行目をボールド、それ以降を少し小さい文字・一定のサイズ感・行間に設定 */
         .desc-bold {
-            font-size: 21px;
+            font-size: 20px;
             font-weight: 800;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             display: block;
+            line-height: 1.2;
         }
 
         .desc-line {
             display: block;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 400;
             line-height: 1.35;
             white-space: normal;
         }
 
         .desc-keyword {
-            margin-top: 3px;
-            font-size: 14px;
-            font-weight: 400;
+            margin-top: 4px;
+            font-size: 13.5px;
+            font-weight: 500;
             opacity: 0.85;
             display: block;
             white-space: normal;
@@ -567,11 +560,9 @@
 
         .profile-section {
             padding: 10px 16px;
-            background-color: var(--profile-bg);
+            background-color: #ffffff;
             border-radius: 6px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.15);
             text-align: left;
             display: flex;
             flex-direction: column;
@@ -595,14 +586,7 @@
             margin-bottom: 2px;
         }
 
-        .profile-desc-outline {
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--text-main);
-            line-height: 1.35;
-        }
-
-        .profile-desc-tight {
+        .profile-desc-outline, .profile-desc-tight {
             font-size: 16px;
             font-weight: 400;
             color: var(--text-main);
@@ -721,7 +705,6 @@
 </div>
 
 <script>
-/* COLOR MAPS */
 const COLOR_STYLE = {
     "再現": "#B71C1C", "理想": "#E65100", "表現": "#AD1457", "知覚": "#F57F17",
     "構成": "#283593", "幻想": "#6A1B9A", "概念": "#1A237E", "変容": "#00695C"
@@ -737,7 +720,6 @@ const COLOR_PURPOSE = {
     "娯楽": "#FFCC80", "思索": "#CE93D8", "癒し": "#80DEEA", "感動": "#EF9A9A"
 };
 
-/* 24 QUESTIONS DATA */
 const QUESTIONS = [
     {
         q: "どの世界が好き？", type: "standard",
@@ -987,7 +969,6 @@ const QUESTIONS = [
     }
 ];
 
-/* RESULT DICTIONARIES */
 const DATA_PURPOSE = {
     "美": {
         sentenceName: "美を宿す",
@@ -1173,7 +1154,6 @@ const STYLE_ORDER = ["再現", "理想", "表現", "知覚", "構成", "幻想",
 const MEDIUM_ORDER = ["視覚", "造形", "空間", "音響", "言語", "身体", "映像", "体験"];
 const PURPOSE_ORDER = ["美", "探究", "伝達", "共感", "娯楽", "思索", "癒し", "感動"];
 
-/* APP STATE & CONTROL */
 let currentQuestionIndex = 0;
 let userAnswers = []; 
 let uploadedImageData = null;
@@ -1334,7 +1314,6 @@ function handleImageUpload(event) {
     }
 }
 
-/* SCORE AGGREGATION LOGIC */
 function calculateScores() {
     const scoreMap = {
         STYLE: {},
@@ -1466,7 +1445,6 @@ function renderSideTendencyPanel(catTitle, rankData, mode) {
     `;
 }
 
-/* カード要素を自動でスケールさせる処理 */
 function adjustCardScale() {
     const container = document.querySelector('.result-card-container');
     const card = document.getElementById('result-card');
@@ -1487,7 +1465,6 @@ function dynamicAdjustCardLayout() {
     reasonEl.textContent = reasonInput !== '' ? reasonInput : '\u00A0';
 }
 
-/* RESULT RENDER */
 function renderCardByMode(mode) {
     currentDisplayedMode = mode;
     const res = calculatedResultsData;
@@ -1524,7 +1501,7 @@ function renderCardByMode(mode) {
         document.getElementById('res-title').textContent = "あなたにないもの";
     }
 
-    const baseFontSize = 48; // 拡大したタイトルの基準サイズに合わせ調整
+    const baseFontSize = 48;
     const fontStyle = `${Math.max(baseFontSize * ratioS, 22)}px`;
     const fontMedium = `${Math.max(baseFontSize * ratioM, 22)}px`;
     const fontPurpose = `${Math.max(baseFontSize * ratioP, 22)}px`;
@@ -1575,11 +1552,6 @@ function renderCardByMode(mode) {
         </div>
     `;
 
-    /* -----------------------------------------------------
-       診断結果のテキスト出力ロジック
-       ----------------------------------------------------- */
-       
-    // 1. 作風の輪郭
     const avg = res.avgDiffPercent;
     let profileTypeName = avg >= 40 ? "尖鋭型" : avg >= 30 ? "明確型" : avg >= 20 ? "複合型" : avg >= 10 ? "拮抗型" : "多面的型";
     let profileDescText = avg >= 40 ? "あなたの作風はかなり明確です。\n特定の作風が強く表れており、作品に一貫した個性が生まれやすいタイプです。" :
@@ -1591,7 +1563,6 @@ function renderCardByMode(mode) {
     document.getElementById('profile-title').textContent = `1. 作風の輪郭｜${profileTypeName}`;
     document.getElementById('profile-desc').innerHTML = `<span class="profile-desc-line">${profileDescText.replace(/\n/g, '<br>')}</span>`;
 
-    // 2. 作風の核
     const scoreStyleTop = res.style.rank1.score;
     const scoreMediumTop = res.medium.rank1.score;
     const scorePurposeTop = res.purpose.rank1.score;
@@ -1606,7 +1577,6 @@ function renderCardByMode(mode) {
     
     document.getElementById('profile-core-desc').innerHTML = `あなたの創作では ${coreWinners.join('・')} が最も強い核になっています。`;
 
-    // 3. 作風の武器
     const diffs = [
         { val: res.style.diff2Percent, key: res.style.rank1.key },
         { val: res.medium.diff2Percent, key: res.medium.rank1.key },
@@ -1617,7 +1587,6 @@ function renderCardByMode(mode) {
     
     document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は ${weaponWinners.join('、')} です。`;
 
-    // 4. 意外な一面
     const categoriesNear = [
         { catName: '美学', diff: res.style.diff2Percent, top: res.style.rank1.key, second: res.style.rank2.key },
         { catName: '媒体', diff: res.medium.diff2Percent, top: res.medium.rank1.key, second: res.medium.rank2.key },
@@ -1649,15 +1618,8 @@ function toggleRankView(targetMode) {
     }
 }
 
-/* 画像ダウンロード処理 */
 function downloadResultImage() {
     const card = document.getElementById('result-card');
-    const descBlocks = document.querySelectorAll('.desc-block');
-    const profileSec = document.querySelector('.profile-section');
-
-    descBlocks.forEach(b => b.style.backdropFilter = 'none');
-    if (profileSec) profileSec.style.backdropFilter = 'none';
-
     const originalTransform = card.style.transform;
     card.style.transform = 'scale(1)';
 
@@ -1669,8 +1631,6 @@ function downloadResultImage() {
             letterRendering: true
         }).then(canvas => {
             card.style.transform = originalTransform;
-            descBlocks.forEach(b => b.style.backdropFilter = '');
-            if (profileSec) profileSec.style.backdropFilter = '';
 
             let prefix = currentDisplayedMode === 2 ? 'second-style' : currentDisplayedMode === 'opposite' ? 'opposite-style' : 'creative-style';
             
