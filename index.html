@@ -317,7 +317,7 @@
             border-color: var(--text-main);
         }
 
-        /* ----- 最終結果カード (微調整版) ----- */
+        /* ----- 最終結果カード (背景なし・微調整版) ----- */
         .result-card-container {
             display: flex;
             justify-content: center;
@@ -330,7 +330,7 @@
             background-color: var(--card-bg);
             border-radius: 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 14px 16px; /* 上下のパディングを微減してコンパクトに */
+            padding: 14px 16px;
             margin-bottom: 12px;
             border: 1px solid var(--border-color);
             width: 100%;
@@ -436,11 +436,12 @@
             min-height: 1.2em;
         }
 
+        /* 背景をなくしたセクションブロック */
         .section-block {
             margin-bottom: 6px;
-            background-color: rgba(255, 255, 255, 0.65);
-            padding: 6px 8px;
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            background-color: transparent;
+            padding: 4px 0;
+            border: none;
         }
 
         .section-title {
@@ -481,13 +482,14 @@
             margin-top: 1px;
         }
 
+        /* 背景をなくしたもう一つのあなたブロック */
         .another-type {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 6px;
+            background-color: transparent;
+            padding: 4px 0;
             border-radius: 0;
             text-align: center;
             margin-bottom: 6px;
-            border: 1px solid var(--border-color);
+            border: none;
         }
 
         .another-type h4 {
@@ -603,13 +605,13 @@
                 <!-- 選んだ理由の表示 -->
                 <div class="card-reason-text" id="res-reason"></div>
 
-                <!-- ⑤ 3軸の解説 -->
+                <!-- ⑤ 3軸の解説 (背景なし) -->
                 <div class="section-block">
                     <div class="section-title">3軸の解説</div>
                     <div id="res-axis-details"></div>
                 </div>
 
-                <!-- ⑥ 作風分析 -->
+                <!-- ⑥ 作風分析 (背景なし) -->
                 <div class="section-block">
                     <div class="section-title">作風分析</div>
                     <div class="axis-item">
@@ -618,7 +620,7 @@
                     </div>
                 </div>
 
-                <!-- ⑦ もう一つのあなた -->
+                <!-- ⑦ もう一つのあなた (背景なし) -->
                 <div class="another-type">
                     <h4>もう一つのあなた</h4>
                     <p id="res-sub-axes">理想 × 視覚 × 探究</p>
@@ -905,7 +907,7 @@ const DATA_STYLE = {
     "表現": { title: "表現 ｜ 自分を形にする人", text: "感情、感性、思想、個性など、自分自身の内側を作品として表す創作傾向。何をつくるか以上に、自分は何を感じ、何を考えているかが創作の出発点になる。独自の視点や個性そのものを作品の価値として捉えやすい。", keywords: "個性・感情・自己・独創性・主観" },
     "知覚": { title: "知覚 ｜ 世界を感じ取る人", text: "世界をどのように感じ、知覚するかを重視する創作傾向。正確に描くよりも、どう見えるか、どう聞こえるか、どう感じるかを大切にする。光、色、音、質感、温度、身体感覚、空間体験などへの関心が強い。", keywords: "感覚・印象・光・身体・体験" },
     "構成": { title: "構成 ｜ 世界を組み立てる人", text: "複数の要素を組み合わせ、その関係性から新しい秩序や美を生み出す創作傾向。個々のパーツだけでなく、それらがどう配置され、どう関係するかを重視する。建築、グラフィック、編集、音楽、映像、都市計画などと相性がよい。", keywords: "秩序・構造・配置・関係・バランス" },
-    "幻想": { title: "幻想 ｜ 存在しない世界を生み出す人", text: "現実には存在しないことを想像し、新しい世界として成立させる創作傾向。夢、神話、魔法、異世界、童話など、現実とは異なる世界や可能性を創造する。単なる空想ではなく、現実には見えないものを可視化することに価値を見出す。", keywords: "想像・夢・神話・異世界・非現実" },
+    "幻想": { title: "幻想 ｜ 存在しない世界を生み出す人", text: "現実には存在しないことを想像し、新しい世界として成立させる創作傾向。夢、神話、魔法、異世界、童話など,現実とは異なる世界や可能性を創造する。単なる空想ではなく、現実には見えないものを可視化することに価値を見出す。", keywords: "想像・夢・神話・異世界・非現実" },
     "概念": { title: "概念 ｜ 見えないものを形にする人", text: "思想、意味、問い、価値観など、目に見えないものを作品として提示する創作傾向。何が美しいかだけでなく、この作品は何を意味するのかを重視する。作品そのものだけでなく、その背景にある考えや問いが創作の核になることも多い。", keywords: "意味・思想・問い・本質・コンセプト" },
     "変容": { title: "変容 ｜ 世界を書き換える人", text: "既存のものを変形・再解釈・融合し、新しい価値へと変える創作傾向。ゼロからつくるだけでなく、すでにあるものを別のものへ変えることに創造性を感じる。異なるジャンルを融合したり、既存の常識を反転させたりすることもある。", keywords: "変化・再解釈・融合・改変・革新" }
 };
