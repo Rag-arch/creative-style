@@ -317,7 +317,7 @@
             border-color: var(--text-main);
         }
 
-        /* ----- 最終結果カード (9:16比率・横16:縦9画像固定) ----- */
+        /* ----- 最終結果カード (微調整版) ----- */
         .result-card-container {
             display: flex;
             justify-content: center;
@@ -330,8 +330,8 @@
             background-color: var(--card-bg);
             border-radius: 0;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            padding: 20px 18px;
-            margin-bottom: 16px;
+            padding: 14px 16px; /* 上下のパディングを微減してコンパクトに */
+            margin-bottom: 12px;
             border: 1px solid var(--border-color);
             width: 100%;
             transition: background 0.5s ease;
@@ -339,14 +339,14 @@
 
         .card-header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
         .app-title {
-            font-size: 10px;
+            font-size: 9.5px;
             color: var(--text-sub);
             letter-spacing: 0.1em;
-            margin: 0 0 2px 0;
+            margin: 0 0 1px 0;
         }
 
         .type-count-info {
@@ -354,7 +354,7 @@
             font-size: 7.5px;
             color: var(--text-sub);
             margin-top: 2px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: 0.02em;
         }
 
@@ -365,7 +365,7 @@
             align-items: baseline;
             justify-items: center;
             max-width: 360px;
-            margin: 0 auto 10px auto;
+            margin: 0 auto 6px auto;
         }
 
         .axis-col-1 { grid-column: 1; }
@@ -375,7 +375,7 @@
         .axis-col-3 { grid-column: 5; }
 
         .axis-label-item {
-            font-size: 8.5px;
+            font-size: 8px;
             color: var(--text-sub);
             letter-spacing: 0.08em;
             font-weight: bold;
@@ -383,7 +383,7 @@
         }
 
         .axis-val-item {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 900;
             letter-spacing: 0.03em;
         }
@@ -391,15 +391,15 @@
         .axis-separator {
             color: var(--text-sub);
             font-weight: normal;
-            font-size: 16px;
+            font-size: 15px;
             padding: 0 2px;
         }
 
         .catchphrase {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
             color: var(--accent-color);
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             text-align: center;
         }
 
@@ -413,7 +413,7 @@
             align-items: center;
             justify-content: center;
             color: var(--text-sub);
-            margin-bottom: 5px;
+            margin-bottom: 3px;
             border: none;
             position: relative;
             overflow: hidden;
@@ -429,43 +429,43 @@
         }
 
         .card-reason-text {
-            font-size: 10.5px;
+            font-size: 10px;
             color: var(--text-sub);
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             min-height: 1.2em;
         }
 
         .section-block {
-            margin-bottom: 10px;
+            margin-bottom: 6px;
             background-color: rgba(255, 255, 255, 0.65);
-            padding: 8px;
+            padding: 6px 8px;
             border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .section-title {
-            font-size: 11.5px;
+            font-size: 11px;
             font-weight: bold;
             border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 2px;
-            margin-bottom: 6px;
+            padding-bottom: 1px;
+            margin-bottom: 4px;
         }
 
         .axis-item {
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .axis-name {
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: bold;
             color: var(--text-main);
         }
 
         .axis-desc {
-            font-size: 9px;
+            font-size: 8.5px;
             color: var(--text-sub);
             margin-top: 1px;
-            line-height: 1.35;
+            line-height: 1.3;
         }
 
         /* 句点改行のためのスタイル */
@@ -476,24 +476,24 @@
         /* キーワード行スタイル */
         .desc-keywords {
             display: block;
-            font-size: 8px;
+            font-size: 7.5px;
             color: #777;
-            margin-top: 2px;
+            margin-top: 1px;
         }
 
         .another-type {
             background-color: rgba(255, 255, 255, 0.8);
-            padding: 8px;
+            padding: 6px;
             border-radius: 0;
             text-align: center;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             border: 1px solid var(--border-color);
         }
 
         .another-type h4 {
-            font-size: 10px;
+            font-size: 9.5px;
             color: var(--text-sub);
-            margin: 0 0 2px 0;
+            margin: 0 0 1px 0;
         }
 
         .another-type p {
@@ -504,11 +504,11 @@
             align-items: baseline;
             gap: 4px;
             flex-wrap: wrap;
-            font-size: 11.5px;
+            font-size: 11px;
         }
 
         .sub-axis-rate {
-            font-size: 8.5px;
+            font-size: 8px;
             color: var(--text-sub);
             font-weight: normal;
         }
@@ -517,9 +517,9 @@
             font-size: 7.5px;
             color: var(--text-sub);
             border-top: 1px solid var(--border-color);
-            padding-top: 5px;
+            padding-top: 4px;
             text-align: justify;
-            line-height: 1.3;
+            line-height: 1.25;
         }
     </style>
 </head>
@@ -585,8 +585,8 @@
                 <!-- ① タイトル -->
                 <div class="card-header">
                     <p class="app-title">512 TYPES</p>
-                    <h2 style="margin:0; font-size: 17px;">私という作風</h2>
-                    <div class="type-count-info">8 × 8 × 8 = 512通り ｜ 3つの軸の組み合わせからあなたの作風を導き出します。</div>
+                    <h2 style="margin:0; font-size: 16px;">私という作風</h2>
+                    <div class="type-count-info">3つの軸の組み合わせからあなたの作風を導き出します。</div>
                 </div>
 
                 <!-- ② CSS Gridによる完全位置合わせ -->
@@ -877,7 +877,6 @@ const QUESTIONS = [
     }
 ];
 
-// 解説データ（「」なし・省略なし）
 const DATA_PURPOSE = {
     "美": { sentenceName: "美を宿す", title: "美を宿す人", text: "世界に、美しいものを存在させることを創作の目的とする傾向。何を伝えるかよりも、まずそれ自体が美しいかを重視する。色、形、構図、素材、空間、音、言葉などを磨き上げ、調和や完成度の高いものを生み出しようとする。", keywords: "美・調和・洗練・完成度・造形・感性" },
     "探究": { sentenceName: "探究を拓く", title: "探究を拓く人", text: "まだ知らないものを発見し、世界への理解を広げることを創作の目的とする傾向。正解をつくるよりも、未知を見つけることに創作の価値を感じる。実験、研究、観察、試行錯誤を通して、既存の常識を問い直す。作品そのものだけでなく、制作の過程で得られる発見を重視することもある。", keywords: "発見・実験・研究・未知・仮説・革新" },
@@ -934,7 +933,6 @@ function hexToRgb(hex) {
     };
 }
 
-// 句点「。」で文章を分割して改行タグで繋ぐ関数
 function formatDescWithLineBreaks(text, keywords) {
     const sentences = text.split('。').filter(s => s.trim().length > 0).map(s => s + '。');
     let html = '';
@@ -1189,7 +1187,6 @@ function calculateAndShowResult() {
     const rgbP = hexToRgb(colorP);
 
     const resultCard = document.getElementById('result-card');
-    // 3色のグラデーションをより鮮やかで美しい配色（不透明度を高め、明確なグラデーションに調整）にする
     resultCard.style.background = `linear-gradient(135deg, 
         rgba(${rgbS.r}, ${rgbS.g}, ${rgbS.b}, 0.22) 0%, 
         rgba(${rgbM.r}, ${rgbM.g}, ${rgbM.b}, 0.24) 50%, 
