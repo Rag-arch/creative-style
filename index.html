@@ -8,12 +8,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
-            --bg-color: #fcfcfc;
-            --text-main: #111111;
+            --bg-color: #e8e4dc;
+            --card-bg: #ffffff;
+            --text-main: #2b2b2b;
             --text-sub: #666666;
-            --border-color: #e0e0e0;
-            --accent-color: #000000;
-            --profile-bg: rgba(255, 255, 255, 0.85);
+            --accent-color: #2c3e50;
+            --border-color: #d8d4cd;
             --font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
         }
 
@@ -33,6 +33,7 @@
             min-height: 100vh;
             padding: 16px;
             letter-spacing: 0.05em;
+            line-height: 1.5;
         }
 
         .container {
@@ -52,7 +53,7 @@
             opacity: 1;
         }
 
-        /* ----- UI ----- */
+        /* ----- UI / スタート・質問・画像選択画面 ----- */
         h1.main-title {
             font-size: 2.2rem;
             font-weight: 900;
@@ -83,7 +84,7 @@
         .btn {
             display: inline-block;
             width: 100%;
-            padding: 18px 24px;
+            padding: 14px 24px;
             background: #ffffff;
             color: var(--text-main);
             border: 1px solid var(--text-main);
@@ -94,7 +95,7 @@
             transition: all 0.2s ease;
             text-align: center;
             text-decoration: none;
-            background-color: transparent;
+            border-radius: 0;
         }
 
         .btn-start {
@@ -115,13 +116,15 @@
 
         .btn-group {
             display: flex;
-            gap: 12px;
-            margin-top: 20px;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
         }
 
         .btn-secondary {
             border-color: var(--border-color);
             color: var(--text-sub);
+            background: #ffffff;
         }
 
         .btn-secondary:hover {
@@ -130,24 +133,14 @@
             border-color: var(--text-main);
         }
 
-        .btn-toggle {
-            background: var(--text-main);
-            color: #ffffff;
-        }
-
-        .btn-toggle:hover {
-            background: #333333;
-            color: #ffffff;
-        }
-
-        /* 質問カード */
+        /* 質問カード共通 */
         .q-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
         .q-number {
@@ -159,7 +152,7 @@
         .q-title {
             font-size: 1.15rem;
             font-weight: 700;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-align: center;
             line-height: 1.5;
         }
@@ -167,18 +160,19 @@
         .options-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 2rem;
+            gap: 10px;
+            margin-bottom: 1.5rem;
         }
 
         .option-item {
             border: 1px solid var(--border-color);
-            padding: 18px 20px;
+            padding: 16px 20px;
             cursor: pointer;
             transition: all 0.2s ease;
             background: #fff;
             display: flex;
             align-items: center;
+            border-radius: 0;
         }
 
         .option-item:hover {
@@ -207,15 +201,15 @@
             font-size: 0.8rem;
             text-align: center;
             color: var(--text-sub);
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             font-weight: 600;
         }
 
         .options-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 2rem;
+            gap: 8px;
+            margin-bottom: 1.5rem;
         }
 
         .grid-item {
@@ -225,6 +219,7 @@
             position: relative;
             overflow: hidden;
             background: #fff;
+            border-radius: 0;
             transition: all 0.2s ease;
         }
 
@@ -247,19 +242,19 @@
             right: 4px;
             background: var(--text-main);
             color: #fff;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: bold;
-            border-radius: 50%;
+            border-radius: 0;
         }
 
-        /* 画像アップロード */
+        /* 画像アップロード画面 */
         .file-upload-wrapper {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-align: center;
         }
 
@@ -269,38 +264,31 @@
 
         .file-label {
             border: 1px dashed var(--text-main);
-            padding: 40px 20px;
+            padding: 30px 20px;
             display: block;
             cursor: pointer;
             background: #fff;
+            border-radius: 0;
             transition: background 0.2s, border 0.2s;
         }
 
         .file-label.has-image {
             border: none;
-            padding: 10px 0;
-            background: transparent;
-        }
-
-        .file-label:hover {
-            background: #f9f9f9;
-        }
-
-        .file-label.has-image:hover {
+            padding: 5px 0;
             background: transparent;
         }
 
         .preview-mini {
-            max-width: 200px;
-            max-height: 200px;
-            margin: 15px auto 0;
+            max-width: 160px;
+            max-height: 160px;
+            margin: 10px auto 0;
             display: none;
             object-fit: cover;
+            border-radius: 0;
         }
 
-        /* 選んだ理由の入力欄 */
         .reason-wrapper {
-            margin-top: 1.5rem;
+            margin-top: 1.2rem;
             text-align: left;
         }
 
@@ -308,18 +296,18 @@
             display: block;
             font-size: 0.85rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: var(--text-main);
         }
 
         .reason-textarea {
             width: 100%;
-            height: 80px;
-            padding: 10px 12px;
+            height: 70px;
+            padding: 8px 10px;
             font-family: var(--font-family);
             font-size: 0.85rem;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
+            border-radius: 0;
             resize: vertical;
             outline: none;
             background: #fff;
@@ -329,272 +317,209 @@
             border-color: var(--text-main);
         }
 
-        /* ----- 最終結果カード (1080×1920 固定＆自動スケーリング) ----- */
+        /* ----- 最終結果カード (9:16比率・横16:縦9画像固定) ----- */
         .result-card-container {
             display: flex;
             justify-content: center;
             align-items: center;
             width: 100%;
-            max-width: 450px;
-            margin: 0 auto 2rem auto;
-            aspect-ratio: 9 / 16;
-            position: relative;
-            overflow: hidden;
+            margin: 0 auto;
         }
 
-        #result-card {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 1080px;
-            height: 1920px;
-            background: #ffffff;
-            border: 4px solid var(--text-main);
-            box-sizing: border-box;
-            padding: 30px 44px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transform-origin: top left;
-            transition: background 0.3s ease;
+        .result-card {
+            background-color: var(--card-bg);
+            border-radius: 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 20px 18px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            transition: background 0.5s ease;
         }
 
         .card-header {
             text-align: center;
-        }
-
-        .card-subtitle {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            color: #444444;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-        }
-
-        .card-title {
-            font-size: 36px;
-            font-weight: 900;
-            letter-spacing: 0.2em;
             margin-bottom: 10px;
-            text-transform: uppercase;
-            color: var(--text-main);
         }
 
-        .card-formula {
-            font-size: 48px;
-            font-weight: 900;
-            letter-spacing: 0.05em;
-            margin-bottom: 6px;
-            border-top: 2px solid var(--text-main);
-            border-bottom: 2px solid var(--text-main);
-            padding: 10px 0;
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
+        .app-title {
+            font-size: 10px;
+            color: var(--text-sub);
+            letter-spacing: 0.1em;
+            margin: 0 0 2px 0;
+        }
+
+        .type-count-info {
+            text-align: center;
+            font-size: 7.5px;
+            color: var(--text-sub);
+            margin-top: 2px;
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+        }
+
+        /* 3軸の完全な位置合わせグリッド */
+        .axes-grid-layout {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
             align-items: baseline;
-            gap: 12px;
-            flex-wrap: wrap;
+            justify-items: center;
+            max-width: 360px;
+            margin: 0 auto 10px auto;
         }
 
-        .card-formula span.formula-item {
-            display: inline-flex;
-            align-items: baseline;
-            line-height: 1.2;
+        .axis-col-1 { grid-column: 1; }
+        .axis-sep-1 { grid-column: 2; }
+        .axis-col-2 { grid-column: 3; }
+        .axis-sep-2 { grid-column: 4; }
+        .axis-col-3 { grid-column: 5; }
+
+        .axis-label-item {
+            font-size: 8.5px;
+            color: var(--text-sub);
+            letter-spacing: 0.08em;
+            font-weight: bold;
+            margin-bottom: 1px;
         }
 
-        .card-formula span.pct-label {
+        .axis-val-item {
             font-size: 22px;
-            font-weight: 600;
-            color: #777777;
-            margin-left: 4px;
-            letter-spacing: 0;
-        }
-
-        .card-sentence {
-            font-size: 26px;
-            font-weight: 700;
+            font-weight: 900;
             letter-spacing: 0.03em;
-            color: var(--text-main);
-            white-space: normal;
         }
 
-        .card-image-area {
-            width: 100%; 
-            aspect-ratio: 16 / 9; 
-            margin: 0 auto;
+        .axis-separator {
+            color: var(--text-sub);
+            font-weight: normal;
+            font-size: 16px;
+            padding: 0 2px;
+        }
+
+        .catchphrase {
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        /* 画像エリア (横16：縦9に固定) */
+        .image-section {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 0;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            margin-bottom: 5px;
+            border: none;
+            position: relative;
             overflow: hidden;
-            border: 3px solid rgba(0,0,0,0.15);
-            background: #000;
+            text-align: center;
+            font-size: 0.8rem;
         }
 
-        .card-image-area img {
+        .image-section img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
+            border-radius: 0;
         }
 
         .card-reason-text {
-            font-size: 19px;
-            font-weight: 600;
-            color: var(--text-main);
-            text-align: center;
-            line-height: 1.4;
-            padding: 0 10px;
-            height: 1.4em;
-            max-height: 1.4em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: block; 
-        }
-
-        .card-description {
-            text-align: left;
-            letter-spacing: 0;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 14px;
-        }
-
-        .desc-block {
-            padding: 12px 16px;
-            border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            display: flex;
-            justify-content: space-between;
-            align-items: stretch;
-            gap: 12px;
-            height: 175px; 
-            box-sizing: border-box;
-        }
-
-        .desc-content-main {
-            flex: 1;
-            min-width: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        .desc-bold {
-            font-size: 20px;
-            font-weight: 800;
-            margin-bottom: 4px;
-            display: block;
-            line-height: 1.2;
-        }
-
-        .desc-line {
-            display: block;
-            font-size: 15px;
-            font-weight: 400;
-            line-height: 1.35;
-            white-space: normal;
-        }
-
-        .desc-keyword {
-            margin-top: 4px;
-            font-size: 13.5px;
-            font-weight: 500;
-            opacity: 0.85;
-            display: block;
-            white-space: normal;
-        }
-
-        .desc-tendency-panel {
-            width: 175px;
-            flex-shrink: 0;
-            padding: 2px 0px 2px 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            border-left: 2px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .desc-tendency-title {
-            font-size: 15px;
-            font-weight: 800;
-            letter-spacing: 0.05em;
-            margin-bottom: 3px;
-            border-bottom: 2px solid var(--text-main);
-            padding-bottom: 2px;
-            display: block;
-            text-align: center;
-        }
-
-        .desc-tendency-item {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            color: var(--text-main);
-            font-size: 15px;
-            font-weight: 500;
-            white-space: nowrap;
-            line-height: 1.3;
-            gap: 4px;
-        }
-
-        .desc-tendency-item .item-label {
-            margin-right: auto;
-        }
-
-        .desc-tendency-item .rank-num {
-            margin-right: 4px;
-            font-weight: 600;
-        }
-
-        .desc-tendency-item .pct-val {
-            font-weight: 600;
+            font-size: 10.5px;
             color: var(--text-sub);
+            text-align: center;
+            margin-bottom: 10px;
+            min-height: 1.2em;
         }
 
-        .profile-section {
-            padding: 10px 16px;
-            background-color: #ffffff;
-            border-radius: 6px;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+        .section-block {
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.65);
+            padding: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
-        .profile-item-box {
-            border-top: 1px dashed rgba(0, 0, 0, 0.15);
-            padding-top: 5px;
+        .section-title {
+            font-size: 11.5px;
+            font-weight: bold;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 2px;
+            margin-bottom: 6px;
         }
 
-        .profile-item-box:first-child {
-            border-top: none;
-            padding-top: 0;
+        .axis-item {
+            margin-bottom: 6px;
         }
 
-        .profile-title {
-            font-size: 18px;
-            font-weight: 800;
+        .axis-name {
+            font-size: 10.5px;
+            font-weight: bold;
             color: var(--text-main);
-            margin-bottom: 2px;
         }
 
-        .profile-desc-outline, .profile-desc-tight {
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--text-main);
+        .axis-desc {
+            font-size: 9px;
+            color: var(--text-sub);
+            margin-top: 1px;
             line-height: 1.35;
         }
 
-        .profile-desc-line {
+        /* 句点改行のためのスタイル */
+        .desc-sentence {
             display: block;
-            white-space: normal;
+        }
+
+        /* キーワード行スタイル */
+        .desc-keywords {
+            display: block;
+            font-size: 8px;
+            color: #777;
+            margin-top: 2px;
+        }
+
+        .another-type {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 8px;
+            border-radius: 0;
+            text-align: center;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .another-type h4 {
+            font-size: 10px;
+            color: var(--text-sub);
+            margin: 0 0 2px 0;
+        }
+
+        .another-type p {
+            font-weight: bold;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 4px;
+            flex-wrap: wrap;
+            font-size: 11.5px;
+        }
+
+        .sub-axis-rate {
+            font-size: 8.5px;
+            color: var(--text-sub);
+            font-weight: normal;
+        }
+
+        .card-footer-note {
+            font-size: 7.5px;
+            color: var(--text-sub);
+            border-top: 1px solid var(--border-color);
+            padding-top: 5px;
+            text-align: justify;
+            line-height: 1.3;
         }
     </style>
 </head>
@@ -633,7 +558,7 @@
         <div class="q-header">
             <span class="q-number">VISUAL</span>
         </div>
-        <div class="q-title">あなたの作風を象徴する画像を1枚選んでください</div>
+        <div class="q-title">あなたの作風を象徴する画像を1枚選んでください（比率16:9固定）</div>
         <div class="file-upload-wrapper">
             <label class="file-label" id="file-label-box" for="char-image-input">
                 <span id="file-label-text">画像ファイルを選択 (ローカル処理)</span>
@@ -643,7 +568,7 @@
             
             <div class="reason-wrapper">
                 <label class="reason-label" for="image-reason-input">この一枚を選んだ理由</label>
-                <textarea id="image-reason-input" class="reason-textarea" placeholder="この画像を選んだ理由や、思い入れなどを入力してください（1行のみ反映）"></textarea>
+                <textarea id="image-reason-input" class="reason-textarea" placeholder="この画像を選んだ理由や、思い入れなどを入力してください"></textarea>
             </div>
         </div>
         <div class="btn-group">
@@ -655,46 +580,60 @@
     <!-- RESULT SCREEN -->
     <div id="screen-result" class="screen">
         <div class="result-card-container">
-            <div id="result-card">
+            <div class="result-card" id="result-card">
+                
+                <!-- ① タイトル -->
                 <div class="card-header">
-                    <div class="card-subtitle" id="res-subtitle">CREATIVE STYLE</div>
-                    <div class="card-title" id="res-title">私という作風</div>
-                    <div class="card-formula" id="res-formula">[STYLE] × [MEDIUM] × [PURPOSE]</div>
-                    <div class="card-sentence" id="res-sentence">［目的］、［美意識］を［手段を行う］人</div>
+                    <p class="app-title">512 TYPES</p>
+                    <h2 style="margin:0; font-size: 17px;">私という作風</h2>
+                    <div class="type-count-info">8 × 8 × 8 = 512通り ｜ 3つの軸の組み合わせからあなたの作風を導き出します。</div>
                 </div>
 
-                <div class="card-image-area" id="res-image-area-wrapper">
-                    <img id="res-image" src="" alt="Character">
-                </div>
+                <!-- ② CSS Gridによる完全位置合わせ -->
+                <div class="axes-grid-layout" id="res-axes-grid"></div>
 
+                <!-- ③ キャッチコピー -->
+                <div class="catchphrase" id="res-catchphrase"></div>
+
+                <!-- ④ あなたを象徴する一枚 -->
+                <div class="image-section" id="imageDropZone">
+                    <img id="res-image" src="" alt="Character" style="display:none;">
+                    <span id="res-image-placeholder">[ あなたを象徴する一枚 (16:9) ]<br>画像をここに配置</span>
+                </div>
+                <!-- 選んだ理由の表示 -->
                 <div class="card-reason-text" id="res-reason"></div>
 
-                <div class="card-description" id="res-description"></div>
+                <!-- ⑤ 3軸の解説 -->
+                <div class="section-block">
+                    <div class="section-title">3軸の解説</div>
+                    <div id="res-axis-details"></div>
+                </div>
 
-                <div class="profile-section">
-                    <div class="profile-item-box">
-                        <div class="profile-title" id="profile-title">1. 作風の輪郭｜〇〇型</div>
-                        <div class="profile-desc-outline" id="profile-desc">ここに説明文が入ります。</div>
-                    </div>
-                    <div class="profile-item-box">
-                        <div class="profile-title">2. 作風の核</div>
-                        <div class="profile-desc-tight" id="profile-core-desc">あなたの創作では 〇〇 が最も強い核になっています。</div>
-                    </div>
-                    <div class="profile-item-box">
-                        <div class="profile-title">3. 作風の武器</div>
-                        <div class="profile-desc-tight" id="profile-weapon-desc">作品に強く個性を与える要素は 〇〇 です。</div>
-                    </div>
-                    <div class="profile-item-box">
-                        <div class="profile-title">4. 意外な一面</div>
-                        <div class="profile-desc-tight" id="profile-surprise-desc">あなたは〇〇型に見えて、実は△△的な創作性もかなり強く持っています。</div>
+                <!-- ⑥ 作風分析 -->
+                <div class="section-block">
+                    <div class="section-title">作風分析</div>
+                    <div class="axis-item">
+                        <div class="axis-name" id="profile-title-1">作風の輪郭 ｜ 尖鋭型</div>
+                        <div class="axis-desc" id="profile-desc-1">ここに解説が入ります。</div>
                     </div>
                 </div>
+
+                <!-- ⑦ もう一つのあなた -->
+                <div class="another-type">
+                    <h4>もう一つのあなた</h4>
+                    <p id="res-sub-axes">理想 × 視覚 × 探究</p>
+                </div>
+
+                <!-- ⑧ 小さな注記 -->
+                <div class="card-footer-note">
+                    ※この診断は、回答時点の創作に対する好みや価値観から、現在の「作風の傾向」を可視化するものです。<br>
+                    人の創作や価値観を固定的に分類するものではありません。
+                </div>
+
             </div>
         </div>
 
-        <div class="btn-group" style="flex-direction: column; gap: 10px;">
-            <button class="btn btn-toggle" id="btn-toggle-rank" onclick="toggleRankView(2)">SECOND STYLEを表示</button>
-            <button class="btn btn-toggle" id="btn-toggle-opposite" style="background-color: #444;" onclick="toggleRankView('opposite')">OPPOSITE STYLEを表示</button>
+        <div class="btn-group" style="margin-bottom: 20px;">
             <button class="btn" onclick="downloadResultImage()">結果を画像で保存・ダウンロード</button>
             <button class="btn btn-secondary" onclick="backToImageScreen()">回答や写真を修正する</button>
             <button class="btn btn-secondary" onclick="restart()">最初からやり直す</button>
@@ -715,8 +654,8 @@ const COLOR_MEDIUM = {
 };
 
 const COLOR_PURPOSE = {
-    "美":   "#F48FB1", "探究": "#9FA8DA", "伝達": "#90CAF9", "共感": "#A5D6A7",
-    "娯楽": "#FFCC80", "思索": "#CE93D8", "癒し": "#80DEEA", "感動": "#EF9A9A"
+    "美":   "#C2185B", "探究": "#303F9F", "伝達": "#0288D1", "共感": "#388E3C",
+    "娯楽": "#E65100", "思索": "#7B1FA2", "癒し": "#00838F", "感動": "#D32F2F"
 };
 
 const QUESTIONS = [
@@ -741,10 +680,10 @@ const QUESTIONS = [
     {
         q: "何と言われたい？", type: "standard",
         answers: [
-            { key: "A", text: "「きれい！」", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
-            { key: "B", text: "「もっと知りたい！」", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
-            { key: "C", text: "「あなたの考えが伝わった！」", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "感動"] },
-            { key: "D", text: "「一緒に楽しめた！」", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "娯楽"] }
+            { key: "A", text: "きれい！", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
+            { key: "B", text: "もっと知りたい！", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
+            { key: "C", text: "あなたの考えが伝わった！", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "感動"] },
+            { key: "D", text: "一緒に楽しめた！", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "娯楽"] }
         ]
     },
     {
@@ -784,11 +723,11 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "「夏の思い出」を作品にするなら？", type: "standard",
+        q: "夏の思い出を作品にするなら？", type: "standard",
         answers: [
             { key: "A", text: "色や光で見せる", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "映像"] },
             { key: "B", text: "物や形で残す", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "身体"] },
-            { key: "C", text: "その場所をつくる", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] },
+            { key: "C", text: "その場をつくる", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] },
             { key: "D", text: "音や声で伝える", main: ["MEDIUM", "音響"], sub: ["MEDIUM", "言語"] }
         ]
     },
@@ -849,10 +788,10 @@ const QUESTIONS = [
     {
         q: "作品を見た人に、まず何をしてほしい？", type: "standard",
         answers: [
-            { key: "A", text: "「きれい」と感じてほしい", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
-            { key: "B", text: "「なぜ？」と考えてほしい", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
-            { key: "C", text: "「なるほど」と理解してほしい", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "探究"] },
-            { key: "D", text: "「自分もそう思う」と感じてほしい", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "感動"] }
+            { key: "A", text: "きれいと感じてほしい", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
+            { key: "B", text: "なぜ？と考えてほしい", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
+            { key: "C", text: "なるほどと理解してほしい", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "探究"] },
+            { key: "D", text: "自分もそう思うと感じてほしい", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "感動"] }
         ]
     },
     {
@@ -883,270 +822,93 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "好きなものを選んでください", type: "grid",
-        category: "STYLE",
+        q: "好きなものを選んでください", type: "grid", category: "STYLE",
         items: [
-            { label: "再現", img: "./images/１再現.jpg" },
-            { label: "理想", img: "./images/２理想.jpg" },
-            { label: "表現", img: "./images/３表現.jpg" },
-            { label: "知覚", img: "./images/４知覚.jpg" },
-            { label: "構成", img: "./images/５構成.jpg" },
-            { label: "幻想", img: "./images/６幻想.jpg" },
-            { label: "概念", img: "./images/７概念.jpg" },
-            { label: "変容", img: "./images/８変容.jpg" }
+            { label: "再現", img: "./images/１再現.jpg" }, { label: "理想", img: "./images/２理想.jpg" },
+            { label: "表現", img: "./images/３表現.jpg" }, { label: "知覚", img: "./images/４知覚.jpg" },
+            { label: "構成", img: "./images/５構成.jpg" }, { label: "幻想", img: "./images/６幻想.jpg" },
+            { label: "概念", img: "./images/７概念.jpg" }, { label: "変容", img: "./images/８変容.jpg" }
         ]
     },
     {
-        q: "好きなものを選んでください", type: "grid",
-        category: "MEDIUM",
+        q: "好きなものを選んでください", type: "grid", category: "MEDIUM",
         items: [
-            { label: "視覚", img: "./images/A.visual.jpg" },
-            { label: "造形", img: "./images/B.form.jpg" },
-            { label: "空間", img: "./images/C.space.jpg" },
-            { label: "音響", img: "./images/D.sound.jpg" },
-            { label: "言語", img: "./images/E.language.jpg" },
-            { label: "身体", img: "./images/F.body.jpg" },
-            { label: "映像", img: "./images/G.image.jpg" },
-            { label: "体験", img: "./images/H.experience.jpg" }
+            { label: "視覚", img: "./images/A.visual.jpg" }, { label: "造形", img: "./images/B.form.jpg" },
+            { label: "空間", img: "./images/C.space.jpg" }, { label: "音響", img: "./images/D.sound.jpg" },
+            { label: "言語", img: "./images/E.language.jpg" }, { label: "身体", img: "./images/F.body.jpg" },
+            { label: "映像", img: "./images/G.image.jpg" }, { label: "体験", img: "./images/H.experience.jpg" }
         ]
     },
     {
-        q: "好きなものを選んでください", type: "grid",
-        category: "PURPOSE",
+        q: "好きなものを選んでください", type: "grid", category: "PURPOSE",
         items: [
-            { label: "美", img: "./images/11美.jpg" },
-            { label: "探究", img: "./images/12探求.jpg" },
-            { label: "伝達", img: "./images/13伝達.jpg" },
-            { label: "共感", img: "./images/14共感.jpg" },
-            { label: "娯楽", img: "./images/15娯楽.jpg" },
-            { label: "思索", img: "./images/16思索.jpg" },
-            { label: "癒し", img: "./images/17癒し.jpg" },
-            { label: "感動", img: "./images/18感動.jpg" }
+            { label: "美", img: "./images/11美.jpg" }, { label: "探究", img: "./images/12探求.jpg" },
+            { label: "伝達", img: "./images/13伝達.jpg" }, { label: "共感", img: "./images/14共感.jpg" },
+            { label: "娯楽", img: "./images/15娯楽.jpg" }, { label: "思索", img: "./images/16思索.jpg" },
+            { label: "癒し", img: "./images/17癒し.jpg" }, { label: "感動", img: "./images/18感動.jpg" }
         ]
     },
     {
-        q: "好きなものを選んでください", type: "grid",
-        category: "STYLE",
+        q: "好きなものを選んでください", type: "grid", category: "STYLE",
         items: [
-            { label: "再現", img: "./images/31再現.jpg" },
-            { label: "理想", img: "./images/32理想.jpg" },
-            { label: "表現", img: "./images/33表現.jpg" },
-            { label: "知覚", img: "./images/34知覚.jpg" },
-            { label: "構成", img: "./images/35構成.jpg" },
-            { label: "幻想", img: "./images/36幻想.jpg" },
-            { label: "概念", img: "./images/37概念.jpg" },
-            { label: "変容", img: "./images/38変容.jpg" }
+            { label: "再現", img: "./images/31再現.jpg" }, { label: "理想", img: "./images/32理想.jpg" },
+            { label: "表現", img: "./images/33表現.jpg" }, { label: "知覚", img: "./images/34知覚.jpg" },
+            { label: "構成", img: "./images/35構成.jpg" }, { label: "幻想", img: "./images/36幻想.jpg" },
+            { label: "概念", img: "./images/37概念.jpg" }, { label: "変容", img: "./images/38変容.jpg" }
         ]
     },
     {
-        q: "好きなものを選んでください", type: "grid",
-        category: "MEDIUM",
+        q: "好きなものを選んでください", type: "grid", category: "MEDIUM",
         items: [
-            { label: "視覚", img: "./images/41.水墨画.jpg" },
-            { label: "造形", img: "./images/42陶芸.jpg" },
-            { label: "空間", img: "./images/43日本建築.jpg" },
-            { label: "音響", img: "./images/44箏.jpg" },
-            { label: "言語", img: "./images/45俳句.jpg" },
-            { label: "身体", img: "./images/46日本舞踊.jpg" },
-            { label: "映像", img: "./images/47江戸写し絵.jpg" },
-            { label: "体験", img: "./images/48茶道.jpg" }
+            { label: "視覚", img: "./images/41.水墨画.jpg" }, { label: "造形", img: "./images/42陶芸.jpg" },
+            { label: "空間", img: "./images/43日本建築.jpg" }, { label: "音響", img: "./images/44箏.jpg" },
+            { label: "言語", img: "./images/45俳句.jpg" }, { label: "身体", img: "./images/46日本舞踊.jpg" },
+            { label: "映像", img: "./images/47江戸写し絵.jpg" }, { label: "体験", img: "./images/48茶道.jpg" }
         ]
     },
     {
-        q: "好きなものを選んでください", type: "grid",
-        category: "PURPOSE",
+        q: "好きなものを選んでください", type: "grid", category: "PURPOSE",
         items: [
-            { label: "美", img: "./images/51詩的幻想.jpg" },
-            { label: "探究", img: "./images/52ミステリー.jpg" },
-            { label: "伝達", img: "./images/53歴史小説.jpg" },
-            { label: "共感", img: "./images/54現代文学.jpg" },
-            { label: "娯楽", img: "./images/55冒険小説.jpg" },
-            { label: "思索", img: "./images/56哲学.jpg" },
-            { label: "癒し", img: "./images/57ヒーリング.jpg" },
-            { label: "感動", img: "./images/58伝記.jpg" }
+            { label: "美", img: "./images/51詩的幻想.jpg" }, { label: "探究", img: "./images/52ミステリー.jpg" },
+            { label: "伝達", img: "./images/53歴史小説.jpg" }, { label: "共感", img: "./images/54現代文学.jpg" },
+            { label: "娯楽", img: "./images/55冒険小説.jpg" }, { label: "思索", img: "./images/56哲学.jpg" },
+            { label: "癒し", img: "./images/57ヒーリング.jpg" }, { label: "感動", img: "./images/58伝記.jpg" }
         ]
     }
 ];
 
+// 解説データ（「」なし・省略なし）
 const DATA_PURPOSE = {
-    "美": {
-        sentenceName: "美を宿す",
-        title: "美を宿す人",
-        lines: [
-            "世界に、美しいものを存在させることを目的とする人。",
-            "「何を伝えるか」よりも、まず「それ自体が美しいか」を重要視する。",
-            "色、形、構図、素材、空間、音、言葉などを磨き上げ、調和の取れたものを生み出そうとする。",
-            "美術家、建築家、デザイナー、作曲家などに強く現れやすいタイプ。"
-        ],
-        keywords: "美・調和・洗練・完成度・造形・感性"
-    },
-    "探究": {
-        sentenceName: "探究を拓く",
-        title: "探究を拓く人",
-        lines: [
-            "まだ知らないものを発見し、世界への理解を広げることを目的とする人。",
-            "「正解を作る」より、「未知を見つける」ことに創作の価値を感じる。",
-            "実験、研究、観察、試行錯誤を楽しみ、既存の常識に疑問を持つ。",
-            "作品そのものより、制作過程で得られる発見を重視することもある。"
-        ],
-        keywords: "発見・実験・研究・未知・仮説・革新"
-    },
-    "伝達": {
-        sentenceName: "伝達を響かせる",
-        title: "伝達を響かせる人",
-        lines: [
-            "自分が持っている情報・知識・思想・物語を、他者へ届けることを目的とする人。",
-            "「自分が何を感じたか」よりも、「相手に何が伝わったか」を重視する。",
-            "文章、映像、図解、デザイン、演説、教育など、情報を媒介する創作と相性がいい。",
-            "「伝わらなければ作品として成立しない」という意識を持ちやすい。"
-        ],
-        keywords: "情報・知識・意味・説明・共有・メッセージ"
-    },
-    "共感": {
-        sentenceName: "共感を繋ぐ",
-        title: "共感を繋ぐ人",
-        lines: [
-            "人と人の間に感情的なつながりを作り出すことを目的とする人。",
-            "「理解させる」のではなく、「わかる」「同じ気持ちだ」と感じてもらうことを目指す。",
-            "自身の経験や感情を作品に込め、それを通して他者との距離を縮める。",
-            "物語、音楽、詩、漫画、演劇など、感情移入を生みやすい表現と特に相性がいい。"
-        ],
-        keywords: "共鳴・共有・親密さ・感情・人間関係・連帯"
-    },
-    "娯楽": {
-        sentenceName: "娯楽を仕掛ける",
-        title: "娯楽を仕掛ける人",
-        lines: [
-            "人を楽しませ、夢中にさせることを目的とする人。",
-            "創作を一種の「仕掛け」として捉える。",
-            "「次は何が起こる？」「どうしたらもっと面白い？」と考え、驚き、笑い、スリル、遊びなどを設計する。",
-            "ゲーム、エンターテインメント、テーマパーク、映画、漫画などと非常に相性がいい。"
-        ],
-        keywords: "楽しさ・遊び・驚き・刺激・笑い・没入"
-    },
-    "思索": {
-        sentenceName: "思索へ誘う",
-        title: "思索へ誘う人",
-        lines: [
-            "作品を通して、見る人・読む人自身に考えさせることを目的とする人。",
-            "答えを与えるより、「問い」を残すことを重視する。",
-            "一見すると意味が分からない作品や、複数の解釈が成立する作品にも価値を見出す。",
-            "哲学、現代美術、文学、建築などとの親和性が高い。"
-        ],
-        keywords: "問い・哲学・解釈・余白・多義性・内省"
-    },
-    "癒し": {
-        sentenceName: "癒しを灯す",
-        title: "癒しを灯す人",
-        lines: [
-            "人の心を穏やかにし、安心や安らぎを与えることを目的とする人。",
-            "強い刺激よりも、「ここにいていい」と感じられる環境や体験を作ろうとする。",
-            "柔らかな色、心地よい音、自然、温かい物語、居心地のよい空間などと相性がいい。",
-            "「人を幸せにしたい」という創作動機が比較的直接的に表れやすい。"
-        ],
-        keywords: "安心・安らぎ・温もり・休息・心地よさ・回復"
-    },
-    "感動": {
-        sentenceName: "感動を揺さぶる",
-        title: "感動を揺さぶる人",
-        lines: [
-            "人の心を大きく動かすことを目的とする人。",
-            "「美しい」「面白い」だけではなく、「忘れられないほど心を動かしたい」という欲求が強い。",
-            "物語の起伏、劇的な演出、壮大さ、意外性、音楽、身体表現などを駆使して感情のピークを作る。",
-            "創作を「体験」として捉える傾向が強い。"
-        ],
-        keywords: "情動・衝撃・高揚・ドラマ・余韻・忘れられない体験"
-    }
+    "美": { sentenceName: "美を宿す", title: "美を宿す人", text: "世界に、美しいものを存在させることを創作の目的とする傾向。何を伝えるかよりも、まずそれ自体が美しいかを重視する。色、形、構図、素材、空間、音、言葉などを磨き上げ、調和や完成度の高いものを生み出しようとする。", keywords: "美・調和・洗練・完成度・造形・感性" },
+    "探究": { sentenceName: "探究を拓く", title: "探究を拓く人", text: "まだ知らないものを発見し、世界への理解を広げることを創作の目的とする傾向。正解をつくるよりも、未知を見つけることに創作の価値を感じる。実験、研究、観察、試行錯誤を通して、既存の常識を問い直す。作品そのものだけでなく、制作の過程で得られる発見を重視することもある。", keywords: "発見・実験・研究・未知・仮説・革新" },
+    "伝達": { sentenceName: "伝達を響かせる", title: "伝達を響かせる人", text: "情報、知識、思想、物語などを、他者へ届けることを創作の目的とする傾向。自分が何を感じただけでなく、相手に何が伝わったかを重視する。文章、映像、図解、デザイン、演説、教育など、意味や情報を媒介する表現と相性がよい。伝わることそのものを作品の完成度の一部として捉えやすい。", keywords: "情報・知識・意味・説明・共有・メッセージ" },
+    "共感": { sentenceName: "共感を繋ぐ", title: "共感を繋ぐ人", text: "人と人の間に感情的なつながりを生み出すことを創作の目的とする傾向。理解させることより、わかる、同じ気持ちだと感じてもらうことを重視する。自身の経験や感情を作品に込め、それを通して他者との距離を縮めようとする。", keywords: "共鳴・共有・親密さ・感情・人間関係・連帯" },
+    "娯楽": { sentenceName: "娯楽を仕掛ける", title: "娯楽を仕掛ける人", text: "人を楽しませ、夢中にさせることを目的とする傾向。創作を一種の仕掛けとして捉え、次は何が起こる？どうしたらもっと面白い？と考える。驚き、笑い、スリル、遊び、没入などを意図的に設計する。", keywords: "楽しさ・遊び・驚き・刺激・笑い・没入" },
+    "思索": { sentenceName: "思索へ誘う", title: "思索へ誘う人", text: "作品を通して、見る人・読む人自身に考えるきっかけを与えることを創作の目的とする傾向。答えを与えるより、問いを残すことを重視する。一つの答えに決められない作品や、複数の解釈が成立する作品にも価値を見出す。", keywords: "問い・哲学・解釈・余白・多義性・内省" },
+    "癒し": { sentenceName: "癒しを灯す", title: "癒しを灯す人", text: "人の心を穏やかにし、安心や安らぎを与えることを創作の目的とする傾向。強い刺激よりも、ここにいていいと感じられる環境や体験をつくろうとする。柔らかな色、心地よい音、自然、温かい物語、居心地のよい空間などと相性がよい。", keywords: "安心・安らぎ・温もり・休息・心地よさ・回復" },
+    "感動": { sentenceName: "感動を揺さぶる", title: "感動を揺さぶる人", text: "人の心を大きく動かし、記憶に残る体験を生み出すことを創作の目的とする傾向.美しい、面白いだけでなく、忘れられないほど心を動かしたいという欲求が強い。物語の起伏、劇的な演出、壮大さ、意外性、音楽、身体表現などを通して感情のピークをつくる。", keywords: "情動・衝撃・高揚・ドラマ・余韻・記憶" }
 };
 
 const DATA_MEDIUM = {
-    "視覚": { action: "描き", title: "視覚｜目に映るものを通して表現する", text: "色・形・光・構図など、目に見えるものを通して表現する。", keywords: "絵画、イラスト、グラフィック、絵本" },
-    "造形": { action: "造り", title: "造形｜物そのものを通して表現する", text: "素材・形・立体など、触れられるものを組み合わせて表現する。", keywords: "彫刻、工芸、プロダクト、ファッション" },
-    "空間": { action: "構築する", title: "空間｜場を通して表現する", text: "建築・場所・配置など、人が身を置く環境そのものをつくる。", keywords: "建築、インテリア、庭園、都市" },
-    "音響": { action: "奏でる", title: "音響｜音を通して表現する", text: "音・声・リズム・響きなど、耳で感じるものを通して表現する。", keywords: "作曲, 演奏, 歌唱, サウンド" },
-    "言語": { action: "綴る", title: "言語｜言葉を通して表現する", text: "言葉・文章・物語・概念など、意味を組み立てて表現する。", keywords: "詩、小説、脚本、コピー、評論" },
-    "身体": { action: "演じる", title: "身体｜身体そのものを通して表現する", text: "動き・演技・所作・存在など、自らの身体を通して表現する。", keywords: "俳優、ダンス、パフォーマンス、舞台芸術" },
-    "映像": { action: "映す", title: "映像｜時間の流れを通して表現する", text: "時間・動き・編集・記録など、移ろうイメージを通して表現する。", keywords: "映画、アニメ、動画、フォト" },
-    "体験": { action: "体験させる", title: "体験｜体験そのものを通して表現する", text: "参加・交流・出来事など、人が実際に経験することそのものをつくる。", keywords: "ゲーム、アトラクション、インタラクティブアート、UX" }
+    "視覚": { action: "描き", title: "視覚 ｜ 目に映るものを通して表現する", text: "色・形・光・構図など、目に見えるものを通して表現する。", keywords: "絵画・イラスト・グラフィック・絵本" },
+    "造形": { action: "造り", title: "造形 ｜ 物そのものを通して表現する", text: "素材・形・立体など、触れることのできる物を組み合わせて表現する。", keywords: "彫刻・工芸・プロダクト・ファッション" },
+    "空間": { action: "構築する", title: "空間 ｜ 場を通して表現する", text: "建築・場所・配置など、人が身を置く環境そのものをつくる。", keywords: "建築・インテリア・庭園・展示空間" },
+    "音響": { action: "奏でる", title: "音響 ｜ 音を通して表現する", text: "音・声・リズム・響きなど、耳で感じるものを通して表現する。", keywords: "作曲・演奏・歌唱・サウンド" },
+    "言語": { action: "綴る", title: "言語 ｜ 言葉を通して表現する", text: "言葉・文章・物語・概念など、意味を組み立てることによって表現する。", keywords: "詩・小説・脚本・コピー・評論" },
+    "身体": { action: "演じる", title: "身体 ｜ 身体そのものを通して表現する", text: "動き・演技・所作・存在など、自らの身体を通して表現する。", keywords: "演劇・ダンス・パフォーマンス・舞台芸術" },
+    "映像": { action: "映す", title: "映像 ｜ 時間と動きを通して表現する", text: "時間・動き・光・編集など、移ろうイメージを通して表現する。", keywords: "映画・アニメ・動画・フォト" },
+    "体験": { action: "体験させる", title: "体験 ｜ 体験そのものを通して表現する", text: "参加・交流・選択・出来事など、人が実際に経験することそのものをつくる。", keywords: "ゲーム・アトラクション・インタラクティブアート・イベント" }
 };
 
 const DATA_STYLE = {
-    "再現": { 
-        title: "世界を写し取る人", 
-        lines: [
-            "目の前にある世界を観察し、その本質や美しさを忠実に捉えようとする人。",
-            "「自分がどう作りたいか」よりも、「対象は本当はどうなっているのか」を大切にする。",
-            "細部を観察し、正確さやリアリティを追求する。",
-            "写実、記録、ドキュメンタリー、精密な建築・造形などに向く。"
-        ], 
-        aesthetic: "真実・精密さ・忠実さ" 
-    },
-    "理想": { 
-        title: "あるべき世界を描く人", 
-        lines: [
-            "現実そのものではなく、「こうあってほしい」という理想の姿を追い求める人。",
-            "現実に存在するものを超えて、より美しく、より良く、より完成された状態を創造する。",
-            "建築、プロダクト、ファンタジー、未来像などにも現れやすい。"
-        ], 
-        aesthetic: "理想・完成・調和・可能性" 
-    },
-    "表現": { 
-        title: "自分を形にする人", 
-        lines: [
-            "自分の感情、感性、思想、個性そのものを作品にする人。",
-            "「何を作るか」以上に、「自分が何を感じ、何を考えているか」が創作の出発点になる。",
-            "個性的であること、独自の視点を持つことを価値とする。"
-        ], 
-        aesthetic: "個性・感情・自己・独創性" 
-    },
-    "知覚": { 
-        title: "世界を感じ取る人", 
-        lines: [
-            "人間の感覚そのものを通して、世界を捉えようとする人。",
-            "「正確に描く」よりも、どう見えるか、どう聞こえるか、どう感じるかを重視する。",
-            "光、色、音、質感、温度、身体感覚、空間体験などへの関心が強い。",
-            "印象派的な表現やインスタレーション、空間デザインなどとも親和性が高い。"
-        ], 
-        aesthetic: "感覚・印象・身体・体験" 
-    },
-    "構成": { 
-        title: "世界を組み立てる人", 
-        lines: [
-            "複数の要素を組み合わせ、関係性から新しい美を生み出す人。",
-            "個々のパーツより、「それらがどう配置され、どう関係するか」を重視する。",
-            "建築、グラフィック、編集、音楽、映像、都市計画など、設計的な創作に強い。"
-        ], 
-        aesthetic: "秩序・構造・配置・バランス" 
-    },
-    "幻想": { 
-        title: "存在しない世界を生み出す人", 
-        lines: [
-            "現実には存在しないものを想像し、新しい世界として成立させる人。",
-            "現実から離れること自体に価値を見出し、夢、神話、魔法、異世界、童話などを創造する。",
-            "単なる「嘘」ではなく、現実では見ることのできない美や可能性を可視化する。"
-        ], 
-        aesthetic: "想像・夢・神話・非現実" 
-    },
-    "概念": { 
-        title: "見えないものを形にする人", 
-        lines: [
-            "思想、意味、問い、価値観など、目に見えないものを作品として提示する人。",
-            "「何が美しいか」より、「この作品は何を意味するのか」を重視する。",
-            "作品そのものより、そこに込められたコンセプトが創作の核になることも多い。",
-            "現代美術、哲学的作品、コンセプチュアルデザインなどと相性がいい。"
-        ], 
-        aesthetic: "意味・思想・問い・本質" 
-    },
-    "変容": { 
-        title: "世界を書き換える人", 
-        lines: [
-            "既存のものをそのまま使わず、変形・再構築・再解釈することで新しい価値を生み出す人。",
-            "「ゼロから作る」だけでなく、既にあるものを別のものへ変えることに創造性を感じる。",
-            "異なるジャンルを融合したり、既存の常識をひっくり返したりすることも得意。",
-            "リミックス、改変、再構成、コンバージョン、実験的表現などと親和性が高い。"
-        ], 
-        aesthetic: "変化・再解釈・融合・革新" 
-    }
+    "再現": { title: "再現 ｜ 世界を写し取る人", text: "目の前にある世界を観察し、その姿や本質を捉えようとする創作傾向。自分がどうつくりたいかよりも、対象はどうなっているのかを重視する。観察、記録、写実、資料性などを通して、対象の特徴やリアリティを掘り下げる。", keywords: "観察・真実・精密さ・忠実さ・記録" },
+    "理想": { title: "理想 ｜ あるべき世界を描く人", text: "現実をそのまま写すのではなく、こうあってほしいという姿を追い求める創作傾向。現実に存在するものを超えて、より美しく、より良く、より完成された状態を構想する。建築、プロダクト、未来像、理想都市などにも現れやすい。", keywords: "理想・完成・調和・秩序・可能性" },
+    "表現": { title: "表現 ｜ 自分を形にする人", text: "感情、感性、思想、個性など、自分自身の内側を作品として表す創作傾向。何をつくるか以上に、自分は何を感じ、何を考えているかが創作の出発点になる。独自の視点や個性そのものを作品の価値として捉えやすい。", keywords: "個性・感情・自己・独創性・主観" },
+    "知覚": { title: "知覚 ｜ 世界を感じ取る人", text: "世界をどのように感じ、知覚するかを重視する創作傾向。正確に描くよりも、どう見えるか、どう聞こえるか、どう感じるかを大切にする。光、色、音、質感、温度、身体感覚、空間体験などへの関心が強い。", keywords: "感覚・印象・光・身体・体験" },
+    "構成": { title: "構成 ｜ 世界を組み立てる人", text: "複数の要素を組み合わせ、その関係性から新しい秩序や美を生み出す創作傾向。個々のパーツだけでなく、それらがどう配置され、どう関係するかを重視する。建築、グラフィック、編集、音楽、映像、都市計画などと相性がよい。", keywords: "秩序・構造・配置・関係・バランス" },
+    "幻想": { title: "幻想 ｜ 存在しない世界を生み出す人", text: "現実には存在しないことを想像し、新しい世界として成立させる創作傾向。夢、神話、魔法、異世界、童話など、現実とは異なる世界や可能性を創造する。単なる空想ではなく、現実には見えないものを可視化することに価値を見出す。", keywords: "想像・夢・神話・異世界・非現実" },
+    "概念": { title: "概念 ｜ 見えないものを形にする人", text: "思想、意味、問い、価値観など、目に見えないものを作品として提示する創作傾向。何が美しいかだけでなく、この作品は何を意味するのかを重視する。作品そのものだけでなく、その背景にある考えや問いが創作の核になることも多い。", keywords: "意味・思想・問い・本質・コンセプト" },
+    "変容": { title: "変容 ｜ 世界を書き換える人", text: "既存のものを変形・再解釈・融合し、新しい価値へと変える創作傾向。ゼロからつくるだけでなく、すでにあるものを別のものへ変えることに創造性を感じる。異なるジャンルを融合したり、既存の常識を反転させたりすることもある。", keywords: "変化・再解釈・融合・改変・革新" }
 };
 
 const STYLE_ORDER = ["再現", "理想", "表現", "知覚", "構成", "幻想", "概念", "変容"];
@@ -1154,14 +916,41 @@ const MEDIUM_ORDER = ["視覚", "造形", "空間", "音響", "言語", "身体"
 const PURPOSE_ORDER = ["美", "探究", "伝達", "共感", "娯楽", "思索", "癒し", "感動"];
 
 let currentQuestionIndex = 0;
-let userAnswers = []; 
+let userAnswers = [];
 let uploadedImageData = null;
-let currentDisplayedMode = 1;
 let calculatedResultsData = null;
+let isDownloading = false;
+
+function hexToRgb(hex) {
+    let cleanHex = hex.replace('#', '');
+    if (cleanHex.length === 3) {
+        cleanHex = cleanHex.split('').map(char => char + char).join('');
+    }
+    const num = parseInt(cleanHex, 16);
+    return {
+        r: (num >> 16) & 255,
+        g: (num >> 8) & 255,
+        b: num & 255
+    };
+}
+
+// 句点「。」で文章を分割して改行タグで繋ぐ関数
+function formatDescWithLineBreaks(text, keywords) {
+    const sentences = text.split('。').filter(s => s.trim().length > 0).map(s => s + '。');
+    let html = '';
+    sentences.forEach(s => {
+        html += `<span class="desc-sentence">${s}</span>`;
+    });
+    if (keywords) {
+        html += `<span class="desc-keywords">[${keywords}]</span>`;
+    }
+    return html;
+}
 
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function startQuiz() {
@@ -1314,12 +1103,7 @@ function handleImageUpload(event) {
 }
 
 function calculateScores() {
-    const scoreMap = {
-        STYLE: {},
-        MEDIUM: {},
-        PURPOSE: {}
-    };
-
+    const scoreMap = { STYLE: {}, MEDIUM: {}, PURPOSE: {} };
     STYLE_ORDER.forEach(k => scoreMap.STYLE[k] = { total: 0, mainCount: 0, subCount: 0 });
     MEDIUM_ORDER.forEach(k => scoreMap.MEDIUM[k] = { total: 0, mainCount: 0, subCount: 0 });
     PURPOSE_ORDER.forEach(k => scoreMap.PURPOSE[k] = { total: 0, mainCount: 0, subCount: 0 });
@@ -1335,7 +1119,6 @@ function calculateScores() {
                 scoreMap[mainCat][mainKey].total += 2;
                 scoreMap[mainCat][mainKey].mainCount += 1;
             }
-
             const [subCat, subKey] = ans.sub;
             if (scoreMap[subCat][subKey]) {
                 scoreMap[subCat][subKey].total += 1;
@@ -1365,27 +1148,14 @@ function calculateScores() {
             return orderList.indexOf(a) - orderList.indexOf(b);
         });
 
-        const sortedAsc = [...orderList].sort((a, b) => {
-            const itemA = catMap[a];
-            const itemB = catMap[b];
-            if (itemA.total !== itemB.total) return itemA.total - itemB.total;
-            return orderList.indexOf(a) - orderList.indexOf(b);
-        });
-
         const top1Score = catMap[sortedDesc[0]].total;
+        const top2Score = catMap[sortedDesc[1]].total;
+        const ratio2 = top1Score > 0 ? (top2Score / top1Score) : 1.0;
 
         return {
-            rank1: { key: sortedDesc[0], ratio: 1.0, score: top1Score },
-            rank2: { key: sortedDesc[1], ratio: top1Score > 0 ? (catMap[sortedDesc[1]].total / top1Score) : 1.0, score: catMap[sortedDesc[1]].total },
-            rank3: { key: sortedDesc[2], ratio: top1Score > 0 ? (catMap[sortedDesc[2]].total / top1Score) : 1.0, score: catMap[sortedDesc[2]].total },
-            rank4: { key: sortedDesc[3], ratio: top1Score > 0 ? (catMap[sortedDesc[3]].total / top1Score) : 1.0, score: catMap[sortedDesc[3]].total },
-            
-            opposite1: { key: sortedAsc[0], ratio: top1Score > 0 ? (catMap[sortedAsc[0]].total / top1Score) : 0, score: catMap[sortedAsc[0]].total },
-            opposite2: { key: sortedAsc[1], ratio: top1Score > 0 ? (catMap[sortedAsc[1]].total / top1Score) : 0, score: catMap[sortedAsc[1]].total },
-            opposite3: { key: sortedAsc[2], ratio: top1Score > 0 ? (catMap[sortedAsc[2]].total / top1Score) : 0, score: catMap[sortedAsc[2]].total },
-            
-            diff1_2: top1Score - catMap[sortedDesc[1]].total,
-            diff2Percent: top1Score > 0 ? ((top1Score - catMap[sortedDesc[1]].total) / top1Score) * 100 : 0
+            rank1: { key: sortedDesc[0], score: top1Score },
+            rank2: { key: sortedDesc[1], score: top2Score, ratio: ratio2 },
+            diff2Percent: top1Score > 0 ? ((top1Score - top2Score) / top1Score) * 100 : 0
         };
     }
 
@@ -1393,276 +1163,184 @@ function calculateScores() {
     const mediumRes = getSortedRankList("MEDIUM", MEDIUM_ORDER);
     const purposeRes = getSortedRankList("PURPOSE", PURPOSE_ORDER);
 
-    const avgDiffPercent = (styleRes.diff2Percent + mediumRes.diff2Percent + purposeRes.diff2Percent) / 3;
-
     return {
         style: styleRes,
         medium: mediumRes,
         purpose: purposeRes,
-        avgDiffPercent: avgDiffPercent
+        avgDiffPercent: (styleRes.diff2Percent + mediumRes.diff2Percent + purposeRes.diff2Percent) / 3
     };
-}
-
-function hexToRgba(hex, alpha) {
-    let c = hex.replace('#', '');
-    if (c.length === 3) c = c.split('').map(x => x + x).join('');
-    const num = parseInt(c, 16);
-    return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
-}
-
-function formatLine(line) {
-    return `<span class="desc-line">${line}</span>`;
-}
-
-function renderSideTendencyPanel(catTitle, rankData, mode) {
-    let itemsHtml = '';
-    if (mode === 2) {
-        itemsHtml = `
-            <div class="desc-tendency-item"><span class="item-label"><span class="rank-num">2.</span>${rankData.rank2.key}</span><span class="pct-val">${Math.round(rankData.rank2.ratio * 100)}%</span></div>
-            <div class="desc-tendency-item"><span class="item-label"><span class="rank-num">3.</span>${rankData.rank3.key}</span><span class="pct-val">${Math.round(rankData.rank3.ratio * 100)}%</span></div>
-            <div class="desc-tendency-item"><span class="item-label"><span class="rank-num">4.</span>${rankData.rank4.key}</span><span class="pct-val">${Math.round(rankData.rank4.ratio * 100)}%</span></div>
-        `;
-    } else if (mode === 'opposite') {
-        itemsHtml = `
-            <div class="desc-tendency-item"><span class="item-label"><span class="rank-num">W1.</span>${rankData.opposite1.key}</span><span class="pct-val">${Math.round(rankData.opposite1.ratio * 100)}%</span></div>
-            <div class="desc-tendency-item"><span class="item-label"><span class="rank-num">W2.</span>${rankData.opposite2.key}</span><span class="pct-val">${Math.round(rankData.opposite2.ratio * 100)}%</span></div>
-            <div class="desc-tendency-item"><span class="item-label"><span class="rank-num">W3.</span>${rankData.opposite3.key}</span><span class="pct-val">${Math.round(rankData.opposite3.ratio * 100)}%</span></div>
-        `;
-    } else {
-        itemsHtml = `
-            <div class="desc-tendency-item"><span class="item-label"><span class="rank-num">1.</span>${rankData.rank1.key}</span><span class="pct-val">${Math.round(rankData.rank1.ratio * 100)}%</span></div>
-            <div class="desc-tendency-item"><span class="item-label"><span class="rank-num">2.</span>${rankData.rank2.key}</span><span class="pct-val">${Math.round(rankData.rank2.ratio * 100)}%</span></div>
-            <div class="desc-tendency-item"><span class="item-label"><span class="rank-num">3.</span>${rankData.rank3.key}</span><span class="pct-val">${Math.round(rankData.rank3.ratio * 100)}%</span></div>
-        `;
-    }
-
-    return `
-        <div class="desc-tendency-panel">
-            <span class="desc-tendency-title">${catTitle}傾向</span>
-            ${itemsHtml}
-        </div>
-    `;
-}
-
-function adjustCardScale() {
-    const container = document.querySelector('.result-card-container');
-    const card = document.getElementById('result-card');
-    if (!container || !card) return;
-
-    const containerWidth = container.clientWidth;
-    const scale = containerWidth / 1080;
-
-    card.style.transform = `scale(${scale})`;
-    container.style.height = `${1920 * scale}px`;
-}
-
-window.addEventListener('resize', adjustCardScale);
-
-function dynamicAdjustCardLayout() {
-    const reasonEl = document.getElementById('res-reason');
-    const reasonInput = document.getElementById('image-reason-input').value.trim();
-    reasonEl.textContent = reasonInput !== '' ? reasonInput : '\u00A0';
-}
-
-function renderCardByMode(mode) {
-    currentDisplayedMode = mode;
-    const res = calculatedResultsData;
-    if (!res) return;
-
-    let finalStyle, finalMedium, finalPurpose, ratioS, ratioM, ratioP;
-
-    if (mode === 1) {
-        finalStyle = res.style.rank1.key; finalMedium = res.medium.rank1.key; finalPurpose = res.purpose.rank1.key;
-        ratioS = res.style.rank1.ratio; ratioM = res.medium.rank1.ratio; ratioP = res.purpose.rank1.ratio;
-    } else if (mode === 2) {
-        finalStyle = res.style.rank2.key; finalMedium = res.medium.rank2.key; finalPurpose = res.purpose.rank2.key;
-        ratioS = res.style.rank2.ratio; ratioM = res.medium.rank2.ratio; ratioP = res.purpose.rank2.ratio;
-    } else {
-        finalStyle = res.style.opposite1.key; finalMedium = res.medium.opposite1.key; finalPurpose = res.purpose.opposite1.key;
-        ratioS = res.style.opposite1.ratio; ratioM = res.medium.opposite1.ratio; ratioP = res.purpose.opposite1.ratio;
-    }
-
-    const colorS = COLOR_STYLE[finalStyle] || "#000";
-    const colorM = COLOR_MEDIUM[finalMedium] || "#000";
-    const colorP = COLOR_PURPOSE[finalPurpose] || "#000";
-
-    const cardEl = document.getElementById('result-card');
-    cardEl.style.background = `linear-gradient(135deg, ${hexToRgba(colorS, 0.25)} 0%, ${hexToRgba(colorM, 0.25)} 50%, ${hexToRgba(colorP, 0.25)} 100%)`;
-
-    if (mode === 1) {
-        document.getElementById('res-subtitle').textContent = "CREATIVE STYLE";
-        document.getElementById('res-title').textContent = "私という作風";
-    } else if (mode === 2) {
-        document.getElementById('res-subtitle').textContent = "SECOND STYLE";
-        document.getElementById('res-title').textContent = "もう一つのあなた";
-    } else {
-        document.getElementById('res-subtitle').textContent = "OPPOSITE STYLE";
-        document.getElementById('res-title').textContent = "あなたにないもの";
-    }
-
-    const baseFontSize = 48;
-    const fontStyle = `${Math.max(baseFontSize * ratioS, 22)}px`;
-    const fontMedium = `${Math.max(baseFontSize * ratioM, 22)}px`;
-    const fontPurpose = `${Math.max(baseFontSize * ratioP, 22)}px`;
-
-    const pctS = mode !== 1 ? `<span class="pct-label">${Math.round(ratioS * 100)}%</span>` : '';
-    const pctM = mode !== 1 ? `<span class="pct-label">${Math.round(ratioM * 100)}%</span>` : '';
-    const pctP = mode !== 1 ? `<span class="pct-label">${Math.round(ratioP * 100)}%</span>` : '';
-
-    document.getElementById('res-formula').innerHTML = `
-        <span class="formula-item" style="color: ${colorS}; font-size: ${fontStyle}">${finalStyle}${pctS}</span>
-        <span style="font-size: 34px">×</span>
-        <span class="formula-item" style="color: ${colorM}; font-size: ${fontMedium}">${finalMedium}${pctM}</span>
-        <span style="font-size: 34px">×</span>
-        <span class="formula-item" style="color: ${colorP}; font-size: ${fontPurpose}">${finalPurpose}${pctP}</span>
-    `;
-
-    const dataP = DATA_PURPOSE[finalPurpose];
-    const dataM = DATA_MEDIUM[finalMedium];
-    const dataS = DATA_STYLE[finalStyle];
-
-    document.getElementById('res-sentence').textContent = `${dataP.sentenceName}、${finalStyle}を${dataM.action}人`;
-    document.getElementById('res-image').src = uploadedImageData;
-
-    dynamicAdjustCardLayout();
-
-    const descEl = document.getElementById('res-description');
-    descEl.innerHTML = `
-        <div class="desc-block" style="background-color: ${hexToRgba(colorS, 0.2)};">
-            <div class="desc-content-main">
-                <span class="desc-bold">${finalStyle}｜${dataS.title}</span>
-                <div>${dataS.lines.map(line => formatLine(line)).join('')}<span class="desc-keyword">キーワード：${dataS.aesthetic}</span></div>
-            </div>
-            ${renderSideTendencyPanel("美学", res.style, mode)}
-        </div>
-        <div class="desc-block" style="background-color: ${hexToRgba(colorM, 0.2)};">
-            <div class="desc-content-main">
-                <span class="desc-bold">${dataM.title}</span>
-                <div>${formatLine(dataM.text)}<span class="desc-keyword">キーワード：${dataM.keywords}</span></div>
-            </div>
-            ${renderSideTendencyPanel("媒体", res.medium, mode)}
-        </div>
-        <div class="desc-block" style="background-color: ${hexToRgba(colorP, 0.2)};">
-            <div class="desc-content-main">
-                <span class="desc-bold">${finalPurpose}｜${dataP.title}</span>
-                <div>${dataP.lines.map(line => formatLine(line)).join('')}<span class="desc-keyword">キーワード：${dataP.keywords}</span></div>
-            </div>
-            ${renderSideTendencyPanel("目的", res.purpose, mode)}
-        </div>
-    `;
-
-    const avg = res.avgDiffPercent;
-    let profileTypeName = avg >= 40 ? "尖鋭型" : avg >= 30 ? "明確型" : avg >= 20 ? "複合型" : avg >= 10 ? "拮抗型" : "多面的型";
-    let profileDescText = avg >= 40 ? "あなたの作風はかなり明確です。\n特定の作風が強く表れており、作品に一貫した個性が生まれやすいタイプです。" :
-                          avg >= 30 ? "あなたの作風には、はっきりした方向性があります。\nいくつかの可能性を持ちながらも、中心となる作風傾向が明確です。" :
-                          avg >= 20 ? "あなたは複数の作風を組み合わせるタイプです。\n異なる作風が混ざることで、独自の表現になりやすいでしょう。" :
-                          avg >= 10 ? "あなたの中では、複数の作風が拮抗しています。\n一つに固定されず、作品や状況によって異なる作風が現れるタイプです。" :
-                          "あなたの作風傾向は一つの言葉では捉えきれません。\n複数の方向性を持ち、それらを行き来できること自体があなたの作風です。";
-
-    document.getElementById('profile-title').textContent = `1. 作風の輪郭｜${profileTypeName}`;
-    document.getElementById('profile-desc').innerHTML = `<span class="profile-desc-line">${profileDescText.replace(/\n/g, '<br>')}</span>`;
-
-    const scoreStyleTop = res.style.rank1.score;
-    const scoreMediumTop = res.medium.rank1.score;
-    const scorePurposeTop = res.purpose.rank1.score;
-    
-    const allScores = [
-        { name: res.style.rank1.key, score: scoreStyleTop },
-        { name: res.medium.rank1.key, score: scoreMediumTop },
-        { name: res.purpose.rank1.key, score: scorePurposeTop }
-    ];
-    const maxGlobalScore = Math.max(...allScores.map(s => s.score));
-    const coreWinners = allScores.filter(s => s.score === maxGlobalScore).map(s => s.name);
-    
-    document.getElementById('profile-core-desc').innerHTML = `あなたの創作では ${coreWinners.join('・')} が最も強い核になっています。`;
-
-    const diffs = [
-        { val: res.style.diff2Percent, key: res.style.rank1.key },
-        { val: res.medium.diff2Percent, key: res.medium.rank1.key },
-        { val: res.purpose.diff2Percent, key: res.purpose.rank1.key }
-    ];
-    const maxDiff = Math.max(...diffs.map(d => d.val));
-    const weaponWinners = diffs.filter(d => d.val === maxDiff).map(d => d.key);
-    
-    document.getElementById('profile-weapon-desc').innerHTML = `作品に強く個性を与える要素は ${weaponWinners.join('、')} です。`;
-
-    const categoriesNear = [
-        { catName: '美学', diff: res.style.diff2Percent, top: res.style.rank1.key, second: res.style.rank2.key },
-        { catName: '媒体', diff: res.medium.diff2Percent, top: res.medium.rank1.key, second: res.medium.rank2.key },
-        { catName: '目的', diff: res.purpose.diff2Percent, top: res.purpose.rank1.key, second: res.purpose.rank2.key }
-    ];
-    categoriesNear.sort((a, b) => a.diff - b.diff);
-    const closestCat = categoriesNear[0];
-    
-    document.getElementById('profile-surprise-desc').innerHTML = `あなたは${closestCat.top}型に見えて、実は${closestCat.second}的な創作性もかなり強く持っています。`;
-
-    document.getElementById('btn-toggle-rank').textContent = mode === 1 ? "SECOND STYLEを表示" : "1st STYLEを表示";
-    document.getElementById('btn-toggle-opposite').textContent = mode === 'opposite' ? "1st STYLEを表示" : "OPPOSITE STYLEを表示";
-
-    setTimeout(adjustCardScale, 50);
 }
 
 function calculateAndShowResult() {
     if (!uploadedImageData) return;
-    calculatedResultsData = calculateScores();
-    renderCardByMode(1);
+    const res = calculateScores();
+    calculatedResultsData = res;
+
+    const finalStyle = res.style.rank1.key;
+    const finalMedium = res.medium.rank1.key;
+    const finalPurpose = res.purpose.rank1.key;
+
+    const colorS = COLOR_STYLE[finalStyle] || "#2c3e50";
+    const colorM = COLOR_MEDIUM[finalMedium] || "#2c3e50";
+    const colorP = COLOR_PURPOSE[finalPurpose] || "#2c3e50";
+
+    const rgbS = hexToRgb(colorS);
+    const rgbM = hexToRgb(colorM);
+    const rgbP = hexToRgb(colorP);
+
+    const resultCard = document.getElementById('result-card');
+    // 3色のグラデーションをより鮮やかで美しい配色（不透明度を高め、明確なグラデーションに調整）にする
+    resultCard.style.background = `linear-gradient(135deg, 
+        rgba(${rgbS.r}, ${rgbS.g}, ${rgbS.b}, 0.22) 0%, 
+        rgba(${rgbM.r}, ${rgbM.g}, ${rgbM.b}, 0.24) 50%, 
+        rgba(${rgbP.r}, ${rgbP.g}, ${rgbP.b}, 0.22) 100%)`;
+
+    document.getElementById('res-axes-grid').innerHTML = `
+        <div class="axis-col-1 axis-label-item">[STYLE]</div>
+        <div class="axis-sep-1 axis-separator" style="visibility:hidden;">×</div>
+        <div class="axis-col-2 axis-label-item">[MEDIUM]</div>
+        <div class="axis-sep-2 axis-separator" style="visibility:hidden;">×</div>
+        <div class="axis-col-3 axis-label-item">[PURPOSE]</div>
+
+        <div class="axis-col-1 axis-val-item" style="color: ${colorS}">${finalStyle}</div>
+        <div class="axis-sep-1 axis-separator">×</div>
+        <div class="axis-col-2 axis-val-item" style="color: ${colorM}">${finalMedium}</div>
+        <div class="axis-sep-2 axis-separator">×</div>
+        <div class="axis-col-3 axis-val-item" style="color: ${colorP}">${finalPurpose}</div>
+    `;
+
+    const dataP = DATA_PURPOSE[finalPurpose];
+    document.getElementById('res-catchphrase').textContent = `${dataP.sentenceName}、${finalStyle}を${DATA_MEDIUM[finalMedium].action}人`;
+
+    const resImg = document.getElementById('res-image');
+    resImg.src = uploadedImageData;
+    resImg.style.display = 'block';
+    document.getElementById('res-image-placeholder').style.display = 'none';
+
+    const reasonInput = document.getElementById('image-reason-input').value.trim();
+    document.getElementById('res-reason').textContent = reasonInput !== '' ? `「${reasonInput}」` : '';
+
+    const dataS = DATA_STYLE[finalStyle];
+    const dataMed = DATA_MEDIUM[finalMedium];
+    
+    const formattedDescS = formatDescWithLineBreaks(dataS.text, dataS.keywords);
+    const formattedDescMed = formatDescWithLineBreaks(dataMed.text, dataMed.keywords);
+    const formattedDescP = formatDescWithLineBreaks(dataP.text, dataP.keywords);
+
+    document.getElementById('res-axis-details').innerHTML = `
+        <div class="axis-item">
+            <div class="axis-name">STYLE：<span style="color: ${colorS}">${finalStyle}</span> ｜ ${dataS.title.split(' ｜ ')[1]}</div>
+            <div class="axis-desc">${formattedDescS}</div>
+        </div>
+        <div class="axis-item">
+            <div class="axis-name">MEDIUM：<span style="color: ${colorM}">${finalMedium}</span> ｜ ${dataMed.title.split(' ｜ ')[1]}</div>
+            <div class="axis-desc">${formattedDescMed}</div>
+        </div>
+        <div class="axis-item">
+            <div class="axis-name">PURPOSE：<span style="color: ${colorP}">${finalPurpose}</span> ｜ ${dataP.title}</div>
+            <div class="axis-desc">${formattedDescP}</div>
+        </div>
+    `;
+
+    const avg = res.avgDiffPercent;
+    let profileTypeName = "";
+    let profileDescText = "";
+
+    if (avg >= 40) {
+        profileTypeName = "尖鋭型";
+        profileDescText = "あなたの作風はかなり明確です。特定の作風が強く表れており、作品に一貫した個性が生まれやすいタイプです。";
+    } else if (avg >= 30) {
+        profileTypeName = "明確型";
+        profileDescText = "あなたの作風には、はっきりした方向性があります。いくつかの可能性を持ちながらも、中心となる作風傾向が明確です。";
+    } else if (avg >= 20) {
+        profileTypeName = "複合型";
+        profileDescText = "あなたは複数の作風を組み合わせるタイプです。異なる作風が混ざることで、独自の表現になりやすいでしょう。";
+    } else if (avg >= 10) {
+        profileTypeName = "拮抗型";
+        profileDescText = "あなたの中では、複数の作風が拮抗しています。一つに固定されず、作品や状況によって異なる作風が現れるタイプです。";
+    } else {
+        profileTypeName = "多面的型";
+        profileDescText = "あなたの作風傾向は一つの言葉では捉えきれません。複数の方向性を持ち、それらを行き来できること自体があなたの作風です。";
+    }
+
+    const formattedProfileDesc = formatDescWithLineBreaks(profileDescText, null);
+
+    document.getElementById('profile-title-1').textContent = `作風の輪郭 ｜ ${profileTypeName}`;
+    document.getElementById('profile-desc-1').innerHTML = formattedProfileDesc;
+
+    const r2S = res.style.rank2.key;
+    const r2M = res.medium.rank2.key;
+    const r2P = res.purpose.rank2.key;
+
+    function getDynamicFontSize(ratio) {
+        const minSize = 10;
+        const maxSize = 15;
+        const calculated = minSize + (maxSize - minSize) * ratio;
+        return `${calculated.toFixed(1)}px`;
+    }
+
+    const sizeS = getDynamicFontSize(res.style.rank2.ratio);
+    const sizeM = getDynamicFontSize(res.medium.rank2.ratio);
+    const sizeP = getDynamicFontSize(res.purpose.rank2.ratio);
+
+    document.getElementById('res-sub-axes').innerHTML = `
+        <span style="color: ${COLOR_STYLE[r2S]}; font-size: ${sizeS};">${r2S}</span>
+        <span class="sub-axis-rate">(${(res.style.rank2.ratio * 100).toFixed(0)}%)</span> × 
+        <span style="color: ${COLOR_MEDIUM[r2M]}; font-size: ${sizeM};">${r2M}</span>
+        <span class="sub-axis-rate">(${(res.medium.rank2.ratio * 100).toFixed(0)}%)</span> × 
+        <span style="color: ${COLOR_PURPOSE[r2P]}; font-size: ${sizeP};">${r2P}</span>
+        <span class="sub-axis-rate">(${(res.purpose.rank2.ratio * 100).toFixed(0)}%)</span>
+    `;
+
     showScreen('screen-result');
 }
 
-function toggleRankView(targetMode) {
-    if (targetMode === 'opposite') {
-        renderCardByMode(currentDisplayedMode === 'opposite' ? 1 : 'opposite');
-    } else {
-        renderCardByMode(currentDisplayedMode === 2 ? 1 : 2);
-    }
-}
-
 function downloadResultImage() {
-    const card = document.getElementById('result-card');
-    
-    // 一時的にスケーリング（transform）を外し、本来の1080×1920のサイズに戻す
-    const originalTransform = card.style.transform;
-    const originalWidth = card.style.width;
-    const originalHeight = card.style.height;
-    
-    card.style.transform = 'none';
-    card.style.width = '1080px';
-    card.style.height = '1920px';
+    if (isDownloading) return;
+    isDownloading = true;
+
+    const sourceCard = document.getElementById('result-card');
 
     document.fonts.ready.then(() => {
-        html2canvas(card, {
-            width: 1080,
-            height: 1920,
-            scale: 1,
+        html2canvas(sourceCard, {
+            scale: 2,
             useCORS: true,
-            backgroundColor: '#fcfcfc',
-            letterRendering: true
-        }).then(canvas => {
-            // キャプチャ完了後に元の表示状態に戻す
-            card.style.transform = originalTransform;
-            card.style.width = originalWidth;
-            card.style.height = originalHeight;
-            adjustCardScale();
+            backgroundColor: null,
+            windowWidth: 540
+        }).then(sourceCanvas => {
+            const targetWidth = 1080;
+            const targetHeight = 1920;
+            const finalCanvas = document.createElement('canvas');
+            finalCanvas.width = targetWidth;
+            finalCanvas.height = targetHeight;
+            const ctx = finalCanvas.getContext('2d');
 
-            let prefix = currentDisplayedMode === 2 ? 'second-style' : currentDisplayedMode === 'opposite' ? 'opposite-style' : 'creative-style';
-            
-            canvas.toBlob(blob => {
-                const file = new File([blob], `${prefix}-result.png`, { type: 'image/png' });
-                
+            ctx.fillStyle = "#e8e4dc";
+            ctx.fillRect(0, 0, targetWidth, targetHeight);
+
+            const scale = targetWidth / sourceCanvas.width;
+            const scaledHeight = sourceCanvas.height * scale;
+            const offsetY = Math.max(0, (targetHeight - scaledHeight) / 2);
+
+            ctx.drawImage(sourceCanvas, 0, 0, sourceCanvas.width, sourceCanvas.height, 0, offsetY, targetWidth, scaledHeight);
+
+            finalCanvas.toBlob(blob => {
+                const file = new File([blob], `creative-style-result.png`, { type: 'image/png' });
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     navigator.share({
                         files: [file],
                         title: '私という作風',
                         text: '私の創作診断結果です！'
-                    }).catch(() => {});
+                    }).catch(() => {}).finally(() => { isDownloading = false; });
                 } else {
                     const link = document.createElement('a');
-                    link.download = `${prefix}-result.png`;
+                    link.download = `creative-style-result.png`;
                     link.href = URL.createObjectURL(blob);
                     link.click();
+                    setTimeout(() => { isDownloading = false; }, 500);
                 }
             }, 'image/png');
-        });
+        }).catch(() => { isDownloading = false; });
     });
 }
 
@@ -1671,7 +1349,7 @@ function restart() {
     userAnswers = [];
     uploadedImageData = null;
     calculatedResultsData = null;
-    currentDisplayedMode = 1;
+    isDownloading = false;
     document.getElementById('preview-img').style.display = 'none';
     document.getElementById('preview-img').src = '';
     document.getElementById('file-label-text').textContent = "画像ファイルを選択 (ローカル処理)";
@@ -1679,6 +1357,7 @@ function restart() {
     document.getElementById('image-reason-input').value = '';
     document.getElementById('btn-show-result').disabled = true;
     document.getElementById('char-image-input').value = '';
+    document.getElementById('result-card').style.background = 'var(--card-bg)';
     showScreen('screen-start');
 }
 </script>
