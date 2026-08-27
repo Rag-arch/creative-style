@@ -317,7 +317,7 @@
             border-color: var(--text-main);
         }
 
-        /* ----- 最終結果カード (背景なし・微調整版) ----- */
+        /* ----- 最終結果カード (全画面フルサイズ対応) ----- */
         .result-card-container {
             display: flex;
             justify-content: center;
@@ -358,14 +358,14 @@
             letter-spacing: 0.02em;
         }
 
-        /* 3軸の完全な位置合わせグリッド */
+        /* 3軸の完全な位置合わせグリッド（文字を大きく強調） */
         .axes-grid-layout {
             display: grid;
             grid-template-columns: 1fr auto 1fr auto 1fr;
             align-items: baseline;
             justify-items: center;
-            max-width: 360px;
-            margin: 0 auto 6px auto;
+            max-width: 420px;
+            margin: 0 auto 8px auto;
         }
 
         .axis-col-1 { grid-column: 1; }
@@ -375,15 +375,15 @@
         .axis-col-3 { grid-column: 5; }
 
         .axis-label-item {
-            font-size: 8px;
+            font-size: 11px;
             color: var(--text-sub);
             letter-spacing: 0.08em;
             font-weight: bold;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
         }
 
         .axis-val-item {
-            font-size: 20px;
+            font-size: 26px;
             font-weight: 900;
             letter-spacing: 0.03em;
         }
@@ -391,8 +391,8 @@
         .axis-separator {
             color: var(--text-sub);
             font-weight: normal;
-            font-size: 15px;
-            padding: 0 2px;
+            font-size: 18px;
+            padding: 0 4px;
         }
 
         .catchphrase {
@@ -436,7 +436,7 @@
             min-height: 1.2em;
         }
 
-        /* 背景をなくしたセクションブロック */
+        /* セクションブロック */
         .section-block {
             margin-bottom: 6px;
             background-color: transparent;
@@ -469,12 +469,10 @@
             line-height: 1.3;
         }
 
-        /* 句点改行のためのスタイル */
         .desc-sentence {
             display: block;
         }
 
-        /* キーワード行スタイル */
         .desc-keywords {
             display: block;
             font-size: 7.5px;
@@ -482,7 +480,6 @@
             margin-top: 1px;
         }
 
-        /* 背景をなくしたもう一つのあなたブロック */
         .another-type {
             background-color: transparent;
             padding: 4px 0;
@@ -591,7 +588,7 @@
                     <div class="type-count-info">3つの軸の組み合わせからあなたの作風を導き出します。</div>
                 </div>
 
-                <!-- ② CSS Gridによる完全位置合わせ ([MEDIUM] × [STYLE] × [PURPOSE]) -->
+                <!-- ② 3軸グリッド ([MEDIUM] × [STYLE] × [PURPOSE]) -->
                 <div class="axes-grid-layout" id="res-axes-grid"></div>
 
                 <!-- ③ キャッチコピー -->
@@ -602,16 +599,15 @@
                     <img id="res-image" src="" alt="Character" style="display:none;">
                     <span id="res-image-placeholder">[ あなたを象徴する一枚 (16:9) ]<br>画像をここに配置</span>
                 </div>
-                <!-- 選んだ理由の表示 -->
                 <div class="card-reason-text" id="res-reason"></div>
 
-                <!-- ⑤ 3軸の解説 (MEDIUM -> STYLE -> PURPOSE の順番) -->
+                <!-- ⑤ 3軸の解説 -->
                 <div class="section-block">
                     <div class="section-title">3軸の解説</div>
                     <div id="res-axis-details"></div>
                 </div>
 
-                <!-- ⑥ 作風分析 (背景なし) -->
+                <!-- ⑥ 作風分析 -->
                 <div class="section-block">
                     <div class="section-title">作風分析</div>
                     <div class="axis-item">
@@ -620,7 +616,7 @@
                     </div>
                 </div>
 
-                <!-- ⑦ もう一つのあなた (背景なし) -->
+                <!-- ⑦ もう一つのあなた -->
                 <div class="another-type">
                     <h4>もう一つのあなた</h4>
                     <p id="res-sub-axes">視覚 × 理想 × 探究</p>
@@ -629,7 +625,7 @@
                 <!-- ⑧ 小さな注記 -->
                 <div class="card-footer-note">
                     ※この診断は、回答時点の創作に対する好みや価値観から、現在の「作風の傾向」を可視化するものです。<br>
-                    　人の創作や価値観を固定的に分類するものではありません。
+                    人の創作や価値観を固定的に分類するものではありません。
                 </div>
 
             </div>
@@ -1194,7 +1190,6 @@ function calculateAndShowResult() {
         rgba(${rgbS.r}, ${rgbS.g}, ${rgbS.b}, 0.22) 50%, 
         rgba(${rgbP.r}, ${rgbP.g}, ${rgbP.b}, 0.22) 100%)`;
 
-    // 表記順を [MEDIUM] × [STYLE] × [PURPOSE] に変更
     document.getElementById('res-axes-grid').innerHTML = `
         <div class="axis-col-1 axis-label-item">[MEDIUM]</div>
         <div class="axis-sep-1 axis-separator" style="visibility:hidden;">×</div>
@@ -1227,7 +1222,6 @@ function calculateAndShowResult() {
     const formattedDescMed = formatDescWithLineBreaks(dataMed.text, dataMed.keywords);
     const formattedDescP = formatDescWithLineBreaks(dataP.text, dataP.keywords);
 
-    // 3軸の解説順を 最初：MEDIUM、次：STYLE、最後：PURPOSE に変更
     document.getElementById('res-axis-details').innerHTML = `
         <div class="axis-item">
             <div class="axis-name">MEDIUM：<span style="color: ${colorM}">${finalMedium}</span> ｜ ${dataMed.title.split(' ｜ ')[1]}</div>
@@ -1284,7 +1278,6 @@ function calculateAndShowResult() {
     const sizeM = getDynamicFontSize(res.medium.rank2.ratio);
     const sizeP = getDynamicFontSize(res.purpose.rank2.ratio);
 
-    // もう一つのあなたの表記順も MEDIUM × STYLE × PURPOSE に統一
     document.getElementById('res-sub-axes').innerHTML = `
         <span style="color: ${COLOR_MEDIUM[r2M]}; font-size: ${sizeM};">${r2M}</span>
         <span class="sub-axis-rate">(${(res.medium.rank2.ratio * 100).toFixed(0)}%)</span> × 
@@ -1317,14 +1310,23 @@ function downloadResultImage() {
             finalCanvas.height = targetHeight;
             const ctx = finalCanvas.getContext('2d');
 
-            ctx.fillStyle = "#e8e4dc";
+            // 1. 全画面（1080×1920）に背景色を塗りつぶし
+            ctx.fillStyle = "#f5f3ee";
             ctx.fillRect(0, 0, targetWidth, targetHeight);
 
-            const scale = targetWidth / sourceCanvas.width;
-            const scaledHeight = sourceCanvas.height * scale;
-            const offsetY = Math.max(0, (targetHeight - scaledHeight) / 2);
+            // 2. カードの背景グラデーションを全画面に敷き詰め
+            const cardBgColor = sourceCard.style.background;
+            if (cardBgColor) {
+                ctx.fillStyle = cardBgColor;
+                ctx.fillRect(0, 0, targetWidth, targetHeight);
+            }
 
-            ctx.drawImage(sourceCanvas, 0, 0, sourceCanvas.width, sourceCanvas.height, 0, offsetY, targetWidth, scaledHeight);
+            // 3. 上下・左右の余白を一切出さず、高さ方向を1920ピクセル全体に引き伸ばしてフィットさせる処理
+            ctx.drawImage(
+                sourceCanvas, 
+                0, 0, sourceCanvas.width, sourceCanvas.height, 
+                0, 0, targetWidth, targetHeight
+            );
 
             finalCanvas.toBlob(blob => {
                 const file = new File([blob], `creative-style-result.png`, { type: 'image/png' });
