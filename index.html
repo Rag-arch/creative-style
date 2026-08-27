@@ -591,7 +591,7 @@
                     <div class="type-count-info">3つの軸の組み合わせからあなたの作風を導き出します。</div>
                 </div>
 
-                <!-- ② CSS Gridによる完全位置合わせ -->
+                <!-- ② CSS Gridによる完全位置合わせ ([MEDIUM] × [STYLE] × [PURPOSE]) -->
                 <div class="axes-grid-layout" id="res-axes-grid"></div>
 
                 <!-- ③ キャッチコピー -->
@@ -605,7 +605,7 @@
                 <!-- 選んだ理由の表示 -->
                 <div class="card-reason-text" id="res-reason"></div>
 
-                <!-- ⑤ 3軸の解説 (背景なし) -->
+                <!-- ⑤ 3軸の解説 (MEDIUM -> STYLE -> PURPOSE の順番) -->
                 <div class="section-block">
                     <div class="section-title">3軸の解説</div>
                     <div id="res-axis-details"></div>
@@ -623,7 +623,7 @@
                 <!-- ⑦ もう一つのあなた (背景なし) -->
                 <div class="another-type">
                     <h4>もう一つのあなた</h4>
-                    <p id="res-sub-axes">理想 × 視覚 × 探究</p>
+                    <p id="res-sub-axes">視覚 × 理想 × 探究</p>
                 </div>
 
                 <!-- ⑧ 小さな注記 -->
@@ -904,7 +904,7 @@ const DATA_MEDIUM = {
 const DATA_STYLE = {
     "再現": { title: "再現 ｜ 世界を写し取る人", text: "目の前にある世界を観察し、その姿や本質を捉えようとする創作傾向。自分がどうつくりたいかよりも、対象はどうなっているのかを重視する。観察、記録、写実、資料性などを通して、対象の特徴やリアリティを掘り下げる。", keywords: "観察・真実・精密さ・忠実さ・記録" },
     "理想": { title: "理想 ｜ あるべき世界を描く人", text: "現実をそのまま写すのではなく、こうあってほしいという姿を追い求める創作傾向。現実に存在するものを超えて、より美しく、より良く、より完成された状態を構想する。建築、プロダクト、未来像、理想都市などにも現れやすい。", keywords: "理想・完成・調和・秩序・可能性" },
-    "表現": { title: "表現 ｜ 自分を形にする人", text: "感情、感性、思想、個性など、自分自身の内側を作品として表す創作傾向。何をつくるか以上に、自分は何を感じ、何を考えているかが創作の出発点になる。独自の視点や個性そのものを作品の価値として捉えやすい。", keywords: "個性・感情・自己・独創性・主観" },
+    "表現": { title: "表現 ｜ 自分を形にする人", text: "感情、感性、思想、個性など、自分自身の内側を作品として表す創作傾向。何をつくりたいか以上に、自分は何を感じ、何を考えているかが創作の出発点になる。独自の視点や個性そのものを作品の価値として捉えやすい。", keywords: "個性・感情・自己・独創性・主観" },
     "知覚": { title: "知覚 ｜ 世界を感じ取る人", text: "世界をどのように感じ、知覚するかを重視する創作傾向。正確に描くよりも、どう見えるか、どう聞こえるか、どう感じるかを大切にする。光、色、音、質感、温度、身体感覚、空間体験などへの関心が強い。", keywords: "感覚・印象・光・身体・体験" },
     "構成": { title: "構成 ｜ 世界を組み立てる人", text: "複数の要素を組み合わせ、その関係性から新しい秩序や美を生み出す創作傾向。個々のパーツだけでなく、それらがどう配置され、どう関係するかを重視する。建築、グラフィック、編集、音楽、映像、都市計画などと相性がよい。", keywords: "秩序・構造・配置・関係・バランス" },
     "幻想": { title: "幻想 ｜ 存在しない世界を生み出す人", text: "現実には存在しないことを想像し、新しい世界として成立させる創作傾向。夢、神話、魔法、異世界、童話など,現実とは異なる世界や可能性を創造する。単なる空想ではなく、現実には見えないものを可視化することに価値を見出す。", keywords: "想像・夢・神話・異世界・非現実" },
@@ -1190,20 +1190,21 @@ function calculateAndShowResult() {
 
     const resultCard = document.getElementById('result-card');
     resultCard.style.background = `linear-gradient(135deg, 
-        rgba(${rgbS.r}, ${rgbS.g}, ${rgbS.b}, 0.22) 0%, 
-        rgba(${rgbM.r}, ${rgbM.g}, ${rgbM.b}, 0.24) 50%, 
+        rgba(${rgbM.r}, ${rgbM.g}, ${rgbM.b}, 0.24) 0%, 
+        rgba(${rgbS.r}, ${rgbS.g}, ${rgbS.b}, 0.22) 50%, 
         rgba(${rgbP.r}, ${rgbP.g}, ${rgbP.b}, 0.22) 100%)`;
 
+    // 表記順を [MEDIUM] × [STYLE] × [PURPOSE] に変更
     document.getElementById('res-axes-grid').innerHTML = `
-        <div class="axis-col-1 axis-label-item">[STYLE]</div>
+        <div class="axis-col-1 axis-label-item">[MEDIUM]</div>
         <div class="axis-sep-1 axis-separator" style="visibility:hidden;">×</div>
-        <div class="axis-col-2 axis-label-item">[MEDIUM]</div>
+        <div class="axis-col-2 axis-label-item">[STYLE]</div>
         <div class="axis-sep-2 axis-separator" style="visibility:hidden;">×</div>
         <div class="axis-col-3 axis-label-item">[PURPOSE]</div>
 
-        <div class="axis-col-1 axis-val-item" style="color: ${colorS}">${finalStyle}</div>
+        <div class="axis-col-1 axis-val-item" style="color: ${colorM}">${finalMedium}</div>
         <div class="axis-sep-1 axis-separator">×</div>
-        <div class="axis-col-2 axis-val-item" style="color: ${colorM}">${finalMedium}</div>
+        <div class="axis-col-2 axis-val-item" style="color: ${colorS}">${finalStyle}</div>
         <div class="axis-sep-2 axis-separator">×</div>
         <div class="axis-col-3 axis-val-item" style="color: ${colorP}">${finalPurpose}</div>
     `;
@@ -1226,14 +1227,15 @@ function calculateAndShowResult() {
     const formattedDescMed = formatDescWithLineBreaks(dataMed.text, dataMed.keywords);
     const formattedDescP = formatDescWithLineBreaks(dataP.text, dataP.keywords);
 
+    // 3軸の解説順を 最初：MEDIUM、次：STYLE、最後：PURPOSE に変更
     document.getElementById('res-axis-details').innerHTML = `
-        <div class="axis-item">
-            <div class="axis-name">STYLE：<span style="color: ${colorS}">${finalStyle}</span> ｜ ${dataS.title.split(' ｜ ')[1]}</div>
-            <div class="axis-desc">${formattedDescS}</div>
-        </div>
         <div class="axis-item">
             <div class="axis-name">MEDIUM：<span style="color: ${colorM}">${finalMedium}</span> ｜ ${dataMed.title.split(' ｜ ')[1]}</div>
             <div class="axis-desc">${formattedDescMed}</div>
+        </div>
+        <div class="axis-item">
+            <div class="axis-name">STYLE：<span style="color: ${colorS}">${finalStyle}</span> ｜ ${dataS.title.split(' ｜ ')[1]}</div>
+            <div class="axis-desc">${formattedDescS}</div>
         </div>
         <div class="axis-item">
             <div class="axis-name">PURPOSE：<span style="color: ${colorP}">${finalPurpose}</span> ｜ ${dataP.title}</div>
@@ -1282,11 +1284,12 @@ function calculateAndShowResult() {
     const sizeM = getDynamicFontSize(res.medium.rank2.ratio);
     const sizeP = getDynamicFontSize(res.purpose.rank2.ratio);
 
+    // もう一つのあなたの表記順も MEDIUM × STYLE × PURPOSE に統一
     document.getElementById('res-sub-axes').innerHTML = `
-        <span style="color: ${COLOR_STYLE[r2S]}; font-size: ${sizeS};">${r2S}</span>
-        <span class="sub-axis-rate">(${(res.style.rank2.ratio * 100).toFixed(0)}%)</span> × 
         <span style="color: ${COLOR_MEDIUM[r2M]}; font-size: ${sizeM};">${r2M}</span>
         <span class="sub-axis-rate">(${(res.medium.rank2.ratio * 100).toFixed(0)}%)</span> × 
+        <span style="color: ${COLOR_STYLE[r2S]}; font-size: ${sizeS};">${r2S}</span>
+        <span class="sub-axis-rate">(${(res.style.rank2.ratio * 100).toFixed(0)}%)</span> × 
         <span style="color: ${COLOR_PURPOSE[r2P]}; font-size: ${sizeP};">${r2P}</span>
         <span class="sub-axis-rate">(${(res.purpose.rank2.ratio * 100).toFixed(0)}%)</span>
     `;
