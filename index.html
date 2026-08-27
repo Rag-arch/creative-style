@@ -358,7 +358,7 @@
             letter-spacing: 0.02em;
         }
 
-        /* 3軸の完全な位置合わせグリッド（文字を大きく強調） */
+        /* 3軸の完全な位置合わせグリッド（要望に合わせてサイズ変更） */
         .axes-grid-layout {
             display: grid;
             grid-template-columns: 1fr auto 1fr auto 1fr;
@@ -375,7 +375,7 @@
         .axis-col-3 { grid-column: 5; }
 
         .axis-label-item {
-            font-size: 11px;
+            font-size: 8px; /* 11px から 8px に変更 */
             color: var(--text-sub);
             letter-spacing: 0.08em;
             font-weight: bold;
@@ -383,7 +383,7 @@
         }
 
         .axis-val-item {
-            font-size: 26px;
+            font-size: 23px; /* 26px から 23px に変更 */
             font-weight: 900;
             letter-spacing: 0.03em;
         }
@@ -391,7 +391,7 @@
         .axis-separator {
             color: var(--text-sub);
             font-weight: normal;
-            font-size: 18px;
+            font-size: 16px;
             padding: 0 4px;
         }
 
@@ -625,7 +625,7 @@
                 <!-- ⑧ 小さな注記 -->
                 <div class="card-footer-note">
                     ※この診断は、回答時点の創作に対する好みや価値観から、現在の「作風の傾向」を可視化するものです。<br>
-                    人の創作や価値観を固定的に分類するものではありません。
+                    　人の創作や価値観を固定的に分類するものではありません。
                 </div>
 
             </div>
