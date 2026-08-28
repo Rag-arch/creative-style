@@ -358,7 +358,7 @@
             letter-spacing: 0.02em;
         }
 
-        /* 3軸の完全な位置合わせグリッド（要望に合わせてサイズ変更） */
+        /* 3軸の完全な位置合わせグリッド */
         .axes-grid-layout {
             display: grid;
             grid-template-columns: 1fr auto 1fr auto 1fr;
@@ -375,7 +375,7 @@
         .axis-col-3 { grid-column: 5; }
 
         .axis-label-item {
-            font-size: 8px; /* 11px から 8px に変更 */
+            font-size: 8px;
             color: var(--text-sub);
             letter-spacing: 0.08em;
             font-weight: bold;
@@ -383,7 +383,7 @@
         }
 
         .axis-val-item {
-            font-size: 23px; /* 26px から 23px に変更 */
+            font-size: 23px;
             font-weight: 900;
             letter-spacing: 0.03em;
         }
@@ -534,7 +534,7 @@
                 あなたは、何を美しいと思い、<br>
                 何を通して表現し、<br>
                 何を誰かにもたらしたい人？<br><br>
-                全24問の質問から、あなたの「創作の傾向」を診断します。
+                全25問の質問から、あなたの「創作の傾向」を診断します。
             </p>
             <button class="btn btn-start" onclick="startQuiz()">診断を開始する</button>
         </div>
@@ -543,7 +543,7 @@
     <!-- QUIZ SCREEN -->
     <div id="screen-quiz" class="screen">
         <div class="q-header">
-            <span class="q-number" id="q-number">Q1 / 24</span>
+            <span class="q-number" id="q-number">Q1 / 25</span>
         </div>
         <div class="q-title" id="q-title">質問タイトル</div>
         <div id="q-content-area"></div>
@@ -557,7 +557,7 @@
         <div class="q-header">
             <span class="q-number">VISUAL</span>
         </div>
-        <div class="q-title">あなたを象徴する画像を1枚選んでください（比率16:9固定）</div>
+        <div class="q-title">あなたの作風を象徴する画像を1枚選んでください（比率16:9固定）</div>
         <div class="file-upload-wrapper">
             <label class="file-label" id="file-label-box" for="char-image-input">
                 <span id="file-label-text">画像ファイルを選択 (ローカル処理)</span>
@@ -625,7 +625,7 @@
                 <!-- ⑧ 小さな注記 -->
                 <div class="card-footer-note">
                     ※この診断は、回答時点の創作に対する好みや価値観から、現在の「作風の傾向」を可視化するものです。<br>
-                    　人の創作や価値観を固定的に分類するものではありません。
+                    人の創作や価値観を固定的に分類するものではありません。
                 </div>
 
             </div>
@@ -871,6 +871,15 @@ const QUESTIONS = [
             { label: "伝達", img: "./images/53歴史小説.jpg" }, { label: "共感", img: "./images/54現代文学.jpg" },
             { label: "娯楽", img: "./images/55冒険小説.jpg" }, { label: "思索", img: "./images/56哲学.jpg" },
             { label: "癒し", img: "./images/57ヒーリング.jpg" }, { label: "感動", img: "./images/58伝記.jpg" }
+        ]
+    },
+    {
+        q: "好きなものを選んでください", type: "grid", category: "STYLE",
+        items: [
+            { label: "再現", img: "./images/１再現.jpg" }, { label: "理想", img: "./images/２理想.jpg" },
+            { label: "表現", img: "./images/３表現.jpg" }, { label: "知覚", img: "./images/４知覚.jpg" },
+            { label: "構成", img: "./images/５構成.jpg" }, { label: "幻想", img: "./images/６幻想.jpg" },
+            { label: "概念", img: "./images/７概念.jpg" }, { label: "変容", img: "./images/８変容.jpg" }
         ]
     }
 ];
@@ -1310,18 +1319,15 @@ function downloadResultImage() {
             finalCanvas.height = targetHeight;
             const ctx = finalCanvas.getContext('2d');
 
-            // 1. 全画面（1080×1920）に背景色を塗りつぶし
             ctx.fillStyle = "#f5f3ee";
             ctx.fillRect(0, 0, targetWidth, targetHeight);
 
-            // 2. カードの背景グラデーションを全画面に敷き詰め
             const cardBgColor = sourceCard.style.background;
             if (cardBgColor) {
                 ctx.fillStyle = cardBgColor;
                 ctx.fillRect(0, 0, targetWidth, targetHeight);
             }
 
-            // 3. 上下・左右の余白を一切出さず、高さ方向を1920ピクセル全体に引き伸ばしてフィットさせる処理
             ctx.drawImage(
                 sourceCanvas, 
                 0, 0, sourceCanvas.width, sourceCanvas.height, 
