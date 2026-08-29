@@ -534,7 +534,7 @@
                 あなたは、何を美しいと思い、<br>
                 何を通して表現し、<br>
                 何を誰かにもたらしたい人？<br><br>
-                全27問の質問から、あなたの「創作の傾向」を診断します。
+                全21問の質問から、あなたの「創作の傾向」を診断します。
             </p>
             <button class="btn btn-start" onclick="startQuiz()">診断を開始する</button>
         </div>
@@ -543,7 +543,7 @@
     <!-- QUIZ SCREEN -->
     <div id="screen-quiz" class="screen">
         <div class="q-header">
-            <span class="q-number" id="q-number">Q1 / 27</span>
+            <span class="q-number" id="q-number">Q1 / 21</span>
         </div>
         <div class="q-title" id="q-title">質問タイトル</div>
         <div id="q-content-area"></div>
@@ -585,7 +585,7 @@
                 <div class="card-header">
                     <p class="app-title">512 TYPES</p>
                     <h2 style="margin:0; font-size: 16px;">私という作風</h2>
-                    <div class="type-count-info">3つの軸の組み合わせからあなたの作風を導き出します。</div>
+                    <div class="type-count-info">3つの軸の組み合わせからあなたの作風を導き出します</div>
                 </div>
 
                 <!-- ② 3軸グリッド ([MEDIUM] × [STYLE] × [PURPOSE]) -->
@@ -625,7 +625,7 @@
                 <!-- ⑧ 小さな注記 -->
                 <div class="card-footer-note">
                     ※この診断は、回答時点の創作に対する好みや価値観から、現在の「作風の傾向」を可視化するものです。<br>
-                    人の創作や価値観を固定的に分類するものではありません。
+                    　人の創作や価値観を固定的に分類するものではありません。
                 </div>
 
             </div>
@@ -694,12 +694,12 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "物語をどう伝える？", type: "standard",
+        q: "作品の中で、人に何をしてもらいたい？", type: "standard",
         answers: [
-            { key: "A", text: "演じる", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
-            { key: "B", text: "映す", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
-            { key: "C", text: "語る", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
-            { key: "D", text: "体験させる", main: ["MEDIUM", "体験"], sub: ["MEDIUM", "空間"] }
+            { key: "A", text: "その場を歩いてもらう", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] },
+            { key: "B", text: "音を聴いてもらう", main: ["MEDIUM", "音響"], sub: ["MEDIUM", "言語"] },
+            { key: "C", text: "身体を動かしてもらう", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
+            { key: "D", text: "映像を見てもらう", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] }
         ]
     },
     {
@@ -721,39 +721,12 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "夏の思い出を作品にするなら？", type: "standard",
+        q: "作品の中で、人と何をしたい？", type: "standard",
         answers: [
-            { key: "A", text: "色や光で見せる", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "映像"] },
-            { key: "B", text: "物や形で残す", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "身体"] },
-            { key: "C", text: "その場をつくる", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] },
-            { key: "D", text: "音や声で伝える", main: ["MEDIUM", "音響"], sub: ["MEDIUM", "言語"] }
-        ]
-    },
-    {
-        q: "誰かに贈るなら？", type: "standard",
-        answers: [
-            { key: "A", text: "心地よいもの", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
-            { key: "B", text: "知らない世界", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
-            { key: "C", text: "気持ちが伝わるもの", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "感動"] },
-            { key: "D", text: "一緒に楽しめるもの", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "娯楽"] }
-        ]
-    },
-    {
-        q: "作品をつくるなら、何を変えたい？", type: "standard",
-        answers: [
-            { key: "A", text: "現実を美しく整える", main: ["STYLE", "理想"], sub: ["STYLE", "構成"] },
-            { key: "B", text: "見慣れたものを違って見せる", main: ["STYLE", "知覚"], sub: ["STYLE", "変容"] },
-            { key: "C", text: "存在しないものを生み出す", main: ["STYLE", "幻想"], sub: ["STYLE", "概念"] },
-            { key: "D", text: "自分だけの意味を与える", main: ["STYLE", "表現"], sub: ["STYLE", "概念"] }
-        ]
-    },
-    {
-        q: "作品の中に人を入れるなら？", type: "standard",
-        answers: [
-            { key: "A", text: "身体の動きで表現する", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
-            { key: "B", text: "言葉を交わしてもらう", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
-            { key: "C", text: "映像の世界を見せる", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
-            { key: "D", text: "その場を実際に体験してもらう", main: ["MEDIUM", "体験"], sub: ["MEDIUM", "空間"] }
+            { key: "A", text: "言葉を交わす", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "音響"] },
+            { key: "B", text: "一緒に身体を動かす", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "造形"] },
+            { key: "C", text: "映像の世界を見る", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
+            { key: "D", text: "その場を体験する", main: ["MEDIUM", "体験"], sub: ["MEDIUM", "空間"] }
         ]
     },
     {
@@ -766,30 +739,12 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "好きな作品に共通するものは？", type: "standard",
-        answers: [
-            { key: "A", text: "本物らしさ", main: ["STYLE", "再現"], sub: ["STYLE", "知覚"] },
-            { key: "B", text: "美しい秩序", main: ["STYLE", "構成"], sub: ["STYLE", "理想"] },
-            { key: "C", text: "意外な発想", main: ["STYLE", "変容"], sub: ["STYLE", "幻想"] },
-            { key: "D", text: "考えさせる意味", main: ["STYLE", "概念"], sub: ["STYLE", "表現"] }
-        ]
-    },
-    {
-        q: "音楽を別の形にするなら？", type: "standard",
-        answers: [
-            { key: "A", text: "絵", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "音響"] },
-            { key: "B", text: "動き", main: ["MEDIUM", "身体"], sub: ["MEDIUM", "空間"] },
-            { key: "C", text: "言葉を形にする", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "造形"] },
-            { key: "D", text: "映像", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] }
-        ]
-    },
-    {
         q: "作品を見た人に、まず何をしてほしい？", type: "standard",
         answers: [
-            { key: "A", text: "きれいと感じてほしい", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
-            { key: "B", text: "なぜ？と考えてほしい", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
-            { key: "C", text: "なるほどと理解してほしい", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "探究"] },
-            { key: "D", text: "自分もそう思うと感じてほしい", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "感動"] }
+            { key: "A", text: "「きれい」と感じてほしい", main: ["PURPOSE", "美"], sub: ["PURPOSE", "癒し"] },
+            { key: "B", text: "「なぜ？」と考えてほしい", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "探究"] },
+            { key: "C", text: "「なるほど」と理解してほしい", main: ["PURPOSE", "伝達"], sub: ["PURPOSE", "探究"] },
+            { key: "D", text: "「自分もそう思う」と感じてほしい", main: ["PURPOSE", "共感"], sub: ["PURPOSE", "感動"] }
         ]
     },
     {
@@ -802,21 +757,12 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "旅の思い出、何にする？", type: "standard",
+        q: "旅の思い出、どう残す？", type: "standard",
         answers: [
-            { key: "A", text: "映像", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "視覚"] },
-            { key: "B", text: "模型", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "空間"] },
-            { key: "C", text: "物語として演じる", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "身体"] },
-            { key: "D", text: "場所", main: ["MEDIUM", "空間"], sub: ["MEDIUM", "体験"] }
-        ]
-    },
-    {
-        q: "作品を見たあと、何が残ってほしい？", type: "standard",
-        answers: [
-            { key: "A", text: "また見たいという楽しさ", main: ["PURPOSE", "娯楽"], sub: ["PURPOSE", "感動"] },
-            { key: "B", text: "知らなかったことへの興味", main: ["PURPOSE", "探究"], sub: ["PURPOSE", "思索"] },
-            { key: "C", text: "自分自身への気づき", main: ["PURPOSE", "思索"], sub: ["PURPOSE", "共感"] },
-            { key: "D", text: "心が少し軽くなる感覚", main: ["PURPOSE", "癒し"], sub: ["PURPOSE", "美"] }
+            { key: "A", text: "風景のイラスト", main: ["MEDIUM", "視覚"], sub: ["MEDIUM", "身体"] },
+            { key: "B", text: "部屋の飾り", main: ["MEDIUM", "造形"], sub: ["MEDIUM", "空間"] },
+            { key: "C", text: "日誌を書く", main: ["MEDIUM", "言語"], sub: ["MEDIUM", "体験"] },
+            { key: "D", text: "写真のスライドショー", main: ["MEDIUM", "映像"], sub: ["MEDIUM", "音響"] }
         ]
     },
     {
