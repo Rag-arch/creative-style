@@ -1169,8 +1169,9 @@ function calculateScores() {
             const itemA = catMap[a];
             const itemB = catMap[b];
             
-            if (itemB.gridCount !== itemA.gridCount) return itemB.gridCount - itemA.gridCount;
+            // 総合スコア（total）を最優先で比較するように修正
             if (itemB.total !== itemA.total) return itemB.total - itemA.total;
+            if (itemB.gridCount !== itemA.gridCount) return itemB.gridCount - itemA.gridCount;
             if (itemB.mainCount !== itemA.mainCount) return itemB.mainCount - itemA.mainCount;
             if (itemB.subCount !== itemA.subCount) return itemB.subCount - itemA.subCount;
             return orderList.indexOf(a) - orderList.indexOf(b);
