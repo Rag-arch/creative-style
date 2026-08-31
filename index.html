@@ -898,7 +898,6 @@ const QUESTIONS = [
     }
 ];
 
-// ▼ 新しく指定された PURPOSE データ
 const DATA_PURPOSE = {
     "美": { catchPhrase: "美を宿す", title: "美を宿す人", text: "世界に、美しいものを存在させることを創作の目的とする傾向。何を伝えるかよりも、まずそれ自体が美しいかを重視する。色、形、構図、素材、空間、音、言葉などを磨き上げ、調和や完成度の高いものを生み出しようとする。", keywords: "美・調和・洗練・完成度・造形・感性" },
     "探究": { catchPhrase: "未知を拓く", title: "未知を拓く人", text: "まだ知らないものを発見し、世界への理解を広げることを創作の目的とする傾向。正解をつくるよりも、未知を見つけることに創作の価値を感じる。実験、研究、観察、試行錯誤を通して、既存の常識を問い直す。作品そのものだけでなく、制作の過程で得られる発見を重視することもある。", keywords: "発見・実験・研究・未知・仮説・革新" },
@@ -921,12 +920,11 @@ const DATA_MEDIUM = {
     "体験": { title: "体験 ｜ 体験そのものを通して表現する", text: "参加・交流・選択・出来事など、人が実際に経験することそのものをつくる。", keywords: "ゲーム・アトラクション・インタラクティブアート・イベント" }
 };
 
-// ▼ 新しく指定された STYLE データ
 const DATA_STYLE = {
     "再現": { catchPhrase: "現実の写し手", title: "再現 ｜ 現実の写し手", text: "目の前にある世界を観察し、その姿や本質を捉えようとする創作傾向。自分がどうつくりたいかよりも、対象はどうなっているのかを重視する。観察、記録、写実、資料性などを通して、対象の特徴やリアリティを掘り下げる。", keywords: "観察・真実・精密さ・忠実さ・記録" },
     "理想": { catchPhrase: "至高の求道者", title: "理想 ｜ 至高の求道者", text: "現実をそのまま写すのではなく、こうあってほしいという姿を追い求める創作傾向。現実に存在するものを超えて、より美しく、より良く、より完成された状態を構想する。建築、プロダクト、未来像、理想都市などにも現れやすい。", keywords: "理想・完成・調和・秩序・可能性" },
     "表現": { catchPhrase: "感情の爆発者", title: "表現 ｜ 感情の爆発者", text: "感情、感性、思想、個性など、自分自身の内側を作品として表す創作傾向。何をつくりたいか以上に、自分は何を感じ、何を考えているかが創作の出発点になる。独自の視点や個性そのものを作品の価値として捉えやすい。", keywords: "個性・感情・自己・独創性・主観" },
-    "知覚": { catchPhrase: "世界の観測者", title: "知覚 ｜ 世界の観測者", text: "世界をどのように感じ、知覚するかを重視する創作傾向。正確に描くよりも、どう見えるか、どう聞こえるか、どう感じるかを大切にする。光、色、音、質感、温度、身体感覚、空間体験などへの関心が強い。", keywords: "感覚・印象・光・身体・体験" },
+    "知覚": { catchPhrase: "世界の観測者", title: "知覚 ｜ 世界の観測者", text: "世界をどのように感じ、知覚するかを重視する創作傾向。正確に描くよりも、どう見えるか、どう聞こえるか、どう感じるかを大切にする。光、色、音,温度、身体感覚、空間体験などへの関心が強い。", keywords: "感覚・印象・光・身体・体験" },
     "構成": { catchPhrase: "万象の構築者", title: "構成 ｜ 万象の構築者", text: "複数の要素を組み合わせ、その関係性から新しい秩序や美を生み出す創作傾向。個々のパーツだけでなく、それらがどう配置され、どう関係するかを重視する。建築、グラフィック、編集、音楽、映像、都市計画などと相性がよい。", keywords: "秩序・構造・配置・関係・バランス" },
     "幻想": { catchPhrase: "夢幻の創造主", title: "幻想 ｜ 夢幻の創造主", text: "現実には存在しないことを想像し、新しい世界として成立させる創作傾向。夢、神話、魔法、異世界、童話など,現実とは異なる世界や可能性を創造する。単なる空想ではなく、現実には見えないものを可視化することに価値を見出す。", keywords: "想像・夢・神話・異世界・非現実" },
     "概念": { catchPhrase: "常識の異端児", title: "概念 ｜ 常識の異端児", text: "思想、意味、問い、価値観など、目に見えないものを作品として提示する創作傾向。何が美しいかだけでなく、この作品は何を意味するのかを重視する。作品そのものだけでなく、その背景にある考えや問いが創作の核になることも多い。", keywords: "意味・思想・問い・本質・コンセプト" },
@@ -1125,9 +1123,9 @@ function handleImageUpload(event) {
 
 function calculateScores() {
     const scoreMap = { STYLE: {}, MEDIUM: {}, PURPOSE: {} };
-    STYLE_ORDER.forEach(k => scoreMap.STYLE[k] = { total: 0, mainCount: 0, subCount: 0 });
-    MEDIUM_ORDER.forEach(k => scoreMap.MEDIUM[k] = { total: 0, mainCount: 0, subCount: 0 });
-    PURPOSE_ORDER.forEach(k => scoreMap.PURPOSE[k] = { total: 0, mainCount: 0, subCount: 0 });
+    STYLE_ORDER.forEach(k => scoreMap.STYLE[k] = { total: 0, mainCount: 0, subCount: 0, gridCount: 0 });
+    MEDIUM_ORDER.forEach(k => scoreMap.MEDIUM[k] = { total: 0, mainCount: 0, subCount: 0, gridCount: 0 });
+    PURPOSE_ORDER.forEach(k => scoreMap.PURPOSE[k] = { total: 0, mainCount: 0, subCount: 0, gridCount: 0 });
 
     userAnswers.forEach((ansData, qIdx) => {
         if (ansData === undefined) return;
@@ -1151,7 +1149,7 @@ function calculateScores() {
                 ansData.forEach(selectedKey => {
                     if (scoreMap[category][selectedKey]) {
                         scoreMap[category][selectedKey].total += 2;
-                        scoreMap[category][selectedKey].mainCount += 1;
+                        scoreMap[category][selectedKey].gridCount += 1; // 13問目以降の画像問題での点数/選択回数
                     }
                 });
             }
@@ -1163,6 +1161,9 @@ function calculateScores() {
         const sortedDesc = [...orderList].sort((a, b) => {
             const itemA = catMap[a];
             const itemB = catMap[b];
+            
+            // 同率1位の場合は13問目以降の画像問題での点数を最優先させる
+            if (itemB.gridCount !== itemA.gridCount) return itemB.gridCount - itemA.gridCount;
             if (itemB.total !== itemA.total) return itemB.total - itemA.total;
             if (itemB.mainCount !== itemA.mainCount) return itemB.mainCount - itemA.mainCount;
             if (itemB.subCount !== itemA.subCount) return itemB.subCount - itemA.subCount;
@@ -1190,6 +1191,64 @@ function calculateScores() {
         purpose: purposeRes,
         avgDiffPercent: (styleRes.diff2Percent + mediumRes.diff2Percent + purposeRes.diff2Percent) / 3
     };
+}
+
+// ▼ ダウンロード時に裏で集計・保存する機能
+function recordDownloadStats(finalStyle, finalMedium, finalPurpose) {
+    try {
+        const STORAGE_KEY = "creative_style_dl_stats_v1";
+        let stats = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+            totalDownloads: 0,
+            STYLE: {},
+            MEDIUM: {},
+            PURPOSE: {}
+        };
+
+        STYLE_ORDER.forEach(k => { if (!stats.STYLE[k]) stats.STYLE[k] = 0; });
+        MEDIUM_ORDER.forEach(k => { if (!stats.MEDIUM[k]) stats.MEDIUM[k] = 0; });
+        PURPOSE_ORDER.forEach(k => { if (!stats.PURPOSE[k]) stats.PURPOSE[k] = 0; });
+
+        // カウント加算
+        stats.totalDownloads += 1;
+        stats.STYLE[finalStyle] += 1;
+        stats.MEDIUM[finalMedium] += 1;
+        stats.PURPOSE[finalPurpose] += 1;
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
+
+        // 各タイプの (同じタイプだった人 / DLした全体の人数) の％を計算してコンソール等に出力
+        const summary = {
+            total: stats.totalDownloads,
+            MEDIUM: {},
+            STYLE: {},
+            PURPOSE: {}
+        };
+
+        MEDIUM_ORDER.forEach(k => {
+            const count = stats.MEDIUM[k];
+            const pct = stats.totalDownloads > 0 ? ((count / stats.totalDownloads) * 100).toFixed(1) : "0.0";
+            summary.MEDIUM[k] = `${count}/${stats.totalDownloads} (${pct}%)`;
+        });
+
+        STYLE_ORDER.forEach(k => {
+            const count = stats.STYLE[k];
+            const pct = stats.totalDownloads > 0 ? ((count / stats.totalDownloads) * 100).toFixed(1) : "0.0";
+            summary.STYLE[k] = `${count}/${stats.totalDownloads} (${pct}%)`;
+        });
+
+        PURPOSE_ORDER.forEach(k => {
+            const count = stats.PURPOSE[k];
+            const pct = stats.totalDownloads > 0 ? ((count / stats.totalDownloads) * 100).toFixed(1) : "0.0";
+            summary.PURPOSE[k] = `${count}/${stats.totalDownloads} (${pct}%)`;
+        });
+
+        console.log("【診断結果データ集計 (裏データ)】", summary);
+
+        // ※もしサーバーへデータを送信したい場合はここに fetch() などを記述できます。
+
+    } catch (e) {
+        console.error("集計データの保存に失敗しました", e);
+    }
 }
 
 function calculateAndShowResult() {
@@ -1232,7 +1291,6 @@ function calculateAndShowResult() {
     const dataP = DATA_PURPOSE[finalPurpose];
     const dataS = DATA_STYLE[finalStyle];
     
-    // タイトル直下のキャッチコピー指定 ([PURPOSE]、[STYLE] に変更)
     document.getElementById('res-catchphrase').textContent = `${dataP.catchPhrase}、${dataS.catchPhrase}`;
 
     const resImg = document.getElementById('res-image');
@@ -1320,6 +1378,15 @@ function calculateAndShowResult() {
 function downloadResultImage() {
     if (isDownloading) return;
     isDownloading = true;
+
+    // ▼ ダウンロードが行われた瞬間に裏データ集計を実行
+    if (calculatedResultsData) {
+        recordDownloadStats(
+            calculatedResultsData.style.rank1.key,
+            calculatedResultsData.medium.rank1.key,
+            calculatedResultsData.purpose.rank1.key
+        );
+    }
 
     const sourceCard = document.getElementById('result-card');
 
