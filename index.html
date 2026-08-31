@@ -241,6 +241,9 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            user-select: none;
         }
 
         .grid-item.selected {
@@ -797,7 +800,7 @@ const QUESTIONS = [
         ]
     },
     {
-        q: "好きなものは？", type: "grid", category: "PURPOSE",
+        q: "好きなプロダクトは？", type: "grid", category: "PURPOSE",
         items: [
             { label: "美", img: "./images/C1美.jpg" }, { label: "探究", img: "./images/C2探求.jpg" },
             { label: "伝達", img: "./images/C3伝達.jpg" }, { label: "共感", img: "./images/C4共感.jpg" },
@@ -1017,7 +1020,7 @@ function renderQuestion() {
                 gridItem.classList.add('selected');
             }
 
-            gridItem.innerHTML = `<img src="${itemData.img}" alt="${itemData.label}">`;
+            gridItem.innerHTML = `<img src="${itemData.img}" alt="${itemData.label}" draggable="false">`;
             gridItem.onclick = () => toggleGridItemSelection(itemData.label);
             optionsGrid.appendChild(gridItem);
         });
