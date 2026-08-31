@@ -671,6 +671,9 @@
 </div>
 
 <script>
+// 【重要】ここにGoogle Apps Script（GAS）で発行したウェブアプリのURLを貼り付けてください
+const GAS_WEB_APP_URL = "https://script.google.com/macros/s/【あなたのGASのデプロイID】/exec";
+
 const COLOR_STYLE = {
     "再現": "#B71C1C", "理想": "#E65100", "表現": "#AD1457", "知覚": "#F57F17",
     "構成": "#283593", "幻想": "#6A1B9A", "概念": "#1A237E", "変容": "#00695C"
@@ -1169,7 +1172,6 @@ function calculateScores() {
             const itemA = catMap[a];
             const itemB = catMap[b];
             
-            // 総合スコア（total）を最優先で比較するように修正
             if (itemB.total !== itemA.total) return itemB.total - itemA.total;
             if (itemB.gridCount !== itemA.gridCount) return itemB.gridCount - itemA.gridCount;
             if (itemB.mainCount !== itemA.mainCount) return itemB.mainCount - itemA.mainCount;
@@ -1247,6 +1249,29 @@ function recordDownloadStats(finalStyle, finalMedium, finalPurpose) {
         });
 
         console.log("【診断結果データ集計 (裏データ)】", summary);
+
+        // ▼▼▼ Google Apps Script (GAS) へのデータ送信処理を追加 ▼▼▼
+        if (GAS_WEB_APP_URL && !GAS_WEB_APP_URL.includes("【あなたのGASのデプロイID】")) {
+            fetch(GAS_WEB_APP_URL, {
+                method: "POST",
+                mode: "no-cors", // Google Apps ScriptのCORS制限回避用
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    style: finalStyle,
+                    medium: finalMedium,
+                    purpose: finalPurpose
+                })
+            })
+            .then(() => {
+                console.log("GASへの統計データ送信が完了しました。");
+            })
+            .catch(error => {
+                console.error("GASへの統計データ送信に失敗しました:", error);
+            });
+        }
+        // ▲▲▲ GAS送信処理ここまで ▲▲▲
 
     } catch (e) {
         console.error("集計データの保存に失敗しました", e);
