@@ -1251,7 +1251,7 @@ function recordDownloadStats(finalStyle, finalMedium, finalPurpose) {
         console.log("【診断結果データ集計 (裏データ)】", summary);
 
         // ▼▼▼ Google Apps Script (GAS) へのデータ送信処理を追加 ▼▼▼
-        if (GAS_WEB_APP_URL && !GAS_WEB_APP_URL.includes("【あなたのGASのデプロイID】")) {
+        if (GAS_WEB_APP_URL && !GAS_WEB_APP_URL.includes("AKfycbw3FEnDk7Q_cC2neeP7wQshupYrUh8SuO-wBKsXRTFlTnD4Dbb0BA6dzZwL8ok-hN2M")) {
             fetch(GAS_WEB_APP_URL, {
                 method: "POST",
                 mode: "no-cors", // Google Apps ScriptのCORS制限回避用
