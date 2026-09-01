@@ -251,21 +251,38 @@
             box-shadow: 0 0 0 2px var(--text-main);
         }
 
-        .grid-item.selected::after {
-            content: "✓";
+        /* 1番目に選んだ場合の番号表示スタイル */
+        .grid-item.selected-1::after {
+            content: "1";
             position: absolute;
             top: 4px;
             right: 4px;
             background: var(--text-main);
             color: #fff;
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: bold;
-            border-radius: 0;
+        }
+
+        /* 2番目に選んだ場合の番号表示スタイル */
+        .grid-item.selected-2::after {
+            content: "2";
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #555555;
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
         }
 
         /* 画像アップロード画面 */
@@ -657,7 +674,6 @@
         <div class="btn-group" style="margin-bottom: 20px;">
             <button class="btn" onclick="downloadResultImage()">結果を画像で保存・ダウンロード</button>
             
-            <!-- ボタン1つ分の余白を持たせた中央揃えのメッセージ -->
             <div style="text-align: center; margin: 16px 0; font-size: 0.8rem; color: var(--text-sub); letter-spacing: 0.1em;">
                 <div style="font-weight: 700; font-size: 0.75rem; margin-bottom: 3px;">SHARE YOUR STYLE</div>
                 <div>結果画像を保存して、Xでシェアしよう。</div>
@@ -1019,7 +1035,7 @@ function renderQuestion() {
     } else if (qData.type === 'grid') {
         const instruction = document.createElement('div');
         instruction.className = 'grid-instruction';
-        instruction.textContent = "画像の中から2つ選んでください";
+        instruction.textContent = "画像の中から2つ選んでください（選んだ順番に1、2が表示されます）";
         contentArea.appendChild(instruction);
 
         const optionsGrid = document.createElement('div');
@@ -1033,8 +1049,12 @@ function renderQuestion() {
         qData.items.forEach((itemData) => {
             const gridItem = document.createElement('div');
             gridItem.className = 'grid-item';
-            if (currentSelections.includes(itemData.label)) {
+            
+            // 何番目に選択されているかインデックスを取得 (0番目なら1番目、1番目なら2番目)
+            const selectionIndex = currentSelections.indexOf(itemData.label);
+            if (selectionIndex > -1) {
                 gridItem.classList.add('selected');
+                gridItem.classList.add(`selected-${selectionIndex + 1}`);
             }
 
             gridItem.innerHTML = `<img src="${itemData.img}" alt="${itemData.label}" draggable="false">`;
@@ -1145,7 +1165,7 @@ function calculateScores() {
             const ans = qData.answers[ansData];
             const [mainCat, mainKey] = ans.main;
             if (scoreMap[mainCat][mainKey]) {
-                scoreMap[mainCat][mainKey].total += 2;
+                scoreMap[mainCat][mainKey].total += 3;
                 scoreMap[mainCat][mainKey].mainCount += 1;
             }
             const [subCat, subKey] = ans.sub;
@@ -1156,9 +1176,11 @@ function calculateScores() {
         } else if (qData.type === 'grid') {
             if (Array.isArray(ansData)) {
                 const category = qData.category;
-                ansData.forEach(selectedKey => {
+                ansData.forEach((selectedKey, idx) => {
                     if (scoreMap[category][selectedKey]) {
-                        scoreMap[category][selectedKey].total += 2;
+                        // 1番目に選んだ項目：＋3点、2番目に選んだ項目：＋2点
+                        const points = (idx === 0) ? 3 : 2;
+                        scoreMap[category][selectedKey].total += points;
                         scoreMap[category][selectedKey].gridCount += 1;
                     }
                 });
@@ -1223,38 +1245,10 @@ function recordDownloadStats(finalStyle, finalMedium, finalPurpose) {
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
 
-        const summary = {
-            total: stats.totalDownloads,
-            MEDIUM: {},
-            STYLE: {},
-            PURPOSE: {}
-        };
-
-        MEDIUM_ORDER.forEach(k => {
-            const count = stats.MEDIUM[k];
-            const pct = stats.totalDownloads > 0 ? ((count / stats.totalDownloads) * 100).toFixed(1) : "0.0";
-            summary.MEDIUM[k] = `${count}/${stats.totalDownloads} (${pct}%)`;
-        });
-
-        STYLE_ORDER.forEach(k => {
-            const count = stats.STYLE[k];
-            const pct = stats.totalDownloads > 0 ? ((count / stats.totalDownloads) * 100).toFixed(1) : "0.0";
-            summary.STYLE[k] = `${count}/${stats.totalDownloads} (${pct}%)`;
-        });
-
-        PURPOSE_ORDER.forEach(k => {
-            const count = stats.PURPOSE[k];
-            const pct = stats.totalDownloads > 0 ? ((count / stats.totalDownloads) * 100).toFixed(1) : "0.0";
-            summary.PURPOSE[k] = `${count}/${stats.totalDownloads} (${pct}%)`;
-        });
-
-        console.log("【診断結果データ集計 (裏データ)】", summary);
-
-        // ▼▼▼ Google Apps Script (GAS) へのデータ送信処理を追加 ▼▼▼
         if (GAS_WEB_APP_URL && !GAS_WEB_APP_URL.includes("AKfycbw3FEnDk7Q_cC2neeP7wQshupYrUh8SuO-wBKsXRTFlTnD4Dbb0BA6dzZwL8ok-hN2M")) {
             fetch(GAS_WEB_APP_URL, {
                 method: "POST",
-                mode: "no-cors", // Google Apps ScriptのCORS制限回避用
+                mode: "no-cors",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -1263,16 +1257,8 @@ function recordDownloadStats(finalStyle, finalMedium, finalPurpose) {
                     medium: finalMedium,
                     purpose: finalPurpose
                 })
-            })
-            .then(() => {
-                console.log("GASへの統計データ送信が完了しました。");
-            })
-            .catch(error => {
-                console.error("GASへの統計データ送信に失敗しました:", error);
-            });
+            }).catch(() => {});
         }
-        // ▲▲▲ GAS送信処理ここまで ▲▲▲
-
     } catch (e) {
         console.error("集計データの保存に失敗しました", e);
     }
@@ -1326,7 +1312,7 @@ function calculateAndShowResult() {
     document.getElementById('res-image-placeholder').style.display = 'none';
 
     const reasonInput = document.getElementById('image-reason-input').value.trim();
-    document.getElementById('res-reason').textContent = reasonInput !== '' ? `「${reasonInput}」` : '';
+    document.getElementById('res-reason').textContent = reasonInput !== '' ? `“${reasonInput}”` : '';
 
     const dataMed = DATA_MEDIUM[finalMedium];
     
