@@ -687,7 +687,7 @@
 </div>
 
 <script>
-// 【重要】ここにGoogle Apps Script（GAS）で発行したウェブアプリのURLを貼り付けてください
+// 【設定済み】Google Apps Script（GAS）ウェブアプリのURL
 const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw3FEnDk7Q_cC2neeP7wQshupYrUh8SuO-wBKsXRTFlTnD4Dbb0BA6dzZwL8ok-hN2M/exec";
 
 const COLOR_STYLE = {
@@ -1050,7 +1050,6 @@ function renderQuestion() {
             const gridItem = document.createElement('div');
             gridItem.className = 'grid-item';
             
-            // 何番目に選択されているかインデックスを取得 (0番目なら1番目、1番目なら2番目)
             const selectionIndex = currentSelections.indexOf(itemData.label);
             if (selectionIndex > -1) {
                 gridItem.classList.add('selected');
@@ -1178,7 +1177,6 @@ function calculateScores() {
                 const category = qData.category;
                 ansData.forEach((selectedKey, idx) => {
                     if (scoreMap[category][selectedKey]) {
-                        // 1番目に選んだ項目：＋3点、2番目に選んだ項目：＋2点
                         const points = (idx === 0) ? 3 : 2;
                         scoreMap[category][selectedKey].total += points;
                         scoreMap[category][selectedKey].gridCount += 1;
@@ -1245,7 +1243,8 @@ function recordDownloadStats(finalStyle, finalMedium, finalPurpose) {
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
 
-        if (GAS_WEB_APP_URL && !GAS_WEB_APP_URL.includes("AKfycbw3FEnDk7Q_cC2neeP7wQshupYrUh8SuO-wBKsXRTFlTnD4Dbb0BA6dzZwL8ok-hN2M")) {
+        // 修正箇所：URLが空でなければ正しくスプレッドシートへ送信するように変更
+        if (GAS_WEB_APP_URL && GAS_WEB_APP_URL.trim() !== "") {
             fetch(GAS_WEB_APP_URL, {
                 method: "POST",
                 mode: "no-cors",
