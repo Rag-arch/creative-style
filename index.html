@@ -687,7 +687,7 @@
 </div>
 
 <script>
-// 【重要】ここにGoogle Apps Script（GAS）で発行したウェブアプリのURLを貼り付けてください
+// ここにGoogle Apps Script（GAS）で発行したご自身のウェブアプリのURLを設定してください
 const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw3FEnDk7Q_cC2neeP7wQshupYrUh8SuO-wBKsXRTFlTnD4Dbb0BA6dzZwL8ok-hN2M/exec";
 
 const COLOR_STYLE = {
@@ -1153,7 +1153,6 @@ function handleImageUpload(event) {
 function calculateScores() {
     const scoreMap = { STYLE: {}, MEDIUM: {}, PURPOSE: {} };
     
-    // 集計用プロパティの設定 (文字主/副、画像1位/2位を区別して保持)
     STYLE_ORDER.forEach(k => scoreMap.STYLE[k] = { total: 0, mainCount: 0, subCount: 0, grid1Count: 0, grid2Count: 0 });
     MEDIUM_ORDER.forEach(k => scoreMap.MEDIUM[k] = { total: 0, mainCount: 0, subCount: 0, grid1Count: 0, grid2Count: 0 });
     PURPOSE_ORDER.forEach(k => scoreMap.PURPOSE[k] = { total: 0, mainCount: 0, subCount: 0, grid1Count: 0, grid2Count: 0 });
@@ -1166,12 +1165,12 @@ function calculateScores() {
             const ans = qData.answers[ansData];
             const [mainCat, mainKey] = ans.main;
             if (scoreMap[mainCat][mainKey]) {
-                scoreMap[mainCat][mainKey].total += 2; // 文字設問 主2点
+                scoreMap[mainCat][mainKey].total += 2;
                 scoreMap[mainCat][mainKey].mainCount += 1;
             }
             const [subCat, subKey] = ans.sub;
             if (scoreMap[subCat][subKey]) {
-                scoreMap[subCat][subKey].total += 1; // 文字設問 副1点
+                scoreMap[subCat][subKey].total += 1;
                 scoreMap[subCat][subKey].subCount += 1;
             }
         } else if (qData.type === 'grid') {
@@ -1179,11 +1178,9 @@ function calculateScores() {
                 const category = qData.category;
                 ansData.forEach((selectedKey, idx) => {
                     if (scoreMap[category][selectedKey]) {
-                        // 画像設問：1位3点、2位1.5点
                         const points = (idx === 0) ? 3 : 1.5;
                         scoreMap[category][selectedKey].total += points;
                         
-                        // 画像の1位・2位選択数をそれぞれのプロパティに加算
                         if (idx === 0) {
                             scoreMap[category][selectedKey].grid1Count += 1;
                         } else {
@@ -1201,17 +1198,10 @@ function calculateScores() {
             const itemA = catMap[a];
             const itemB = catMap[b];
             
-            // 1. 合計点数で比較
             if (itemB.total !== itemA.total) return itemB.total - itemA.total;
-            
-            // 2. 同点時のタイブレイカー順序：
-            //   - 文字問題の主判定数
             if (itemB.mainCount !== itemA.mainCount) return itemB.mainCount - itemA.mainCount;
-            //   - 画像問題の1位選択数
             if (itemB.grid1Count !== itemA.grid1Count) return itemB.grid1Count - itemA.grid1Count;
-            //   - 画像問題の2位選択数
             if (itemB.grid2Count !== itemA.grid2Count) return itemB.grid2Count - itemA.grid2Count;
-            //   - 副判定数
             if (itemB.subCount !== itemA.subCount) return itemB.subCount - itemA.subCount;
             
             return orderList.indexOf(a) - orderList.indexOf(b);
@@ -1261,7 +1251,7 @@ function recordDownloadStats(finalStyle, finalMedium, finalPurpose) {
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(stats));
 
-        if (GAS_WEB_APP_URL && !GAS_WEB_APP_URL.includes("AKfycbw3FEnDk7Q_cC2neeP7wQshupYrUh8SuO-wBKsXRTFlTnD4Dbb0BA6dzZwL8ok-hN2M")) {
+        if (GAS_WEB_APP_URL && GAS_WEB_APP_URL !== "") {
             fetch(GAS_WEB_APP_URL, {
                 method: "POST",
                 mode: "no-cors",
@@ -1273,7 +1263,9 @@ function recordDownloadStats(finalStyle, finalMedium, finalPurpose) {
                     medium: finalMedium,
                     purpose: finalPurpose
                 })
-            }).catch(() => {});
+            }).catch(err => {
+                console.error("GAS送信エラー:", err);
+            });
         }
     } catch (e) {
         console.error("集計データの保存に失敗しました", e);
