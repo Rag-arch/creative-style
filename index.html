@@ -574,7 +574,8 @@
                 あなたは、何を美しいと思い、<br>
                 何を通して表現し、<br>
                 何を誰かにもたらしたい人？<br><br>
-                全24問の質問から、あなたの「創作の傾向」を診断します。
+                全24問の質問から、あなたの「創作の傾向」を診断します。<br><br>
+                <span style="font-size: 0.75rem; color: var(--text-sub);">※本診断で使用している画像はAIによって生成されています。</span>
             </p>
             <button class="btn btn-start" onclick="startQuiz()">診断を開始する</button>
         </div>
@@ -1035,7 +1036,8 @@ function renderQuestion() {
     } else if (qData.type === 'grid') {
         const instruction = document.createElement('div');
         instruction.className = 'grid-instruction';
-        instruction.textContent = "画像の中から2つ選んでください（選んだ順番に1位2位表示）";
+        instruction.textContent = "画像の中から2つ選んでください（選んだ順番に1位2位表示）\n※問題内の画像はAI生成画像です";
+        instruction.style.whiteSpace = "pre-line";
         contentArea.appendChild(instruction);
 
         const optionsGrid = document.createElement('div');
