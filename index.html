@@ -1337,7 +1337,7 @@ function stopAllMedia() {
     }
 }
 
-// 全35問の質問データ（「共感」と「癒し」の位置を入れ替え済み）
+// 全35問の質問データ
 const ALL_QUESTIONS = [
     { q: "好きな分野は？", category: "MEDIUM", items: [
         { label: "視覚", img: "./images/A1視覚.jpg", caption: "絵画" }, 
@@ -1718,7 +1718,7 @@ const DATA_MEDIUM = {
     "空間": { catchPhrase: "巣をつくる人", title: "空間 ｜ 場を通して表現する", text: "建築・場所・配置など, 人が身を置く環境そのものをつくる。" },
     "音響": { catchPhrase: "かき鳴らす人", title: "音響 ｜ 音を通して表現する", text: "音・声・リズム・響きなど, 耳で感じるものを通して表現する。" },
     "言語": { catchPhrase: "綴り散らかす人", title: "言語 ｜ 言葉を通して表現する", text: "言葉・文章・物語・概念など, 意味を組み立てることによって表現する。" },
-    "舞台": { catchPhrase: "演じ踊る人", title: "舞台 ｜ 身体と舞台を通して表現する", text: "動き・演技・所作・空間表現など, 舞台上の演出と身体を通して表現する。" },
+    "舞台": { catchPhrase: "踊り疲れる人", title: "舞台 ｜ 身体と舞台を通して表現する", text: "動き・演技・所作・空間表現など, 舞台上の演出と身体を通して表現する。" },
     "映像": { catchPhrase: "幻覚を見てる人", title: "映像 ｜ 時間と動きを通して表現する", text: "時間・動き・光・編集など, 移ろうイメージを通して表現する。" },
     "体験": { catchPhrase: "引きずりこむ人", title: "体験 ｜ 体験そのものを通して表現する", text: "参加・交流・選択・出来事など, 人が実際に経験することそのものをつくる。" }
 };
@@ -2226,7 +2226,8 @@ function renderResultCard(targetRoute) {
     const dataS = DATA_STYLE[finalStyle];
     const dataMed = DATA_MEDIUM[finalMedium];
     
-    document.getElementById('res-catchphrase').textContent = `${dataS.catchPhrase} ${dataMed.catchPhrase}`;
+    // [PURPOSE]、[STYLE] [MEDIUM] の3軸連結
+    document.getElementById('res-catchphrase').textContent = `${dataP.catchPhrase}、${dataS.catchPhrase} ${dataMed.catchPhrase}`;
 
     const resImg = document.getElementById('res-image');
     resImg.src = uploadedImageData;
